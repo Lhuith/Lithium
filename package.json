@@ -1,0 +1,28 @@
+{
+  "name": "nomads",
+  "version": "1.0.0",
+  "description": "small online web game",
+  "main": "app.js",
+  "dependencies": {
+    "connect-livereload": "^0.6.1",
+    "express": "^4.17.1",
+    "livereload": "^0.9.1",
+    "three": "^0.122.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "watch": "nodemon --ext js, pug --ignore public",
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Togene/NomadsV2_Repo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Togene/NomadsV2_Repo/issues"
+  },
+  "homepage": "https://github.com/Togene/NomadsV2_Repo#readme"
+}
