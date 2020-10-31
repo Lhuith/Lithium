@@ -7,9 +7,10 @@ const connectLiveReload = require("connect-livereload");
 app.use(connectLiveReload());
 
 app.use(express.static(__dirname+ '/public'))
+
 app.use('/build', express.static(path.join(__dirname, 'node_modules/three/build')))
 app.use('/jsm/', express.static(path.join(__dirname, 'node_modules/three/examples/jsm')))
-
+app.use('/utils/', express.static(path.join(__dirname, 'custom_modules/utils')))
 
 const publicDirectory = path.join(__dirname+ '/public')
 var liveReloadServer = livereload.createServer()

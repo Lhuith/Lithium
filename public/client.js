@@ -1,41 +1,44 @@
 import * as THREE from '/build/three.module.js';
 import {OrbitControls} from '/jsm/controls/OrbitControls.js';
 import Stats from '/jsm/libs/stats.module.js';
+import * as Utils from '/utils/utilities.js';
 
-const scene = new THREE.Scene();
 
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
-camera.position.z = 2;
+var scene, camera, renderer, controls, stats
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+const three_init = () => {
+    scene = new THREE.Scene();
 
-const controls = new OrbitControls(camera, renderer.domElement);
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.z = 2;
 
-const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshBasicMaterial({
-    color: 0x00ff00,
-    wireframe: true
-});
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
-
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
+    renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
-    render();
-}, false);
+    document.body.appendChild(renderer.domElement);
 
-const stats = Stats();
-document.body.appendChild(stats.dom);
+    controls = new OrbitControls(camera, renderer.domElement);
 
-var animate = function () {
-    console.log("fart")
+    const geometry = new THREE.BoxGeometry();
+    const material = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        wireframe: true
+    });
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        render();
+    }, false);
+
+    stats = Stats();
+    document.body.appendChild(stats.dom);
+}
+
+const animate = () => {
     requestAnimationFrame(animate);
-    cube.rotation.x += 0.01;  
-    cube.rotation.y += 0.01;
     controls.update();
     render();
     stats.update();
@@ -45,4 +48,5 @@ function render() {
     renderer.render(scene, camera);
 }
 
+three_init();
 animate();
