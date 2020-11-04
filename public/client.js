@@ -3,7 +3,6 @@ import {OrbitControls} from '/jsm/controls/OrbitControls.js';
 import Stats from '/jsm/libs/stats.module.js';
 import * as Utils from '/utils/utilities.js';
 
-
 var scene, camera, renderer, controls, stats
 
 const three_init = () => {
@@ -21,8 +20,8 @@ const three_init = () => {
     const geometry = new THREE.BoxGeometry();
     const material = new THREE.MeshBasicMaterial({
         color: 0xffffff,
-        wireframe: true
     });
+
     const cube = new THREE.Mesh(geometry, material);
     scene.add(cube);
 
@@ -38,6 +37,8 @@ const three_init = () => {
 }
 
 const animate = () => {
+    console.log(Utils.Math.EasingFunctions.easeInCubic(7));
+
     requestAnimationFrame(animate);
     controls.update();
     render();
