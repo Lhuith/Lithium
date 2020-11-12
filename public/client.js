@@ -1,9 +1,9 @@
 import * as THREE from '/build/three.module.js';
 import {OrbitControls} from '/jsm/controls/OrbitControls.js';
 import Stats from '/jsm/libs/stats.module.js';
-import * as Utils from '/utils/utilities.js';
+import * as nomads from '/nomads/nomads.js';
 
-var scene, camera, renderer, controls, stats
+var scene, camera, renderer, controls, stats, clock
 
 const three_init = () => {
     scene = new THREE.Scene();
@@ -32,15 +32,22 @@ const three_init = () => {
         render();
     }, false);
 
+    //!------------------- clock -------------------//
+    clock = new THREE.Clock();
+    clock.start();
+    //!------------------- clock -------------------//
     stats = Stats();
     document.body.appendChild(stats.dom);
+    
+    //!------------------- nomads -------------------//
+    nomads.init();
+    //!------------------- nomads -------------------//
 }
 
 const animate = () => {
-    console.log(Utils.Math.EasingFunctions.easeInCubic(7));
-
     requestAnimationFrame(animate);
     controls.update();
+    nomads.update(clock.getDelta());
     render();
     stats.update();
 };
@@ -49,5 +56,7 @@ function render() {
     renderer.render(scene, camera);
 }
 
+
+ 
 three_init();
 animate();
