@@ -1,4 +1,5 @@
-const GRAVITY = 3.4; const BOUNDARY = -10;
+const GRAVITY = 3.4; 
+const BOUNDARY = -10;
 
 var i = 0;
 var physics_bodies = [];
