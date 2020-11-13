@@ -16,6 +16,7 @@ export const input = {
 export const init = () => {
     document.addEventListener( 'keydown', onKeyDown, false );
     document.addEventListener( 'keyup', onKeyUp, false );
+    console.log("%cKeyboard Initialized", "color:#61AFEF")
 }
 
 const onKeyDown = (e) => {

@@ -5,7 +5,7 @@ import {Vector3} from '/build/three.module.js';
 
 // game based variable setup
 export const init = () => {
-    console.log("hello world!");
+    console.log("%cNomads Initialized", "color:#FFE532");
 
     keyboard.init();
     physics.init();

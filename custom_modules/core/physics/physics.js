@@ -1,7 +1,7 @@
 var physics_worker;
 
 export const init = () => {
-    console.log("%cPhysics Initialize", "#00FF00")
+    console.log("%cPhysics Initialized", "color:#FF5AC3")
     start_physics();
 }
 
