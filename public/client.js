@@ -56,7 +56,5 @@ function render() {
     renderer.render(scene, camera);
 }
 
-
- 
 three_init();
 animate();
