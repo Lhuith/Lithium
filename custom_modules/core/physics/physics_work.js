@@ -23,7 +23,7 @@ const add_body = (p) => {
     console.log("ADDING NEW BODY!", p)
     physics_bodies.push(p)
 }
-
+// TODO: setup proper physics object! 
 const apply_gravity = (body) => {
     if (body[1].y - GRAVITY > BOUNDARY){
         body[1].y -= GRAVITY;

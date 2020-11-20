@@ -15,7 +15,7 @@ export const init = () => {
     var rot;
     var quart = new quaternion(1,1,1,1,null,null,rot)
     var mat = new matrix();
-    console.log(mat.type)
+    console.log(mat.to_three())
     
 }
 
