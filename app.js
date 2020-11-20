@@ -10,10 +10,14 @@ app.use(express.static(__dirname+ '/public'))
 
 app.use('/build', express.static(path.join(__dirname, 'node_modules/three/build')))
 app.use('/jsm/', express.static(path.join(__dirname, 'node_modules/three/examples/jsm')))
+
+//!---------------------- custom modules ----------------------!//
 app.use('/utils/', express.static(path.join(__dirname, 'custom_modules/utils')))
 app.use('/nomads/', express.static(path.join(__dirname, 'custom_modules/nomads')))
 app.use('/core/physics/', express.static(path.join(__dirname, 'custom_modules/core/physics')))
 app.use('/core/input/', express.static(path.join(__dirname, 'custom_modules/core/input')))
+app.use('/core/math/', express.static(path.join(__dirname, 'custom_modules/core/math')))
+//!---------------------- custom modules ----------------------!//
 
 const publicDirectory = path.join(__dirname+ '/public')
 var liveReloadServer = livereload.createServer()

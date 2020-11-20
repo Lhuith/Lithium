@@ -1,26 +1,30 @@
-export const Is = {
-    Num     : (n) => {return typeof n === "number"},
-    Alpha   : (s) => {return typeof s === "string"},
-    Func    : (f) => {return typeof f === "function"},
-    Null    : (v) => {return v == null || v == undefined}
+export const is = {
+    num     : (n) => {return typeof n === "number"},
+    alpha   : (s) => {return typeof s === "string"},
+    func    : (f) => {return typeof f === "function"},
+    null    : (v) => {return v == null || v == undefined}
 }
-export const Math = {
+export const to = {
+    rad : (d) => {return d * (Math.PI/180.0)}, // d *
+    dag : (r) => {return r * (180.0/Math.PI)},
+}
+export const math = {
     Const : {
         EPSILON : 1e-8,
     },
-    Normalize : (mn, mx, v) => {return (v - mn)/(mx-mn)},
-    Clamp : (mn, mx, v) => {return Math.min(Math.max(v, mn), mx)},
-    InRange : (mn, mx, v) => {return v >= Math.min(mn, mx) && v <= Math.max(mn,mx)},
-    Frac : (f) => {return f % 1;},
-    RandomRange : (mn, mx) => {return mn + Math.random() * (mx - mn)},
-    RoundedRandomRange : (mn, mx) => {return Math.round(RandomRange(mn,mx))},
-    SeededRandom : class {
+    normalize : (mn, mx, v) => {return (v - mn)/(mx-mn)},
+    clamp : (mn, mx, v) => {return Math.min(Math.max(v, mn), mx)},
+    inRange : (mn, mx, v) => {return v >= Math.min(mn, mx) && v <= Math.max(mn,mx)},
+    frac : (f) => {return f % 1;},
+    randomRange : (mn, mx) => {return mn + Math.random() * (mx - mn)},
+    roundedRandomRange : (mn, mx) => {return Math.round(RandomRange(mn,mx))},
+    seededRandom : class {
         constructor(seed){
             if(!(Is.Num(seed))){console.error("seed must be of type number");}
             this.seed = seed % 2147483647;
             if (this.seed <= 0) this.seed += 2147483646;
         }
-        Next(){
+        next(){
             return this.seed * 16807 % 2147483647
         }
     },
