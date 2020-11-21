@@ -1,3 +1,13 @@
+export const img = {
+    get_image_data : (image) => {
+        var canvas = document.createElement( 'canvas' );
+        canvas.width = image.width || image.naturalWidth;
+        canvas.height =  image.height || image.naturalHeight;
+        var context = canvas.getContext( '2d' );
+        context.drawImage( image, 0, 0 );
+        return context.getImageData( 0, 0, image.width || image.naturalWidth, image.height || image.naturalHeight );
+    }
+}
 export const is = {
     num     : (n) => {return typeof n === "number"},
     alpha   : (s) => {return typeof s === "string"},

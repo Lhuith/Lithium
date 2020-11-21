@@ -1,11 +1,14 @@
 import * as THREE from '/build/three.module.js';
 import {OrbitControls} from '/jsm/controls/OrbitControls.js';
 import Stats from '/jsm/libs/stats.module.js';
+import * as antlion from '/core/data/antlion.js';
 import * as nomads from '/nomads/nomads.js';
+
 
 var scene, camera, renderer, controls, stats, clock
 
-const three_init = () => {
+const init = (data) => {
+    console.log("%cThree Initialized", "color:#F22C2F")
     scene = new THREE.Scene();
 
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
@@ -40,21 +43,22 @@ const three_init = () => {
     document.body.appendChild(stats.dom);
     
     //!------------------- nomads -------------------//
-    nomads.init();
+    nomads.init(data);
     //!------------------- nomads -------------------//
 }
 
 const animate = () => {
     requestAnimationFrame(animate);
-    controls.update();
-    nomads.update(clock.getDelta());
-    render();
-    stats.update();
+
+    if(controls != undefined) controls.update();
+    if(clock != undefined) nomads.update(clock.getDelta());  
+    if(renderer != undefined) render();
+    if(stats != undefined) stats.update();
 };
 
 function render() {
     renderer.render(scene, camera);
 }
 
-three_init();
+antlion.init(init);
 animate();

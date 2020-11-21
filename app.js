@@ -17,6 +17,7 @@ app.use('/nomads/', express.static(path.join(__dirname, 'custom_modules/nomads')
 app.use('/core/physics/', express.static(path.join(__dirname, 'custom_modules/core/physics')))
 app.use('/core/input/', express.static(path.join(__dirname, 'custom_modules/core/input')))
 app.use('/core/math/', express.static(path.join(__dirname, 'custom_modules/core/math')))
+app.use('/core/data/', express.static(path.join(__dirname, 'custom_modules/core/data')))
 //!---------------------- custom modules ----------------------!//
 
 const publicDirectory = path.join(__dirname+ '/public')
