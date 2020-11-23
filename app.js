@@ -18,6 +18,7 @@ app.use('/core/physics/', express.static(path.join(__dirname, 'custom_modules/co
 app.use('/core/input/', express.static(path.join(__dirname, 'custom_modules/core/input')))
 app.use('/core/math/', express.static(path.join(__dirname, 'custom_modules/core/math')))
 app.use('/core/data/', express.static(path.join(__dirname, 'custom_modules/core/data')))
+app.use('/core/geometry/', express.static(path.join(__dirname, 'custom_modules/core/geometry')))
 //!---------------------- custom modules ----------------------!//
 
 const publicDirectory = path.join(__dirname+ '/public')

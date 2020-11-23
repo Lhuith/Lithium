@@ -5,7 +5,8 @@ import { quaternion } from '/core/math/quaternion.js';
 import { matrix } from '/core/math/matrix.js'
 import { get_data } from '/core/data/antlion.js'
 import { gameobject } from '/core/data/gameobject.js';
-
+import { quadtree } from '/core/data/quadtree.js';
+import { rectangle } from '/core/geometry/rectangle.js';
 
 var show_data = false;
 
@@ -22,8 +23,8 @@ export const init = (data) => {
 
     keyboard.init();
     physics.init();
-    var object = new gameobject("denis")
-    console.log(object.name)
+    var object = new quadtree(new rectangle(1,1,1,1), 2);
+    console.log(object)
 }
 
 export const update = (t) => {
