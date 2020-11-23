@@ -1,3 +1,26 @@
+import {Color} from '/build/three.module.js'; 
+
+export const col = {
+    shade_RGB_color : (color, percent) => {
+        var t = percent < 0 ? 0 : 255;
+        var p = percent < 0 ? percent * -1 : percent;
+
+        var R = color.r;
+        var G = color.g;
+        var B = color.b;
+
+        return new Color( (Math.round((t-R)*p)+R), (Math.round((t-G)*p)+G), (Math.round((t-B)*p)+B), 255);
+    },
+    shade_hex_color : (color, percent) => {   
+        var f = parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
+        return "0x"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
+    },
+    shade: (color, percent) => {
+        // TODO fix whatever is happening here
+        if (color.length > 7 ) return shadeRGBColor(color,percent);
+        else return shadeHEXColor(color,percent);
+    }
+}
 export const img = {
     get_image_data : (image) => {
         var canvas = document.createElement( 'canvas' );

@@ -1,29 +1,28 @@
-export class raw_resource { 
-    constructor(n, t, d){
+export class resource { 
+    constructor(n, t){
         this.name = n;
         this.type = t;
-        this.data = d;  
     }
 };
-  
-export class shader_resource {
-    constructor(v, f, e){
+export class shader_resource extends resource {
+    constructor(n, t, v, f, e){
+        super(n, t);
         this.vert = v;
         this.frag = f;
         this.extra = e;
     }
-};
-  
-export class tile_resource {
-    constructor(c, h, d){
+}
+export class tile_resource extends resource{
+    constructor(n, t, c, h, d){
+        super(n,t);
         this.color = c;
         this.height = h;
         this.detail = d;
     }
-  };
-  
-export class map_resource {
-    constructor(url){
-        this.url = url;
+};
+export class map_resource extends resource {
+    constructor(n, t, u){
+        super(n, t);
+        this.url = u;
     }  
 };

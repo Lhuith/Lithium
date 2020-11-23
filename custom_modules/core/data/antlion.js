@@ -62,24 +62,24 @@ const fall = (i, data) => {
         if(payload[i].type == "s"){
             shader_loader(
                 payload[i].name, 
-                payload[i].data.vert, 
-                payload[i].data.frag, 
+                payload[i].vert, 
+                payload[i].frag, 
+                payload[i].extra, 
                 done, 
-                payload[i].data.extra, 
                 i - 1);
         } else if(payload[i].type == "t"){
             texture_loader(
                 payload[i].name, 
-                payload[i].data.color, 
-                payload[i].data.height, 
-                payload[i].data.detail,
+                payload[i].color, 
+                payload[i].height, 
+                payload[i].detail,
                 fall, 
                 i - 1);
         } else if(payload[i].type == "m"){
             map_texture_loader(
                 payload[i].name, 
+                payload[i].url,
                 map_index++, 
-                payload[i].data.url, 
                 fall, 
                 i - 1);
         }
@@ -90,24 +90,24 @@ const fall = (i, data) => {
     if(payload[i].type == "s"){
         shader_loader(
             payload[i].name, 
-            payload[i].data.vert, 
-            payload[i].data.frag, 
+            payload[i].vert, 
+            payload[i].frag, 
+            payload[i].extra, 
             fall, 
-            payload[i].data.extra, 
             i - 1);
     } else if(payload[i].type == "t"){
         texture_loader(
             payload[i].name, 
-            payload[i].data.color, 
-            payload[i].data.height, 
-            payload[i].data.detail,
+            payload[i].color, 
+            payload[i].height, 
+            payload[i].detail,
             fall, 
             i - 1);
     } else if(payload[i].type == "m"){
         map_texture_loader(
             payload[i].name, 
-            map_index++,
-            payload[i].data.url, 
+            payload[i].url,
+            map_index++, 
             fall, 
             i - 1);
     }
@@ -132,7 +132,7 @@ const done = (i, data) => {
 
 // Credit to THeK3nger - https://gist.github.com/THeK3nger/300b6a62b923c913223fbd29c8b5ac73
 // Sorry to any soul that bare's witness to this Abomination....May the gods have mercy on me
-const shader_loader = (name, vertex_url, fragment_url, onLoad, custom, i, onProgress, onError) => {
+const shader_loader = (name, vertex_url, fragment_url, custom, onLoad, i, onProgress, onError) => {
     var vertex_loader = new THREE.FileLoader(THREE.DefaultLoadingManager);
     vertex_loader.setResponseType('text');
     vertex_loader.load(vertex_url, function (vertex_text) {
@@ -183,7 +183,7 @@ const texture_loader  = (name, urlc, urlh, urld, onLoad, i, onProgress, onError)
     });
 }
 
-const map_texture_loader = (name, index, url, onLoad, i, onProgress, onError) => {
+const map_texture_loader = (name, url, index, onLoad, i, onProgress, onError) => {
     var texture = new THREE.TextureLoader().load(url, function () {
         texture.magFilter = THREE.NearestFilter;
         texture.minFilter = THREE.NearestFilter;

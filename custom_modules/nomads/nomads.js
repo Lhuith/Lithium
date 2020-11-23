@@ -4,6 +4,8 @@ import { transform } from '/core/math/transform.js';
 import { quaternion } from '/core/math/quaternion.js';
 import { matrix } from '/core/math/matrix.js'
 import { get_data } from '/core/data/antlion.js'
+import { gameobject } from '/core/data/gameobject.js';
+
 
 var show_data = false;
 
@@ -20,13 +22,8 @@ export const init = (data) => {
 
     keyboard.init();
     physics.init();
-    var trans = new transform()
-    console.log(trans.type)
-    var rot;
-    var quart = new quaternion(1,1,1,1,null,null,rot)
-    var mat = new matrix();
-    console.log(get_data(1))
-    
+    var object = new gameobject("denis")
+    console.log(object.name)
 }
 
 export const update = (t) => {
