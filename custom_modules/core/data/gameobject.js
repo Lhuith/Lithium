@@ -23,7 +23,7 @@ export class gameobject {
         } else {
             this.children.push(o);
             o.set_parent(this);
-            p.transform.set_parent(this.transform);
+            o.transform.set_parent(this.transform);
             o.update();
         }
     }

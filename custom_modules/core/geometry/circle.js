@@ -39,4 +39,10 @@ export class circle {
     
         return edges <= this.rsqrd;
     }
+    display(){
+
+    }
+    hide(){
+        
+    }
 }

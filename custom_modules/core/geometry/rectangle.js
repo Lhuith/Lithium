@@ -37,4 +37,10 @@ export class rectangle {
             range.y - range.h > this.y + this.h ||
             range.y + range.h < this.y - this.h);
     }
+    display(){
+
+    }
+    hide(){
+        
+    }
 } 

@@ -10,7 +10,6 @@ export class quadtree {
             console.error("capacity must be greater then 0.")
             return undefined
         }
-
         this.boundary = boundary;
         this.capacity = capacity;
         this.objects = [];
@@ -131,7 +130,6 @@ export class quadtree {
                 limit --;
             }
         }
-
         // Sort by sqred distance
         objects.sort(
             (a,b) => {

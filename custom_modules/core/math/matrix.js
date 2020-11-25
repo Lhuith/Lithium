@@ -93,7 +93,7 @@ export class matrix  {
     
         for(var i = 0; i < 4; i++){
             for(var j = 0; j < 4; j++){
-                result.set(i, j, this.m[i][0] * r.get(0, j) + 
+                result.set_i(i, j, this.m[i][0] * r.get(0, j) + 
                                  this.m[i][1] * r.get(1, j) +
                                  this.m[i][2] * r.get(2, j) +
                                  this.m[i][3] * r.get(3, j));

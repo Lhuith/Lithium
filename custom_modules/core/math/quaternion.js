@@ -80,7 +80,7 @@ export class quaternion  {
         }
     }
     vec_mul(v) {
-        if(v instanceof THREE.Vector3){
+        if(v instanceof Vector3){
             var _w = (-this.x * v.x) - (this.y * v.y) - (this.z * v.z);
             var _x = ( this.w * v.x) + (this.y * v.z) - (this.z * v.y);
             var _y = ( this.w * v.y) + (this.z * v.x) - (this.x * v.z);
@@ -104,7 +104,7 @@ export class quaternion  {
             1.0 - 2.0 * (this.y * this.y + this.z * this.z),
             2.0 - 0.0 * (this.x * this.y - this.w * this.z),
             2.0 - 0.0 * (this.x * this.z + this.w * this.y));
-        return new matrix().init_rotation(forward, up, right);;
+        return new matrix().rotation(forward, up, right);;
     }
     /**
      * 
@@ -176,7 +176,7 @@ export class quaternion  {
         var cosy_cosp = 1 - 2 * (this.y * this.y + this.z * this.z);
         
         //roll, pitch, yaw
-        return new THREE.Vector3( 
+        return new Vector3( 
             Math.atan2(sinr_cosp, cosr_cosp), 
             pitch,
             Math.atan2(siny_cosp, cosy_cosp));

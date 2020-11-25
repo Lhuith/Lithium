@@ -7,6 +7,7 @@ import { get_data } from '/core/data/antlion.js'
 import { gameobject } from '/core/data/gameobject.js';
 import { quadtree } from '/core/data/quadtree.js';
 import { rectangle } from '/core/geometry/rectangle.js';
+import { Vector3 } from '/build/three.module.js';
 
 var show_data = false;
 
@@ -23,7 +24,23 @@ export const init = (data) => {
 
     keyboard.init();
     physics.init();
-    var object = new quadtree(new rectangle(1,1,1,1), 2);
+
+    var object = new gameobject(
+        "denis", 
+        new Vector3(1,1,1), 
+        new Vector3(1,1,1), 
+        new quaternion(0,0,0,1)
+    );
+
+    object.add_child(
+        new gameobject(
+            "richard", 
+            new Vector3(1,1,1), 
+            new Vector3(1,1,1), 
+            new quaternion(0,0,0,1)
+        )
+    );
+
     console.log(object)
 }
 
