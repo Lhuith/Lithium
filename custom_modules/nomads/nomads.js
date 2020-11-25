@@ -1,13 +1,15 @@
-import * as physics from '/core/physics/physics.js';
-import * as keyboard from '/core/input/keyboard.js';
-import { transform } from '/core/math/transform.js';
-import { quaternion } from '/core/math/quaternion.js';
 import { matrix } from '/core/math/matrix.js'
 import { get_data } from '/core/data/antlion.js'
-import { gameobject } from '/core/data/gameobject.js';
+import { transform } from '/core/math/transform.js';
 import { quadtree } from '/core/data/quadtree.js';
 import { rectangle } from '/core/geometry/rectangle.js';
+
+import * as physics from '/core/physics/physics.js';
+import * as keyboard from '/core/input/keyboard.js';
+import { quaternion } from '/core/math/quaternion.js';
 import { Vector3 } from '/build/three.module.js';
+import { gameobject } from '/core/data/gameobject.js';
+import { component } from '/nomads/components/component.js';
 
 var show_data = false;
 
@@ -40,6 +42,10 @@ export const init = (data) => {
             new quaternion(0,0,0,1)
         )
     );
+
+    object.add_component(
+        new component("jeff")
+    )
 
     console.log(object)
 }

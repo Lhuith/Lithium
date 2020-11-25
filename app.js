@@ -14,11 +14,13 @@ app.use('/jsm/', express.static(path.join(__dirname, 'node_modules/three/example
 //!---------------------- custom modules ----------------------!//
 app.use('/utils/', express.static(path.join(__dirname, 'custom_modules/utils')))
 app.use('/nomads/', express.static(path.join(__dirname, 'custom_modules/nomads')))
+app.use('/nomads/components', express.static(path.join(__dirname, 'custom_modules/nomads/components')))
 app.use('/core/physics/', express.static(path.join(__dirname, 'custom_modules/core/physics')))
 app.use('/core/input/', express.static(path.join(__dirname, 'custom_modules/core/input')))
 app.use('/core/math/', express.static(path.join(__dirname, 'custom_modules/core/math')))
 app.use('/core/data/', express.static(path.join(__dirname, 'custom_modules/core/data')))
 app.use('/core/geometry/', express.static(path.join(__dirname, 'custom_modules/core/geometry')))
+app.use('/core/data/instance_geometry', express.static(path.join(__dirname, 'custom_modules/core/data/instance_geometry')))
 //!---------------------- custom modules ----------------------!//
 
 const publicDirectory = path.join(__dirname+ '/public')
