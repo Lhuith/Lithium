@@ -2,8 +2,7 @@ import * as THREE from '/build/three.module.js';
 import {OrbitControls} from '/jsm/controls/OrbitControls.js';
 import Stats from '/jsm/libs/stats.module.js';
 import * as antlion from '/core/data/antlion.js';
-import * as nomads from '/nomads/nomads.js';
-
+import * as game from '/nomads/nomads.js';
 
 var scene, camera, renderer, controls, stats, clock
 
@@ -43,7 +42,8 @@ const init = (data) => {
     document.body.appendChild(stats.dom);
     
     //!------------------- nomads -------------------//
-    nomads.init(data);
+    game.init(data)
+    console.log(game.get_game())
     //!------------------- nomads -------------------//
 }
 
@@ -51,7 +51,7 @@ const animate = () => {
     requestAnimationFrame(animate);
 
     if(controls != undefined) controls.update();
-    if(clock != undefined) nomads.update(clock.getDelta());  
+    if(clock != undefined) game.update(clock.getDelta());  
     if(renderer != undefined) render();
     if(stats != undefined) stats.update();
 };

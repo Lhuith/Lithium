@@ -2,6 +2,7 @@
 import {payload}  from '/core/data/payload.js';
 import * as THREE from '/build/three.module.js';
 import {img, is} from '/utils/utilities.js';
+import {meta} from '/core/data/meta.js';
 
 var compiled = []
 
@@ -11,8 +12,8 @@ var DONE = false;
 var async_time = 0;
 var elapsed_time = 0;
 var pool = null;
-var meta = null;
 var manifest = [];
+var meta_data;
 
 var map_index = 0;
 var renderers = new Map();
@@ -29,11 +30,8 @@ export const init = (bs) => {
     bootstrap = bs;
     //load('saved/pool_data', 'json', antlion_pool_load);
     //load('saved/object_manifest', 'json', antlion_manifest_load);
-    //load('meta_data', 'json', meta_data_load);
-
     async_time = Date.now(); 
     fall(payload.length - 1, []);
-    //done()
 }
 
 // TODO clean up after everything is confirmed to work
@@ -214,4 +212,9 @@ export const get_data = (key) => {
             }
         }
     }
+}
+
+export const get_meta = () => {
+    console.log("%cGetting Meta", "color:#F75E73")
+    return meta;
 }

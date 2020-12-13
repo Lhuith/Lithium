@@ -1,5 +1,7 @@
 import { Vector2 } from '/build/three.module.js'; 
 
+const pixel = 0.03125;
+
 export const SOLID =    1;
 export const SPRITE =   0;
 export const PARTICLE = 3;

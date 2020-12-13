@@ -30,7 +30,7 @@ export class gameobject {
     add_component(c){
         if(c == null){
             console.error(this.name + ": no component was given!");
-        } else {
+        }  else {
             this.components.push(c);
             c.set_parent(this);
         }
