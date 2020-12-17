@@ -1,10 +1,14 @@
+import { InstancedBufferAttribute, Vector4, Vector2, Vector3, Matrix4} from '/build/three.module.js';
+import { math } from '/utils/utilities.js';
+import { matrix } from '/core/math/matrix.js'
+
 class state {
     constructor(){
         this.active = false;
     }
 }
 
-export class instance_attribute {
+export class instance_attributes {
     type = "instance_attributes"
     constructor(array, index){
         if(array != undefined) {
@@ -17,7 +21,7 @@ export class instance_attribute {
         for(var i = 0; i < index; i++){
             states.push(false)
         }
-        this.states =  new THREE.InstancedBufferAttribute(new Float32Array(states), 1);
+        this.states =  new InstancedBufferAttribute(new Float32Array(states), 1);
 
         //this.translation = array[0]; // ✓
         this.orientation = array[0]; // ✓
@@ -34,7 +38,7 @@ export class instance_attribute {
         this.animation_end = array[6];  // ✓
         this.animation_time = array[7]; // ✓
         
-        this.type = array[8]; // ✓
+        this.render_type = array[8]; // ✓
         this.fog = array[9]; // ✓
         
         //transform
@@ -54,7 +58,7 @@ export class instance_attribute {
         
         this.states.setX(index, true)
 
-        var uvs = decomposer.ssIndex[randomRangeRound(0, decomposer.ssIndex.length - 1)];
+        var uvs = decomposer.ssIndex[math.roundedRandomRange(0, decomposer.ssIndex.length - 1)];
         this.set_uvoffset(index, uvs);
 
         this.set_tile_size(index, decomposer.tile_size);
@@ -74,11 +78,11 @@ export class instance_attribute {
         //this.set_translation(index, translation);
         this.set_orientation(index, decomposer.orient);
         this.set_scale(index, decomposer.scale);
-        this.set_type(index, decomposer.type);
+        this.set_type(index, decomposer.render_type);
         this.set_fog(index, decomposer.fog);
 
-        var col = decomposer.colors[randomRangeRound(0, decomposer.colors.length - 1)];
-        var col_vector = new THREE.Vector4(col.r, col.g, col.b, 1.0);
+        var col = decomposer.colors[math.roundedRandomRange(0, decomposer.colors.length - 1)];
+        var col_vector = new Vector4(col.r, col.g, col.b, 1.0);
 
         this.set_color(index, col_vector)
 
@@ -88,18 +92,18 @@ export class instance_attribute {
     }
     unset = (index) => {
         //console.log("attributes being reset?", index)
-        this.set_uvoffset(index, new THREE.Vector2(0,0));
-        this.set_tile_size(index, new THREE.Vector2(0,0));
+        this.set_uvoffset(index, new Vector2(0,0));
+        this.set_tile_size(index, new Vector2(0,0));
     
-        this.set_orientation(index, new THREE.Vector4(0,0,0,0));
-        this.set_scale(index, new THREE.Vector3(1,1,1));
+        this.set_orientation(index, new Vector4(0,0,0,0));
+        this.set_scale(index, new Vector3(1,1,1));
         this.set_type(index, 0);
         this.set_fog(index, 0);
-        var col_vector = new THREE.Vector3(0, 0, 0);
+        var col_vector = new Vector3(0, 0, 0);
         this.set_color(index, col_vector)
     
         //this.set_animation(index, )
-        this.set_transform(index, new THREE.Matrix4())
+        this.set_transform(index, new Matrix4())
         this.states.setX(index, false)
     }
     set_uvoffset = (index, uv) => {
@@ -123,8 +127,8 @@ export class instance_attribute {
         this.scale.needsUpdate = true;
     }
     set_type = (index, type) => {
-        this.type.setX(index, type);
-        this.type.needsUpdate = true;
+        this.render_type.setX(index, type);
+        this.render_type.needsUpdate = true;
     }
     set_fog = (index, fog) => {
         this.fog.setX(index, fog);

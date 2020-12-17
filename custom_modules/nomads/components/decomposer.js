@@ -1,6 +1,10 @@
-import { component} from '/nomads/components/component.js';
+import { component } from '/nomads/components/component.js';
 import { Vector3, Vector4 } from '/build/three.module.js';
-import {SPRITE, SOLID, PARTICLE} from '/nomads/globals.js';
+import { SPRITE, SOLID, PARTICLE } from '/nomads/globals.js';
+import { get_meta, get_renderers } from '/core/data/antlion.js';
+import { misc, col } from '/utils/utilities.js';
+import { quaternion } from '/core/math/quaternion.js';
+import { matrix } from '/core/math/matrix.js'
 
 export const pass_transforms = (o) => {
     this.orient = o;
@@ -16,7 +20,9 @@ export const particle = (meta, pass_transform) => {
 } 
 
 export class decomposer extends component {
-    type = "decomposer, component"
+    type = "decomposer"
+    required = ["transform"]
+
     constructor(meta, type, pass_transform) {
         super();
         if(meta == undefined){ 
@@ -25,10 +31,9 @@ export class decomposer extends component {
         if(meta.map_key == undefined){ 
             throw new Error("map Key not defined!");
         }
-        if(renderers.get(meta.map_key) == undefined){ 
+        if(get_renderers().get(meta.map_key) == undefined){ 
             throw new Error("renderer is required for decomposer!");
         }
-    
         this.skip_occlusion = false;
     
         if(meta.skip_occlusion != null){ 
@@ -41,12 +46,12 @@ export class decomposer extends component {
             this.tile_size = new Vector2(meta.tile_size.x, meta.tile_size.y);
         }
     
-        var renderer = renderers.get(meta.map_key);
+        var renderer = get_renderers().get(meta.map_key);
     
-        this.ssIndex = array_map_to_ss(meta.mapping);
+        this.ssIndex = misc.arrayMapToSS(meta.mapping);
         this.animationFrames = meta.frames;
-        this.colors = array_hex_to_three_color(meta.colors);
-        this.type = type || 0;
+        this.colors = col.arrayHexToThreeColor(meta.colors);
+        this.render_type = type || 0;
         this.attributes_reference = renderer.attributes;
     
         this.orient;
@@ -72,10 +77,10 @@ export class decomposer extends component {
         //if(this.animate)
             //this.attribute_debug();
             if(this.transform != null && this.transform.hasChanged()){  
-               this.matrix = this.transform.get_transformation().toMatrix4();
+               this.matrix = this.transform.get_transformation().to_three();
                //have to tell the buffer/instance_geometry to update aswell
                this.attributes_reference.set_transform(this.buffer_idx, this.matrix)
-               this.attributes_reference.set_orientation(this.buffer_idx, new quaternion(0,0,0,1).to_three_q());
+               this.attributes_reference.set_orientation(this.buffer_idx, new quaternion(0,0,0,1).to_three());
             }
     }
     update_buffer_animation = (animation) => {
@@ -119,17 +124,18 @@ export class decomposer extends component {
     
         // this is why we need to split up the instance shader :|
         this.scale = this.transform.scale;
-        this.matrix = t.get_transformation().toMatrix4();
+        this.matrix = t.get_transformation().to_three();
     
         // append to the buffer after all fields are set
         if(!this.skip_occlusion) {
-            TestQuadTree.insert(new qt_point(
-                this.parent.transform.get_transformed_position(), 
-                this.parent.id
-                ))
+            //TestQuadTree.insert(new qt_point(
+            //    this.parent.transform.get_transformed_position(), 
+            //    this.parent.id
+            //    ))
         } else {
-            //this.attributes_reference.set(this);
+           
         }
+        this.attributes_reference.set(this);
     }
     render = (type) => {
         if(!this.rendering){
@@ -146,8 +152,13 @@ export class decomposer extends component {
             this.rendering = false;
         }
     }
-    set_usefog = (b) => {
+    set_usefog = (b) => {s
         this.usefog = b;
+    }
+    set_requirment(r){
+        if(r.type == "transform"){
+            this.set_transform(r);
+        }
     }
     //TODO TO JSON??
 }

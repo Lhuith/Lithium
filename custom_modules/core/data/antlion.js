@@ -3,6 +3,8 @@ import {payload}  from '/core/data/payload.js';
 import * as THREE from '/build/three.module.js';
 import {img, is} from '/utils/utilities.js';
 import {meta} from '/core/data/meta.js';
+import {renderering_meta} from '/core/data/renderering_meta.js'
+import {instance_renderer} from '/core/data/instance_geometry/instance_renderer.js'
 
 var compiled = []
 
@@ -11,13 +13,10 @@ var DONE = false;
 
 var async_time = 0;
 var elapsed_time = 0;
-var pool = null;
-var manifest = [];
-var meta_data;
 
 var map_index = 0;
 var renderers = new Map();
-
+var completed = [];
 // init function of actual program 
 var bootstrap = null;
 
@@ -28,33 +27,32 @@ export const init = (bs) => {
     DONE = false;
     
     bootstrap = bs;
-    //load('saved/pool_data', 'json', antlion_pool_load);
-    //load('saved/object_manifest', 'json', antlion_manifest_load);
-    async_time = Date.now(); 
+    async_time = Date.now();
+
     fall(payload.length - 1, []);
 }
 
 // TODO clean up after everything is confirmed to work
 const load_renderers = () => {
-    for(var i = 0; i < renderer_text_info.length; i++){
+    for(var i = 0; i < renderering_meta.length; i++){
         var inst_renderer = new instance_renderer(
             i,
-            renderer_text_info[i].container,
-            renderer_text_info[i].animate,
-            renderer_text_info[i].is3D,
-            get_data(renderer_text_info[i].shader),
+            renderering_meta[i].container,
+            renderering_meta[i].animate,
+            renderering_meta[i].is3D,
+            get_data(renderering_meta[i].shader),
         );
     
-        renderers.set(renderer_text_info[i].name, inst_renderer);
-        scene.add(renderer_text_info[i].container)
+        renderers.set(renderering_meta[i].name, inst_renderer);
+        //!
+        //scene.add(renderering_meta[i].container)
         inst_renderer.bake_buffer();
     }
 }
 
 const fall = (i, data) => {
     // catch data dropping in from prevois call, except the first init
-    if(data.length != 0){ payload.push(data);}
-    
+    if(data.length != 0){completed.push(data)}
     // onload function will pass on to done
     if(i == 0){
         if(payload[i].type == "s"){
@@ -116,16 +114,15 @@ const fall = (i, data) => {
 // push the last data, and flag for done;
 const done = (i, data) => {
     DONE = true;
-
-    payload.push(data);
+    completed.push(data);
     elapsed_time = Date.now() - async_time;
-
+ 
     // loading renderers here as they need textures/shaders loaded first
-    // load_renderers();
+    load_renderers();
 
     // start up init after data loaded
     console.log("%cAntlion Completed in "+ elapsed_time*0.000001+" seconds", "color:#FF9900")
-    bootstrap(payload);
+    bootstrap(completed);
 }
 
 // Credit to THeK3nger - https://gist.github.com/THeK3nger/300b6a62b923c913223fbd29c8b5ac73
@@ -145,9 +142,7 @@ const shader_loader = (name, vertex_url, fragment_url, custom, onLoad, i, onProg
                 dither_loader.load("/data/shaders/dither.glsl", function (dither_text) {
                     //this needs an i
                     onLoad(i, {name: name, extra: custom, vert: shader_parse(vertex_text, shadow_text, dither_text), frag: shader_parse(fragment_text, shadow_text, dither_text) });
-                }
-
-                )
+                })
             });
         })
     }, onProgress, onError);
@@ -193,28 +188,30 @@ const map_texture_loader = (name, url, index, onLoad, i, onProgress, onError) =>
 const shader_parse = (glsl, shadow_text, dither_text) => {
     var text = glsl.replace("AddShadow", shadow_text);
     text = text.replace("AddDither", dither_text);
-
     return text;
 }
 
 export const get_data = (key) => {
     if(is.alpha(key)){
         //console.log(key);
-        for(var i = 0; i < payload.length; i++){
-            if(payload[i].name == key){return payload[i];}
+        for(var i = 0; i < completed.length; i++){
+            if(completed[i].name == key){return completed[i];}
         }
 
     } else if(is.num(key)){
        // console.log(key);
-        for(var i = 0; i < payload.length; i++){
-            if(payload[i].index != null){
-                    if(payload[i].index == key){return payload[i];}
+        for(var i = 0; i < completed.length; i++){
+            if(completed[i].index != null){
+                    if(completed[i].index == key){return completed[i];}
             }
         }
     }
 }
 
 export const get_meta = () => {
-    console.log("%cGetting Meta", "color:#F75E73")
     return meta;
+}
+
+export const get_renderers = () => {
+    return renderers;
 }

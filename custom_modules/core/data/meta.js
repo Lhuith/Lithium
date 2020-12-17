@@ -1,4 +1,5 @@
 export const meta = {
+    "SPRITE_SHEET_SIZE" : {"x":8, "y":8},
     "default" : {
         "mapping" : [{"x":1, "y":0}],
         "colors" : ["0xFF00FF"],
@@ -24,12 +25,13 @@ export const meta = {
     "lithy" : {
         "mapping" : [{"x":0, "y":0}],
         "frames" :  {"x":0, "y":0},
-        "colors" : ["0xffffff", "0xff00ff"],
+        "colors" : ["0xffffff"],
         "transform" : {
             "position" : {"x":0, "y":0, "z":0},
             "orient" : {"x":0, "y":0, "z":0, "w":1},
             "scale" : {"x":1, "y":1, "z":1}
-        }
+        },
+        "map_key" : "lithies"
     },
     "tree_01" : {
         "leaves" : {

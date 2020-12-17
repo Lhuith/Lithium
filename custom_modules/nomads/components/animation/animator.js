@@ -2,6 +2,7 @@ import { component} from '/nomads/components/component.js';
 
 export class animator extends component {
     type = "animator"
+    required = ["decomposer"]
     constructor(animations){
         super();
         this.animations_sequences = animations;
@@ -39,7 +40,6 @@ export class animator extends component {
         }
     }
     update = (delta) => {
-        console.log("updating")
         this.current_sequence.update(delta);
         this.current_animation = this.current_sequence.current_animation;
         this.decomposer.set_animation(
@@ -47,4 +47,10 @@ export class animator extends component {
             this.current_animation.length, 
             this.current_sequence.current_frame);
      }
+     set_requirment = function(r){
+        if(r.type == "decomposer"){
+            this.decomposer = r;
+            this.decomposer.update_buffer_animation(this);
+        }
+    }
 }

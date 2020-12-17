@@ -10,7 +10,6 @@
     "livereload": "^0.9.1",
     "three": "^0.122.0"
   },
-  "devDependencies": {},
   "scripts": {
     "watch": "nodemon --ext js, pug --ignore public",
     "start": "node app.js",

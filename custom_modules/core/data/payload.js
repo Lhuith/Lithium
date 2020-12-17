@@ -9,11 +9,11 @@ export const payload = [
         {wf:false, trans:false, anim:false} 
     ),
     new datatype.shader_resource(
-            "tree_shader", 
-            "s", 
-            '/data/shaders/tree/tree.vs.glsl',
-            '/data/shaders/tree/tree.fs.glsl',
-            {wf:false, trans:true, anim:false} 
+        "tree_shader", 
+        "s", 
+        '/data/shaders/tree/tree.vs.glsl',
+        '/data/shaders/tree/tree.fs.glsl',
+        {wf:false, trans:true, anim:false} 
      ),
     new datatype.shader_resource(
         "land_shader", 
@@ -50,7 +50,7 @@ export const payload = [
         '/data/img/tile/sea_floor.png', 
         '/data/img/tile/sea_floor_detail.png',
     ),
-    new datatype.map_resource("critters", 'm', '/data/img/tile/sea_floor_color.png'),
+    new datatype.map_resource("critters", 'm', '/data/img/sprite_sheets/critters.png'),
     new datatype.map_resource("trees", 'm','/data/img/sprite_sheets/trees.png'),
     new datatype.map_resource("sky", 'm','/data/img/sprite_sheets/sky.png'),
     new datatype.map_resource("structures", 'm','/data/img/sprite_sheets/structures.png'),

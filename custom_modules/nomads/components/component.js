@@ -1,5 +1,7 @@
 export class component {
     type = "component"
+    required = [];
+    
     constructor(n){
         this.name = n;
         this.parent = null;
@@ -7,10 +9,12 @@ export class component {
     init(){
     }
     update(){
-        console.log("default component update.")
+        console.warn("default component update.")
     }
     set_parent(p){
         this.parent = p;
-        console.log("%c --component parent:","color:#7DC16D", p.name)
+    }
+    set_requirment(r){
+        console.warn("default component requirment set.")
     }
 }

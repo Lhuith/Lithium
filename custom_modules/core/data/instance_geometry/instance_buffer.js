@@ -1,10 +1,12 @@
+import {Vector4} from '/build/three.module.js';
+
 export class instance_buffer {
     type = "instance_buffer";
     
     constructor(prefill = false){
         this.translation = [];
         this.orientations = [];
-        this.vector =  new THREE.Vector4();
+        this.vector =  new Vector4();
         this.scales = [];
         this.colors = [];
         this.uvoffsets = [];
@@ -12,7 +14,7 @@ export class instance_buffer {
         this.animation_start = [];
         this.animation_end = [];
         this.animation_time = [];
-        this.type = [];
+        this.render_type = [];
         this.fog = [];
         this.m0 = [];
         this.m1 = [];
@@ -29,7 +31,7 @@ export class instance_buffer {
         for(var i = 0; i < this.size; i++){
             this.translation.push(0,0,0);
             this.orientations.push(0,0,0,1);
-            this.vector =  new THREE.Vector4();
+            this.vector =  new Vector4();
             this.scales.push(0,0,0);
             this.colors.push(0,0,0,1);
             this.uvoffsets.push(0,0);
@@ -37,7 +39,7 @@ export class instance_buffer {
             this.animation_start.push(0);
             this.animation_end.push(0);
             this.animation_time.push(0);
-            this.type.push(0);
+            this.render_type.push(0);
             this.fog.push(0);
             this.m0.push(0,0,0,1);
             this.m1.push(0,0,0,1);
@@ -104,7 +106,7 @@ export class instance_buffer {
             this.animation_time[this.index] = 0;
         }
     
-        this.type[this.index] = decomposer.type;
+        this.render_type[this.index] = decomposer.render_type;
         this.fog[this.index] = decomposer.fog;
     
         //Most Transform information now within the matrix 
@@ -182,7 +184,7 @@ export class instance_buffer {
             this.animation_time.push(0);
         }
     
-        this.type.push(decomposer.type);
+        this.render_type.push(decomposer.render_type);
     
         this.fog.push(decomposer.fog);
     

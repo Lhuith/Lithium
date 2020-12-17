@@ -1,4 +1,4 @@
-import {Color} from '/build/three.module.js'; 
+import {Color, Vector2} from '/build/three.module.js'; 
 
 export const col = {
     shade_RGB_color : (color, percent) => {
@@ -19,6 +19,13 @@ export const col = {
         // TODO fix whatever is happening here
         if (color.length > 7 ) return shadeRGBColor(color,percent);
         else return shadeHEXColor(color,percent);
+    },
+    arrayHexToThreeColor : (a) => {
+        var colors = []
+        for(var i = 0; i < a.length; i++){
+            colors.push(new Color(Number(a[i])));
+        }
+        return colors;
     }
 }
 export const img = {
@@ -50,7 +57,7 @@ export const math = {
     inRange : (mn, mx, v) => {return v >= Math.min(mn, mx) && v <= Math.max(mn,mx)},
     frac : (f) => {return f % 1;},
     randomRange : (mn, mx) => {return mn + Math.random() * (mx - mn)},
-    roundedRandomRange : (mn, mx) => {return Math.round(RandomRange(mn,mx))},
+    roundedRandomRange : (mn, mx) => {return Math.round(math.randomRange(mn,mx))},
     seededRandom : class {
         constructor(seed){
             if(!(Is.Num(seed))){console.error("seed must be of type number");}
@@ -66,7 +73,7 @@ export const math = {
         * only considering the t value for the range [0, 1] => [0, 1]
         * source : https://gist.github.com/gre/1650294
     */
-    EasingFunctions : {
+    easingFunctions : {
         // no easing, no acceleration
         linear:  (t) => { return t },
         // accelerating from zero velocity
@@ -95,7 +102,18 @@ export const math = {
         easeInOutQuint: function (t) { return t < .5 ? 16 * t * t * t * t * t : 1 + 16 * (--t) * t * t * t * t }
     }
 }
-export const Misc = {
+export const misc = {
+    //2 ^ 8 = 256 
+    mapToSS : (x, y) => {
+        return new Vector2((1/8)*x, (1/8)*y);
+    },
+    arrayMapToSS : (a) => {
+        var ss = []
+        for(var i = 0; i < a.length; i++){
+            ss.push(misc.mapToSS(a[i].x, a[i].y));
+        }
+        return ss;
+    },
     Swap : (a) => {return [a[1], a[0]]},
     // traversal with function call for convenance ಠ_ಠ
     Traverse : (l, ...f) => {

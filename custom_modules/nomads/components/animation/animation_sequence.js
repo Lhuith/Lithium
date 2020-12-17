@@ -18,7 +18,7 @@ export class animation_sequence {
         this.current_index = 0;
         // game_time
         this.game_time_stamp = get_time();
-        console.log(this.game_time_stamp)
+ 
         this.frame_offset = math.randomRange(0, this.current_animation.length);
         this.current_frame = this.frame_offset;
         this.animation_speed = speed;
@@ -51,11 +51,11 @@ export class animation_sequence {
         this.current_animation = this.animations[this.current_index];
     }
     reset_time = () => {
-        this.game_time_stamp = game_time;
+        this.game_time_stamp = get_time();
         this.current_frame = 0;
     }
     reset_sequence = () => {
-        this.current_frame = game_time;
+        this.current_frame = get_time();
         this.current_index = 0;
     }
 }

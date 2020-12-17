@@ -1,3 +1,12 @@
+import {instance_buffer} from '/core/data/instance_geometry/instance_buffer.js'
+import {instance_attributes} from '/core/data/instance_geometry/instance_attributes.js'
+import { get_data } from '/core/data/antlion.js'
+
+import {renderering_meta} from '/core/data/renderering_meta.js'
+import {meta} from '/core/data/meta.js'
+
+import * as THREE from '/build/three.module.js';
+
 export class instance_renderer {
     type = "instance_renderer"
 
@@ -59,7 +68,7 @@ export class instance_renderer {
         var animation_startAttribute = new THREE.InstancedBufferAttribute(new Float32Array(this.buffer.animation_start), 1);
         var animation_endAttribute = new THREE.InstancedBufferAttribute(new Float32Array(this.buffer.animation_end), 1);
         var animation_timeAttribute = new THREE.InstancedBufferAttribute(new Float32Array(this.buffer.animation_time), 1);
-        var typeAttribute = new THREE.InstancedBufferAttribute(new Float32Array(this.buffer.type), 1);
+        var renderTypeAttribute = new THREE.InstancedBufferAttribute(new Float32Array(this.buffer.render_type), 1);
         var fogAttribute = new THREE.InstancedBufferAttribute(new Float32Array(this.buffer.fog), 1);
         var m0Attribute = new THREE.InstancedBufferAttribute(new Float32Array(this.buffer.m0), 4);
         var m1Attribute = new THREE.InstancedBufferAttribute(new Float32Array(this.buffer.m1), 4);
@@ -75,7 +84,7 @@ export class instance_renderer {
         geometry.setAttribute('animation_start', animation_startAttribute);
         geometry.setAttribute('animation_end', animation_endAttribute);
         geometry.setAttribute('animation_time', animation_timeAttribute);
-        geometry.setAttribute('type', typeAttribute);
+        geometry.setAttribute('type', renderTypeAttribute);
         geometry.setAttribute('fog', fogAttribute);
         geometry.setAttribute('m0', m0Attribute);
         geometry.setAttribute('m1', m1Attribute);
@@ -93,7 +102,7 @@ export class instance_renderer {
                 animation_startAttribute,
                 animation_endAttribute,
                 animation_timeAttribute,
-                typeAttribute,
+                renderTypeAttribute,
                 fogAttribute,
                 m0Attribute,
                 m1Attribute,
@@ -101,8 +110,9 @@ export class instance_renderer {
                 m3Attribute,
             ], this.buffer.index
         );
-    
-        var texture = new THREE.TextureLoader().load(renderer_text_info[this.map_index].map);
+      
+        var texture = new THREE.TextureLoader().
+        load('../data/'+renderering_meta[this.map_index].map);
     
         texture.magFilter = THREE.NearestFilter;
         texture.minFilter = THREE.NearestFilter;
@@ -118,8 +128,8 @@ export class instance_renderer {
     
         var instanceUniforms = {
             map: { value: texture },
-            spriteSheetX: { type: "f", value: SPRITE_SHEET_SIZE.x },
-            spriteSheetY: { type: "f", value: SPRITE_SHEET_SIZE.y },
+            spriteSheetX: { type: "f", value: meta.SPRITE_SHEET_SIZE.x },
+            spriteSheetY: { type: "f", value: meta.SPRITE_SHEET_SIZE.y },
             animationSwitch: { type: "f", value: animationSwitch },
             is3D: { type: "f", value: is3DSwitch },
             time: { type: "f", value: 1.0 },
@@ -146,10 +156,10 @@ export class instance_renderer {
             lights: true,
         });
     
-        mesh = new THREE.Mesh(geometry, material);
+        var mesh = new THREE.Mesh(geometry, material);
         material.uniforms.map.value = texture;
-        material.uniforms.spriteSheetX.value = SPRITE_SHEET_SIZE.x;
-        material.uniforms.spriteSheetY.value = SPRITE_SHEET_SIZE.y;
+        material.uniforms.spriteSheetX.value = meta.SPRITE_SHEET_SIZE.x;
+        material.uniforms.spriteSheetY.value = meta.SPRITE_SHEET_SIZE.y;
     
         material.side = THREE.DoubleSide;
         mesh.frustumCulled = false;

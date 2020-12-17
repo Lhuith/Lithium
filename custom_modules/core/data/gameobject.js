@@ -30,9 +30,12 @@ export class gameobject {
     add_component(c){
         if(c == null){
             console.error(this.name + ": no component was given!");
-        }  else {
-            this.components.push(c);
+        } else {
             c.set_parent(this);
+            this.components.push(c);
+
+            //! add check before adding components for requirements!
+            this.set_required(c);
         }
     }
     //TODO decide on requirements!
@@ -44,7 +47,7 @@ export class gameobject {
             console.error("\"n\" must be of type string.")
         } else {
             for(let c of this.components){
-                if(c.name == n){
+                if(c.type == n){
                     components.push(c)
                 }
             }
@@ -56,6 +59,17 @@ export class gameobject {
         }
 
         return null;
+    }
+    // set required components/objects such as transforms
+    set_required(c){
+        if (c.required == "transform"){
+            c.set_requirment(this.transform)
+        } else if (c.required == "decomposer"){
+            var decomp = this.get_component("decomposer")
+            if (decomp != null && decomp != undefined) {
+                c.set_requirment(decomp)
+            }
+        }
     }
     has_component(n){
         if(!is.alpha(n)){
@@ -83,7 +97,6 @@ export class gameobject {
                 c.update(delta);
             }
         }
-
         this.transform.update(delta);
     }
     information(){
