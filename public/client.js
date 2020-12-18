@@ -6,12 +6,60 @@ import * as game from '/nomads/nomads.js';
 
 var scene, camera, renderer, controls, stats, clock, renderers, game_time
 
+export class three {
+    constructor(data) {
+        console.log("%cThree Struct Initialized", "color:#F22C2F")
+
+        this.renderer = new THREE.WebGLRenderer();
+
+        this.renderer = new THREE.WebGLRenderer();
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setClearColor( 0xffffff, 1 );
+
+        this.scene = new THREE.Scene();
+
+        this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+
+        this.controls = new OrbitControls( this.camera, this.renderer.domElement);
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            render();
+        }, false);
+
+        this.clock = new THREE.Clock();
+        this.clock.start();
+
+        this.stat = Stats();
+        document.body.appendChild(this.stat.dom);
+
+        //!------------------- nomads -------------------//
+        game.init(data)
+        //!------------------- nomads -------------------//
+        renderers = antlion.get_renderers()
+
+        for(let r of renderers){
+            this.scene.add(r[1].mesh);
+        }
+    }
+    get_renderer(){
+        return this.renderer;
+    }
+    get_scene(){
+        return this.scene;
+    }
+}
+
 const init = (data) => {
+    //var three_struct = new three(data);
+
     console.log("%cThree Initialized", "color:#F22C2F")
     scene = new THREE.Scene();
     game_time = 0;
 
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
     camera.position.z = 10;
 
     renderer = new THREE.WebGLRenderer();
@@ -35,12 +83,12 @@ const init = (data) => {
     const gridHelper = new THREE.GridHelper( size, divisions );
     scene.add( gridHelper );
 
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        render();
-    }, false);
+   //window.addEventListener('resize', () => {
+   //    camera.aspect = window.innerWidth / window.innerHeight;
+   //    camera.updateProjectionMatrix();
+   //    renderer.setSize(window.innerWidth, window.innerHeight);
+   //    render();
+   //}, false);
 
     //!------------------- clock -------------------//
     clock = new THREE.Clock();
@@ -70,7 +118,7 @@ const animate = () => {
 
 };
 
-function render() {
+function render() { 
     renderer.render(scene, camera);
 }
 

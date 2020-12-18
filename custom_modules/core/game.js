@@ -16,6 +16,7 @@ import { animator } from '/nomads/components/animation/animator.js';
 import { animation_sequence } from '/nomads/components/animation/animation_sequence.js';
 import { animation } from '/nomads/components/animation/animation.js';
 
+import * as sky from '/nomads/systems/sky.js'
 export class game {
     constructor(n){
         this.name = n
@@ -36,26 +37,13 @@ export class game {
     
         keyboard.init();
         physics.init();
-    
+        sky.init();
+        
         var object = new gameobject(
             "denis", 
             new Vector3(0,0.5,0), 
             new Vector3(1,1,1), 
-            new quaternion(0,0,0,1)
-        );
-        object.add_component(sprite(get_meta().crab))
-
-        object.add_component(new animator([
-            new animation_sequence("walk", [new animation("walk", 0, 3)], 2, true), 
-            new animation_sequence("death", [ new animation("dead_start", 3, 3), 
-            new animation("dead_end", 6, 1)], 2, false)
-        ]));
-
-        var object = new gameobject(
-            "denis", 
-            new Vector3(0,0.5,0), 
-            new Vector3(1,1,1), 
-            new quaternion(0,0,0,1)
+            new quaternion(0,0,0,1, null, null, null)
         );
         object.add_component(sprite(get_meta().crab))
 
@@ -67,7 +55,7 @@ export class game {
         var npc = new gameobject("steve", 
         new Vector3(0.5,0.5,0), 
         new Vector3(1,1,1), 
-        new quaternion(0,0,0,1))
+        new quaternion(0,0,0,1, null, null, null))
 
         npc.add_component(sprite(get_meta().lithy));
         npc.add_component( new animator([
@@ -82,6 +70,7 @@ export class game {
         for (let o of this.objects){
             o.update(delta);
         }
+        sky.update(delta);
     }
     get_time(){
         return this.time;

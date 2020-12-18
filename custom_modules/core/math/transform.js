@@ -31,16 +31,13 @@ export class transform  {
         return false;
     }
     get_transformation(){
-        var t = new matrix();
-        t.translation(this.position.x, this.position.y, this.position.z);
+        var t = new matrix().translation(this.position.x, this.position.y, this.position.z);
 
-        var euler = this.rotation.conjugate().to_euler();
+        var euler = this.rotation;
     
-        var r = new matrix();
-        r.rotation((to.dag(euler.x)), (to.dag(euler.y)), (to.dag(euler.z)));
+        var r = new matrix().rotation((to.rad(euler.x)), (to.rad(euler.y)), (to.rad(euler.z)));
 
-        var s = new matrix();
-        s.scale(this.scale.x, this.scale.y, this.scale.z);
+        var s = new matrix().scale(this.scale.x, this.scale.y, this.scale.z);
         
         var p = this.get_parent_matrix();
     

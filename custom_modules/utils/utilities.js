@@ -45,7 +45,7 @@ export const is = {
     null    : (v) => {return v == null || v == undefined}
 }
 export const to = {
-    rad : (d) => {return d * (Math.PI/180.0)}, // d *
+    rad : (d) => {return d * (Math.PI/180.0)}, 
     dag : (r) => {return r * (180.0/Math.PI)},
 }
 export const math = {
@@ -58,6 +58,8 @@ export const math = {
     frac : (f) => {return f % 1;},
     randomRange : (mn, mx) => {return mn + Math.random() * (mx - mn)},
     roundedRandomRange : (mn, mx) => {return Math.round(math.randomRange(mn,mx))},
+    copySign : (a,b) => {return b < 0 ? -Math.abs(a) : Math.abs(a)},
+
     seededRandom : class {
         constructor(seed){
             if(!(Is.Num(seed))){console.error("seed must be of type number");}

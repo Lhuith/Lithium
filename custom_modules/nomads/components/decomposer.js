@@ -1,5 +1,5 @@
 import { component } from '/nomads/components/component.js';
-import { Vector3, Vector4 } from '/build/three.module.js';
+import { Vector3, Vector4, Vector2 } from '/build/three.module.js';
 import { SPRITE, SOLID, PARTICLE } from '/nomads/globals.js';
 import { get_meta, get_renderers } from '/core/data/antlion.js';
 import { misc, col } from '/utils/utilities.js';
@@ -77,10 +77,10 @@ export class decomposer extends component {
         //if(this.animate)
             //this.attribute_debug();
             if(this.transform != null && this.transform.hasChanged()){  
-               this.matrix = this.transform.get_transformation().to_three();
-               //have to tell the buffer/instance_geometry to update aswell
-               this.attributes_reference.set_transform(this.buffer_idx, this.matrix)
-               this.attributes_reference.set_orientation(this.buffer_idx, new quaternion(0,0,0,1).to_three());
+                this.matrix = this.transform.get_transformation().to_three();
+                // have to tell the buffer/instance_geometry to update aswell
+                this.attributes_reference.set_transform(this.buffer_idx, this.matrix)
+                this.attributes_reference.set_orientation(this.buffer_idx, new quaternion(0,0,0,1).to_three());
             }
     }
     update_buffer_animation = (animation) => {
