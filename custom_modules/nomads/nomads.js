@@ -2,8 +2,8 @@ import {game} from '/core/game.js';
 
 var NOMADS = new game("Nomads");
 
-export const init = (data) => {
-    NOMADS.init(data);
+export const init = (data, three) => {
+    NOMADS.init(data, three);
 } 
 
 export const update = (delta) => {

@@ -17,7 +17,7 @@ var step = 0;
 
 var min_distance = 300;
 var max_distance = 500;
-
+var renderer;
 
 var stars_array = []
 
@@ -36,9 +36,9 @@ var sky_colors = [
     new Color( 0xAC98D3), //TRANS Night
 ];
 
-export const init = () => {
+export const init = (r) => {
     console.log("%cSky Initialized", "color:#65cdc4")
-
+    renderer = r;
     sky = new gameobject("sky", new Vector3 (0,0,0), 
     new Vector3(1,1,1), new quaternion(0,0,0,1));
 
@@ -86,14 +86,14 @@ export const update = (delta) => {
     var current_color = new Color(sky_colors[sky_index].getHex()).lerp(
         sky_colors[(sky_index + 1) % sky_colors.length], sky_lerp_index);
     
-    //renderer.setClearColor(current_color.getHex(), 1 );
+    renderer.setClearColor(current_color.getHex(), 1 );
     //scene.fog.color = current_color;
         
     step = (Math.PI*2) * (raw_sky_index/sky_colors.length)
     
     if(sky != undefined) {
         sky.transform.rotation = new quaternion(null,null,null,null, 
-        new Vector3(1, 0, 0), ((step)));
+        new Vector3(1, 0, 0), ((step/250)));
     }
    
     // TODO: find a better formula for this later on :|

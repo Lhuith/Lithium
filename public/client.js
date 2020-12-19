@@ -4,58 +4,24 @@ import Stats from '/jsm/libs/stats.module.js';
 import * as antlion from '/core/data/antlion.js';
 import * as game from '/nomads/nomads.js';
 
-var scene, camera, renderer, controls, stats, clock, renderers, game_time
+var scene, camera, controls, stats, clock, renderer, renderers, game_time
 
-export class three {
-    constructor(data) {
-        console.log("%cThree Struct Initialized", "color:#F22C2F")
-
-        this.renderer = new THREE.WebGLRenderer();
-
-        this.renderer = new THREE.WebGLRenderer();
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
-        this.renderer.setClearColor( 0xffffff, 1 );
-
-        this.scene = new THREE.Scene();
-
-        this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
-
-        this.controls = new OrbitControls( this.camera, this.renderer.domElement);
-
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            render();
-        }, false);
-
-        this.clock = new THREE.Clock();
-        this.clock.start();
-
-        this.stat = Stats();
-        document.body.appendChild(this.stat.dom);
-
-        //!------------------- nomads -------------------//
-        game.init(data)
-        //!------------------- nomads -------------------//
-        renderers = antlion.get_renderers()
-
-        for(let r of renderers){
-            this.scene.add(r[1].mesh);
-        }
+class exporters {
+    constructor(){
+    }
+    init(r){
+        this.renderer = r;
     }
     get_renderer(){
         return this.renderer;
     }
-    get_scene(){
-        return this.scene;
-    }
 }
 
-const init = (data) => {
-    //var three_struct = new three(data);
+export const exports = new exporters();
 
+const init = (data) => {
     console.log("%cThree Initialized", "color:#F22C2F")
+    
     scene = new THREE.Scene();
     game_time = 0;
 
@@ -65,6 +31,7 @@ const init = (data) => {
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor( 0xffffff, 1 );
+    exports.init(renderer)
     document.body.appendChild(renderer.domElement);
 
     controls = new OrbitControls(camera, renderer.domElement);
@@ -98,7 +65,7 @@ const init = (data) => {
     document.body.appendChild(stats.dom);
     
     //!------------------- nomads -------------------//
-    game.init(data)
+    game.init(data, {renderer: renderer, camera: camera})
     //!------------------- nomads -------------------//
     renderers = antlion.get_renderers()
 
@@ -114,12 +81,14 @@ const animate = () => {
     if(clock != undefined) { game.update(clock.getDelta());}
     if(renderer != undefined) render();
     if(stats != undefined) stats.update();
-
-
 };
 
-function render() { 
+const render = () => { 
     renderer.render(scene, camera);
+}
+
+const get_renderer = () => {
+    return renderer;
 }
 
 antlion.init(init);

@@ -22,7 +22,7 @@ export class game {
         this.name = n
         this.objects = []
     }
-    init(data){
+    init(data, three){
         this.show_data = false;
         this.time = 0;
 
@@ -37,7 +37,7 @@ export class game {
     
         keyboard.init();
         physics.init();
-        sky.init();
+        sky.init(three.renderer);
         
         var object = new gameobject(
             "denis", 
