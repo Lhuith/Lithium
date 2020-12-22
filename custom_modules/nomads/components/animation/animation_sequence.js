@@ -1,4 +1,4 @@
-import {math} from '/utils/utilities.js';
+import {math} from '/meta/utils.js';
 import {get_time} from '/nomads/nomads.js';
 
 export class animation_sequence {

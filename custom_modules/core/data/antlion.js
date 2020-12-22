@@ -1,7 +1,7 @@
 // data after being processed
 import {payload}  from '/core/data/payload.js';
 import * as THREE from '/build/three.module.js';
-import {img, is} from '/utils/utilities.js';
+import {img, is} from '/meta/utils.js';
 import {meta} from '/core/data/meta.js';
 import {renderering_meta} from '/core/data/renderering_meta.js'
 import {instance_renderer} from '/core/data/instance_geometry/instance_renderer.js'

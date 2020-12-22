@@ -2,9 +2,8 @@ import { component } from '/nomads/components/component.js';
 import { Vector3, Vector4, Vector2 } from '/build/three.module.js';
 import { SPRITE, SOLID, PARTICLE } from '/nomads/globals.js';
 import { get_meta, get_renderers } from '/core/data/antlion.js';
-import { misc, col } from '/utils/utilities.js';
+import { misc, col } from '/meta/utils.js';
 import { quaternion } from '/core/math/quaternion.js';
-import { matrix } from '/core/math/matrix.js'
 
 export const pass_transforms = (o) => {
     this.orient = o;

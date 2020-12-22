@@ -1,6 +1,5 @@
 import { InstancedBufferAttribute, Vector4, Vector2, Vector3, Matrix4} from '/build/three.module.js';
-import { math } from '/utils/utilities.js';
-import { matrix } from '/core/math/matrix.js'
+import { math } from '/meta/utils.js';
 
 class state {
     constructor(){

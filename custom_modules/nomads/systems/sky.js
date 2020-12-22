@@ -1,10 +1,9 @@
-import { Color, Vector3, Vector2 } from '/build/three.module.js';
+import { Color, Vector3 } from '/build/three.module.js';
 import { gameobject } from '/core/data/gameobject.js';
 import { quaternion } from '/core/math/quaternion.js';
-import { sprite, solid, particle } from '/nomads/components/decomposer.js';
-import { get_data, get_meta, get_renderers} from '/core/data/antlion.js'
-import { get_time } from '/nomads/nomads.js';
-import { math, to } from '/utils/utilities.js'; 
+import { particle } from '/nomads/components/decomposer.js';
+import { get_meta } from '/core/data/antlion.js'
+import { math } from '/meta/utils.js'; 
 
 var cycle_length = 24 * 3;
 var current_time = 0;
@@ -55,11 +54,9 @@ export const init = (r) => {
         get_meta().sun,
     ));
 
-    moon.add_component(particle(
-        get_meta().moon,
-    ));
+    moon.add_component(particle( get_meta().moon));
 
-    moon.get_component("decomposer").set_alpha(1.0);
+    moon.get_component("decomposer").set_alpha(0.0);
 
     var stars = new gameobject("stars", new Vector3(0,0,0), new Vector3(1, 1, 1), new quaternion(0,0,0,1));
     //genenerate_stars(stars)

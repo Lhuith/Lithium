@@ -1,4 +1,4 @@
-export const save = (data, name, type) => {
+export const save = (name, data, type) => {
     $.ajax({
         type : "POST",
         url : "js/core/file/php_save.php",
