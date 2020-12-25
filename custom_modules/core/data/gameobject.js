@@ -1,5 +1,5 @@
 import { transform } from '/core/math/transform.js';
-import {is} from '/meta/utils.js';
+import {is} from '/meta/helpers/utils.js';
 
 export class gameobject {
     type = "gameobject";

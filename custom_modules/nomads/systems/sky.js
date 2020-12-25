@@ -3,7 +3,7 @@ import { gameobject } from '/core/data/gameobject.js';
 import { quaternion } from '/core/math/quaternion.js';
 import { particle } from '/nomads/components/decomposer.js';
 import { get_meta } from '/core/data/antlion.js'
-import { math } from '/meta/utils.js'; 
+import { math } from '/meta/helpers/utils.js'; 
 
 var cycle_length = 24 * 3;
 var current_time = 0;

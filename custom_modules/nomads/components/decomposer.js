@@ -2,7 +2,7 @@ import { component } from '/nomads/components/component.js';
 import { Vector3, Vector4, Vector2 } from '/build/three.module.js';
 import { SPRITE, SOLID, PARTICLE } from '/nomads/globals.js';
 import { get_meta, get_renderers } from '/core/data/antlion.js';
-import { misc, col } from '/meta/utils.js';
+import { misc, col } from '/meta/helpers/utils.js';
 import { quaternion } from '/core/math/quaternion.js';
 
 export const pass_transforms = (o) => {

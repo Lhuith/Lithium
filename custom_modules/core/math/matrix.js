@@ -1,4 +1,4 @@
-import {to} from '/meta/utils.js';
+import {to} from '/meta/helpers/utils.js';
 import {Vector3, Matrix4} from '/build/three.module.js';
 
 export class matrix  {

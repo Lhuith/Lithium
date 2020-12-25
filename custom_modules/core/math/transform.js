@@ -1,7 +1,7 @@
 import { matrix } from '/core/math/matrix.js'
 import { Vector3 } from '/build/three.module.js';
 import { quaternion } from '/core/math/quaternion.js';
-import {to} from '/meta/utils.js';
+import {to} from '/meta/helpers/utils.js';
 
 export class transform  {
     type = "transform"

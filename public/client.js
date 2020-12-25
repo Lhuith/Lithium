@@ -3,7 +3,7 @@ import {OrbitControls} from '/jsm/controls/OrbitControls.js';
 import Stats from '/jsm/libs/stats.module.js';
 import * as antlion from '/core/data/antlion.js';
 import * as game from '/nomads/nomads.js';
-import * as file from '/meta/file.js';
+import * as ajax from '/meta/helpers/ajax.js';
 
 var scene, camera, controls, stats, clock, renderer, renderers, game_time
 
@@ -58,11 +58,11 @@ const init = (data) => {
         scene.add(r[1].mesh);
     }
 
-    file.get({playerName: "poopoo", position:{x:1, y:1, z:1}});
-    file.update({playerName: "poopoo", position:{x:1, y:52, z:1}});
-    file.update({playerName: "poopoo", position:{x:1, y:123, z:1}});
-    file.get({playerName: "poopoo", position:{x:1, y:52, z:1}});
-    file.remove({playerName: "poopoo", position:{x:1, y:1, z:1}});
+    // file.get({playerName: "poopoo", position:{x:1, y:1, z:1}});
+    // file.update({playerName: "poopoo", position:{x:1, y:52, z:1}});
+    // file.update({playerName: "poopoo", position:{x:1, y:123, z:1}});
+    // file.get({playerName: "poopoo", position:{x:1, y:52, z:1}});
+    // file.remove({playerName: "poopoo", position:{x:1, y:1, z:1}});
 } 
 
 const animate = () => {
