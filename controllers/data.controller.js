@@ -4,19 +4,17 @@ exports.create = (req, res) => {
     res.send("creating ")
 }
 
-exports.findAll = (req, res) => {
-    res.send("find all")
-}
-
 exports.find = (req, res) => {
     res.send("find specific")
 } 
 
 exports.update = (req, res) => {
+    console.log(req.body)
     res.send("update")
 }
 
 exports.delete = (req, res) => {
+    console.log(req.body)
     res.send("delete")
 }
 

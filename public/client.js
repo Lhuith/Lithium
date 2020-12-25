@@ -58,8 +58,11 @@ const init = (data) => {
         scene.add(r[1].mesh);
     }
 
-    file.create("ass",{playerName: "clownBaby", dicksize : 52}, 'json')
-}
+    file.create({playerName: "new guy"})
+    file.update({playerName: "also new guy"}, "1");
+    file.remove({playerName: "also new guy"}, "1");
+    file.get({playerName: "also new guy"}, "1");
+} 
 
 const animate = () => {
     requestAnimationFrame(animate);

@@ -4,15 +4,12 @@ module.exports = (app) => {
     // create
     app.post('/data', controller.create);
 
-    //get
-    app.get('/data', controller.findAll);
-
-    //get specific 
+    // get 
     app.get('/data/:id', controller.find);
 
-    //update
+    // update
     app.put('/data/:id', controller.update);
 
-    //delete
+    // delete
     app.delete('/data/:id', controller.delete);
 }
