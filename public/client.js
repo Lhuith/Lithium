@@ -58,10 +58,11 @@ const init = (data) => {
         scene.add(r[1].mesh);
     }
 
-    file.create({playerName: "poopoo", position:{x:1, y:1, z:1}});
-    //file.update({playerName: "poopoo", position:{x:52, y:1, z:1}}, "1");
-    //file.remove({playerName: "poopoo", position:{x:52, y:1, z:1}}, "1");
     file.get({playerName: "poopoo", position:{x:1, y:1, z:1}});
+    file.update({playerName: "poopoo", position:{x:1, y:52, z:1}});
+    file.update({playerName: "poopoo", position:{x:1, y:123, z:1}});
+    file.get({playerName: "poopoo", position:{x:1, y:52, z:1}});
+    file.remove({playerName: "poopoo", position:{x:1, y:1, z:1}});
 } 
 
 const animate = () => {

@@ -4,25 +4,26 @@
 
     const fs = require("fs");
 
-    if(req.body.task == "c") {
-        console.log("%csaving entry", "color:#7ab264") 
-        res.send(save(fs, req));
-    } else if (req.body.task == "g") {
+    if (req.body.task == "g") {
         if (exists(fs, req)){
             console.log("%cloading entry", "color:#7ab264")
             res.send(load(fs, req));
         } else {
-            res.send("file not found")
+            //res.send("file not found")
+            console.log("%ccreating entry", "color:#7ab264")
+            res.send(save(fs, req));
         }
     } else if (req.body.task == "u") {
         console.log("%cupdateing entry", "color:#7ab264")
         if (exists(fs, req)){
-            res.send(save(fs, req));
+            if (save(fs, req) != null) {
+                res.send("update succesful");
+            }
         } else {
             res.send("file not found")
         }
     } else if (req.body.task == "r") {
-        console.log("%cupdateing entry", "color:#7ab264")
+        console.log("%cremoving entry", "color:#7ab264")
         if (exists(fs, req)){
             res.send(remove(fs, req));
         } else {
@@ -43,13 +44,18 @@ const remove = (fs, req) => {
 
 const save = (fs, req) =>{
     try {
+        // remove appended task field
+        // only used to seperate post operations
+        delete req.body.task;
+        var new_json = JSON.stringify(req.body)
+
         fs.writeFileSync(
             './public/data/saved/' + req.body.playerName +'.json',
-            JSON.stringify(req.body))
-        return "saving succesful!"
+            new_json)
+        return new_json
     } catch {
         console.error(err)
-        return "error occurred!"
+        return null
     }
 }
 
@@ -60,7 +66,7 @@ const load = (fs, req) =>{
         'utf8');
     } catch (err) {
         console.error(err)
-        return "not found.";
+        return "not found";
     }
 }
 
@@ -97,7 +103,7 @@ exports.find = (req, res) => {
         res.send(fs.readFileSync('./public/data/saved/poopoo.json', 'utf8'))
     } catch (err) {
         console.error(err)
-        res.send ("not found.")
+        res.send ("not found")
     }
     
     //res.send("find specific")
