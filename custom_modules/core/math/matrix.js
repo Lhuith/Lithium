@@ -45,10 +45,6 @@ export class matrix  {
         var ry = new matrix();
         var rz = new matrix();
     
-        x = to.dag(x);
-        y = to.dag(y);
-        z = to.dag(z);
-    
         rz.m[0][0] = +Math.cos(z); rz.m[0][1] = -Math.sin(z); rz.m[0][2] = 0; rz.m[0][3] = 0;
         rz.m[1][0] = +Math.sin(z); rz.m[1][1] = +Math.cos(z); rz.m[1][2] = 0; rz.m[1][3] = 0;
         rz.m[2][0] = 0;            rz.m[2][1] = 0;            rz.m[2][2] = 1; rz.m[2][3] = 0;
@@ -78,13 +74,15 @@ export class matrix  {
         this.m[1][0] = u.x; this.m[1][1] = u.y; this.m[1][2] = u.z; this.m[1][3] = 0;
         this.m[2][0] = f.x; this.m[2][1] = f.y; this.m[2][2] = f.z; this.m[2][3] = 0;
         this.m[3][0] = 0;   this.m[3][1] = 0;   this.m[3][2] = 0;   this.m[3][3] = 1;
+
+        return this;
     }
     rotation_fu(forward, up){
         var f = forward.normalize();
         var r = up.normalize();
         r = r.clone().cross(f);
         var u = f.clone().cross(r);
-        return this.init_rotation_fur(f, u, r);
+        return this.rotation_fur(f, u, r);
     }
     transform(v){
         return new Vector3(

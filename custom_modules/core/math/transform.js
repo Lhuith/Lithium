@@ -31,8 +31,9 @@ export class transform  {
         return false;
     }
     get_transformation(){
+        var rotation = this.rotation.conjugate();
         var t = new matrix().translation(this.position.x, this.position.y, this.position.z);
-        var r = new matrix().rotation((to.dag(this.rotation.x)), (to.dag(this.rotation.y)), to.dag(this.rotation.z));
+        var r = new matrix().rotation(rotation.x, rotation.y, rotation.z);
         var s = new matrix().scale(this.scale.x, this.scale.y, this.scale.z);
         var p = this.get_parent_matrix();
     

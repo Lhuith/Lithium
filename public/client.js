@@ -5,7 +5,8 @@ import * as antlion from '/core/data/antlion.js';
 import * as game from '/nomads/nomads.js';
 import * as ajax from '/meta/helpers/ajax.js';
 
-var scene, camera, controls, stats, clock, renderer, renderers, game_time
+var scene, camera, stats, clock, renderer, renderers, game_time
+var controls;
 
 const init = (data) => {
     console.log("%cThree Initialized", "color:#F22C2F")
@@ -22,14 +23,14 @@ const init = (data) => {
     
     document.body.appendChild(renderer.domElement);
 
-    controls = new OrbitControls(camera, renderer.domElement);
+    //controls = new OrbitControls(camera, renderer.domElement);
 
     const geometry = new THREE.BoxGeometry();
     const material = new THREE.MeshBasicMaterial({
         color: 0xffffff,
     });
 
-    //const cube = new THREE.Mesh(geometry, material);
+    const cube = new THREE.Mesh(geometry, material);
     //scene.add(cube);
 
     const gridHelper = new THREE.GridHelper( 10, 10 );
@@ -50,7 +51,13 @@ const init = (data) => {
     document.body.appendChild(stats.dom);
     
     //!------------------- nomads -------------------//
-    game.init(data, {renderer: renderer, camera: camera})
+    game.init(data, 
+        {
+            renderer: renderer, 
+            camera: camera, 
+            scene:scene, 
+            //  controls:controls
+        })
     //!------------------- nomads -------------------//
     renderers = antlion.get_renderers()
 
@@ -68,7 +75,7 @@ const init = (data) => {
 const animate = () => {
     requestAnimationFrame(animate);
 
-    if(controls != undefined) controls.update();
+    //if(controls != undefined) controls.update();
     if(clock != undefined) { game.update(clock.getDelta());}
     if(renderer != undefined) render();
     if(stats != undefined) stats.update();

@@ -1,15 +1,10 @@
-import {to} from '/meta/helpers/utils.js';
+import { to, math } from '/meta/helpers/utils.js';
 import {Vector3, Quaternion} from '/build/three.module.js';
 import { matrix } from '/core/math/matrix.js'
 
 export class quaternion  {
     type = "quaternion"
     constructor(x, y, z, w, axis = null, angle = null, rot = null){
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        this.w = w;
-      
         if(axis != null && angle != null) {
             var sinHalfAngle = Math.sin(angle/2);
             var cosHalfAngle = Math.cos(angle/2);
@@ -19,8 +14,13 @@ export class quaternion  {
             this.z = axis.z * sinHalfAngle;
             this.w = cosHalfAngle;
 
-        } else if(rot != null){
+        } else if (rot != null){
             this.matrix_constructor(rot);
+        } else {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+            this.w = w;
         }
     }
 
@@ -30,40 +30,49 @@ export class quaternion  {
         if(trace > 0){
             var s = 0.5 / Math.sqrt(trace + 1.0);
             this.w = 0.25 / s;
-            this.x = (rot.get(1,2)-rot.get(2,1)) * s;
-            this.y = (rot.get(2,0)-rot.get(0,2)) * s;
-            this.z = (rot.get(0,1)-rot.get(1,0)) * s;
+            this.x = (rot.get(1, 2) - rot.get(2, 1)) * s;
+            this.y = (rot.get(2, 0) - rot.get(0, 2)) * s;
+            this.z = (rot.get(0, 1) - rot.get(1, 0)) * s;
         } else {
-            if(rot.get(0,0) > rot.get(1,1) && rot(0,0) > rot.get(2,2)){
-                var s = 2.0 * Math.sqrt(1.0 + rot.get(0,0) - rot.get(1,1) - rot.get(2,2));
+            
+            if(rot.get(0,0) > rot.get(1, 1) && rot.get(0, 0) > rot.get(2, 2)){
+    
+                var s = 2.0 * Math.sqrt(1.0 + rot.get(0, 0) - rot.get(1, 1) - rot.get(2, 2));
 
-                this.w = (rot.get(1,2)-rot.get(2,1))/s;
+                this.w = (rot.get(1, 2) - rot.get(2, 1)) / s;
                 this.x = 0.25 * s;
-                this.y = (rot.get(1,0)+rot.get(0,1))/s;
-                this.z = (rot.get(2,0)+rot.get(0,2))/s;
+                this.y = (rot.get(1, 0) + rot.get(0, 1)) / s;
+                this.z = (rot.get(2, 0) + rot.get(0, 2)) / s;
 
-            } else if(rot.get(1,1) > rot.get(2,2)){
-                var s = 2.0 * Math.sqrt(1.0 + rot.get(1,1) - rot.get(0,0) - rot.get(2,2));
+            } else if(rot.get(1, 1) > rot.get(2, 2)){
                 
-                this.w = (rot.get(2,0) - rot.get(0,2))/s;
-                this.x = (rot.get(1,0) + rot.get(0,1))/s;
-                this.y = 0.25 * s;
-                this.z = (rot.get(2,1) + rot.get(1,2))/s;
-            } else {
-                var s = 2.0 * Math.sqrt(1.0 + rot.get(2,2) - rot.get(0,0) - rot.get(1,1));
+                var s = 2.0 * Math.sqrt(1.0 + rot.get(1, 1) - rot.get(0, 0) - rot.get(2,2));
 
-                this.w = (rot.get(0,1)-rot.get(1,0))/s;
-                this.x = (rot.get(2,0)+rot.get(0,2))/s;
-                this.y = (rot.get(1,2)+rot.get(2,1))/s;
+                this.w = (rot.get(2, 0) - rot.get(0, 2)) / s;
+                this.x = (rot.get(1, 0) + rot.get(0, 1)) / s;
+                this.y = 0.25 * s;
+                this.z = (rot.get(2, 1) + rot.get(1, 2)) / s;
+            } else {
+                
+                var s = 2.0 * Math.sqrt(1.0 + rot.get(2, 2) - rot.get(0, 0) - rot.get(1, 1));
+
+                this.w = (rot.get(0, 1) - rot.get(1, 0)) / s;
+                this.x = (rot.get(2, 0) + rot.get(0, 2)) / s;
+                this.y = (rot.get(1, 2) + rot.get(2, 1)) / s;
                 this.z = 0.25 * s;
             }
         }
 
-        var length = this.length()
-        this.x /= length;
-        this.y /= length;
-        this.z /= length;
-        this.w /= length;
+        var length = Math.sqrt(
+            this.x * this.x + 
+            this.y * this.y + 
+            this.z * this.z + 
+            this.w * this.w);
+
+         this.x /= length;
+         this.y /= length;
+         this.z /= length;
+         this.w /= length;
     }
 
     quat_mul(q){
@@ -166,7 +175,7 @@ export class quaternion  {
         var sin_p = 2 * (this.w * this.y - this.z * this.x);
         var pitch = 0.0;
         if (Math.abs(sin_p) >= 1){
-            pitch = copy_sign(Math.PI / 2, sin_p); //use 90 degrees if out of range
+            pitch = math.copySign(Math.PI / 2, sin_p); //use 90 degrees if out of range
         } else {
             pitch = Math.asin(sin_p);
         }

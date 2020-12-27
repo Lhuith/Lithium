@@ -75,7 +75,7 @@ export class decomposer extends component {
     update = () => {
         //if(this.animate)
             //this.attribute_debug();
-            if(this.transform != null && this.transform.hasChanged()){  
+            if(this.transform != null){  
                 this.matrix = this.transform.get_transformation().to_three();
                 // have to tell the buffer/instance_geometry to update aswell
                 this.attributes_reference.set_transform(this.buffer_idx, this.matrix)

@@ -3,7 +3,7 @@ import { gameobject } from '/core/data/gameobject.js';
 import { quaternion } from '/core/math/quaternion.js';
 import { particle } from '/nomads/components/decomposer.js';
 import { get_meta } from '/core/data/antlion.js'
-import { math } from '/meta/helpers/utils.js'; 
+import { math, to } from '/meta/helpers/utils.js'; 
 
 var cycle_length = 24 * 3;
 var current_time = 0;
@@ -86,11 +86,12 @@ export const update = (delta) => {
     renderer.setClearColor(current_color.getHex(), 1 );
     //scene.fog.color = current_color;
         
-    step = (Math.PI*2) * (raw_sky_index/sky_colors.length)
-    
+    step = to.rad((raw_sky_index/sky_colors.length) % (Math.PI*36));
+    //console.log(step)
     if(sky != undefined) {
         sky.transform.rotation = new quaternion(null,null,null,null, 
-        new Vector3(1, 0, 0), ((step/250)));
+        new Vector3(1, 0, 0), ((step*6500)));
+        console.log(sky.transform.rotation)
     }
    
     // TODO: find a better formula for this later on :|
