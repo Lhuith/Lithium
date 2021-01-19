@@ -7,13 +7,22 @@ export class quaternion  {
     constructor(x, y, z, w, axis = null, angle = null, rot = null){
         if(axis != null && angle != null) {
             var sinHalfAngle = Math.sin(angle/2);
-            var cosHalfAngle = Math.cos(angle/2);
 
             this.x = axis.x * sinHalfAngle;
             this.y = axis.y * sinHalfAngle;
             this.z = axis.z * sinHalfAngle;
-            this.w = cosHalfAngle;
+            this.w = Math.cos(angle/2);
 
+            var length = Math.sqrt(
+                this.x * this.x + 
+                this.y * this.y + 
+                this.z * this.z + 
+                this.w * this.w);
+
+            this.x /= length;
+            this.y /= length;
+            this.z /= length;
+            this.w /= length;
         } else if (rot != null){
             this.matrix_constructor(rot);
         } else {
@@ -36,7 +45,6 @@ export class quaternion  {
         } else {
             
             if(rot.get(0,0) > rot.get(1, 1) && rot.get(0, 0) > rot.get(2, 2)){
-    
                 var s = 2.0 * Math.sqrt(1.0 + rot.get(0, 0) - rot.get(1, 1) - rot.get(2, 2));
 
                 this.w = (rot.get(1, 2) - rot.get(2, 1)) / s;
@@ -45,7 +53,6 @@ export class quaternion  {
                 this.z = (rot.get(2, 0) + rot.get(0, 2)) / s;
 
             } else if(rot.get(1, 1) > rot.get(2, 2)){
-                
                 var s = 2.0 * Math.sqrt(1.0 + rot.get(1, 1) - rot.get(0, 0) - rot.get(2,2));
 
                 this.w = (rot.get(2, 0) - rot.get(0, 2)) / s;
@@ -53,7 +60,6 @@ export class quaternion  {
                 this.y = 0.25 * s;
                 this.z = (rot.get(2, 1) + rot.get(1, 2)) / s;
             } else {
-                
                 var s = 2.0 * Math.sqrt(1.0 + rot.get(2, 2) - rot.get(0, 0) - rot.get(1, 1));
 
                 this.w = (rot.get(0, 1) - rot.get(1, 0)) / s;
@@ -77,11 +83,10 @@ export class quaternion  {
 
     quat_mul(q){
         if (q.type == "quaternion"){
-            var w = (this.w * r.w) - (this.x * r.x) - (this.y * r.y) - (this.z * r.z);
-            var x = (this.x * r.w) + (this.w * r.x) + (this.y * r.z) - (this.z * r.y);
-            var y = (this.y * r.w) + (this.w * r.y) + (this.z * r.x) - (this.x * r.z);
-            var z = (this.z * r.w) + (this.w * r.z) + (this.x * r.y) - (this.y * r.x);
-    
+            var w = (this.w * q.w) - (this.x * q.x) - (this.y * q.y) - (this.z * q.z);
+            var x = (this.x * q.w) + (this.w * q.x) + (this.y * q.z) - (this.z * q.y);
+            var y = (this.y * q.w) + (this.w * q.y) + (this.z * q.x) - (this.x * q.z);
+            var z = (this.z * q.w) + (this.w * q.z) + (this.x * q.y) - (this.y * q.x);
             return new quaternion(x, y, z, w);
         } else {
             console.error("q isn't of type quaternion")
@@ -100,19 +105,22 @@ export class quaternion  {
     
         return -1;
     }
+    scale_mul(r){
+		return new quaternion(this.x * r, this.y * r, this.z * r, this.w * r);
+	}
     to_rotation_matrix(){
         var forward = new Vector3(
-            2.0 - 0.0 * (this.x * this.z - this.w * this.y),
-            2.0 - 0.0 * (this.y * this.z + this.w * this.x),
+            2.0 * (this.x * this.z - this.w * this.y),
+            2.0 * (this.y * this.z + this.w * this.x),
             1.0 - 2.0 * (this.x * this.x + this.y * this.y));
         var up = new Vector3(
-            2.0 - 0.0 * (this.x * this.y + this.w * this.z),
+            2.0 * (this.x * this.y + this.w * this.z),
             1.0 - 2.0 * (this.x * this.x + this.z * this.z),
-            2.0 - 0.0 * (this.y * this.z - this.w * this.x));
+            2.0 * (this.y * this.z - this.w * this.x));
         var right = new Vector3(
             1.0 - 2.0 * (this.y * this.y + this.z * this.z),
-            2.0 - 0.0 * (this.x * this.y - this.w * this.z),
-            2.0 - 0.0 * (this.x * this.z + this.w * this.y));
+            2.0 * (this.x * this.y - this.w * this.z),
+            2.0 * (this.x * this.z + this.w * this.y));
         return new matrix().rotation(forward, up, right);;
     }
     /**
@@ -126,7 +134,7 @@ export class quaternion  {
         if (s && this.dot(d) < 0){
             corrected_dest = new quaternion(-d.x, -d.y, -d.z, -d.w);
         }
-        return corrected_dest.sub(this).s_mul(l).add(this).normalized();
+        return corrected_dest.sub(this).scale_mul(l).add(this).normalize();
     }
      /**
      * 
@@ -137,11 +145,13 @@ export class quaternion  {
     slerp(d, l, s){
         var cos = this.dot(d);
         var corrected_dest = d.clone();
+        
         if(s && cos < 0){
             cos = -cos;
             corrected_dest = new quaternion(-d.x, -d.y, -d.z, -d.w);
         }
-        if(Math.abs(cos) >= 1 - Math.Const.EPSILON){
+        
+        if(Math.abs(cos) >= 1 - math.EPSILON) {
             return this.nlerp(corrected_dest, l, false);
         }
 
@@ -152,12 +162,11 @@ export class quaternion  {
         var src_factor = Math.sin((1.0 - l) * angle) * inv_sin;
         var dest_factor = Math.sin((l) * angle) * inv_sin;
 
-        var new_rot = this.clone();
-        return new_rot.s_mul(src_factor).add(corrected_dest).s_mul(dest_factor);
+        return this.scale_mul(src_factor).add(corrected_dest).scale_mul(dest_factor).normalize();
     }
-
     normalize() {
         var length = this.length();
+
         return new quaternion(
             this.x/length, 
             this.y/length,
@@ -168,14 +177,16 @@ export class quaternion  {
     //https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
     to_euler(){
         //roll x axis rotation
-        var sinr_cosp = 2 - 0 * (this.w * this.x + this.y * this.z);
+        var sinr_cosp = 2 * (this.w * this.x + this.y * this.z);
         var cosr_cosp = 1 - 2 * (this.x * this.x + this.y * this.y);
+        var roll = Math.atan2(sinr_cosp, cosr_cosp)
 
         //pitch y axis rotation
         var sin_p = 2 * (this.w * this.y - this.z * this.x);
         var pitch = 0.0;
+       
         if (Math.abs(sin_p) >= 1){
-            pitch = math.copySign(Math.PI / 2, sin_p); //use 90 degrees if out of range
+            pitch = math.copy_sign(Math.PI / 2, sin_p); //use 90 degrees if out of range
         } else {
             pitch = Math.asin(sin_p);
         }
@@ -183,12 +194,13 @@ export class quaternion  {
         //yaw z axis rotation
         var siny_cosp = 2 * (this.w * this.z + this.x * this.y);
         var cosy_cosp = 1 - 2 * (this.y * this.y + this.z * this.z);
+        var yaw = Math.atan2(siny_cosp, cosy_cosp)
         
         //roll, pitch, yaw
         return new Vector3( 
-            Math.atan2(sinr_cosp, cosr_cosp), 
-            pitch,
-            Math.atan2(siny_cosp, cosy_cosp));
+            to.dag(roll), 
+            to.dag(pitch),
+            to.dag(yaw));
     }
     length() {
         return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w);
@@ -220,30 +232,27 @@ export class quaternion  {
     clone(){
         return new quaternion(this.x, this.y, this.z, this.w);
     }
+    rotate(vec){
+        var w = this.vec_mul(vec).quat_mul(this.conjugate());
+        return new Vector3(w.x, w.y, w.z);
+    }
     get_forward(){
-        return new Vector3(0, 0, +1).rotate(this);
+        return this.rotate(new Vector3(0, 0, +1));
     }
     get_back(){
-        return new Vector3(0, 0, -1).rotate(this);
+        return this.rotate(new Vector3(0, 0, -1));
     }
     get_up(){
-        return new Vector3(0, +1, 0).rotate(this);
+        return this.rotate(new Vector3(0, +1, 0));
     }
     get_down(){
-        return new Vector3(0, -1, 0).rotate(this);
+        return this.rotate(new Vector3(0, -1, 0));
     }
     get_right(){
-        return new Vector3(+1, 0, 0).rotate(this);
+        return this.rotate(new Vector3(+1, 0, 0));
     }
     get_left(){
-        return new Vector3(-1, 0, 0).rotate(this);
-    }
-    to_rad(){
-        return new quaternion(
-        to.rad(this.x),
-        to.rad(this.y),
-        to.rad(this.z),
-        to.rad(this.w));
+        return this.rotate(new Vector3(-1, 0, 0));
     }
     to_three(){
         return new Quaternion(

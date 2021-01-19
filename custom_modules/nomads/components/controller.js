@@ -49,7 +49,7 @@ export class controller extends component {
             new Vector3(
                 this.transform.position.x,
                 this.transform.position.y,
-                this.transform.position.z + 1
+                this.transform.position.z + 4
         ));
 
         if (this.controls.getObject().position.y == 0.0 ) {

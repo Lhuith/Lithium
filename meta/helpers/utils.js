@@ -49,16 +49,14 @@ export const to = {
     dag : (r) => {return r * (180.0/Math.PI)},
 }
 export const math = {
-    Const : {
-        EPSILON : 1e-8,
-    },
+    EPSILON : 1e-8,
     normalize : (mn, mx, v) => {return (v - mn)/(mx-mn)},
     clamp : (mn, mx, v) => {return Math.min(Math.max(v, mn), mx)},
     inRange : (mn, mx, v) => {return v >= Math.min(mn, mx) && v <= Math.max(mn,mx)},
     frac : (f) => {return f % 1;},
     randomRange : (mn, mx) => {return mn + Math.random() * (mx - mn)},
     roundedRandomRange : (mn, mx) => {return Math.round(math.randomRange(mn,mx))},
-    copySign : (a,b) => {return b < 0 ? -Math.abs(a) : Math.abs(a)},
+    copy_sign : (a,b) => {return b < 0 ? -Math.abs(a) : Math.abs(a)},
 
     seededRandom : class {
         constructor(seed){

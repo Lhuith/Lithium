@@ -30,14 +30,15 @@ export class transform  {
         
         return false;
     }
+    //var r = new matrix().rotation(to.dag(rotation.x), to.dag(rotation.y), to.dag(rotation.z));
     get_transformation(){
-        var rotation = this.rotation.conjugate();
+        var rotation = this.rotation.conjugate().to_euler();
+        
         var t = new matrix().translation(this.position.x, this.position.y, this.position.z);
-        var r = new matrix().rotation(rotation.x, rotation.y, rotation.z);
+        var r = new matrix().rotation(to.rad(rotation.x),to.rad(rotation.y),to.rad(rotation.z));
         var s = new matrix().scale(this.scale.x, this.scale.y, this.scale.z);
-        var p = this.get_parent_matrix();
-    
-        return p.mul(t.mul(r.mul(s)));
+
+        return this.get_parent_matrix().mul(t.mul(r.mul(s)));
     }
     get_inverse_transformation(){
         var t = new matrix().translation(-this.position.x, -this.position.y, -this.position.z);
@@ -84,13 +85,14 @@ export class transform  {
     
         this.rotation = q;
     }
-    get_look_direction(p, up, debug = false){
-        var dir = p.clone().sub(this.position).normalize();
-        var m = new matrix().rotation_fu(dir, up);
-        return new quaternion(0, 0, 0, 1, null, null, m, debug);
+    get_look_direction(p, up){
+        return new quaternion(
+            null, null, null, null, null, null, 
+            new matrix().rotation_fu(p.clone().sub(this.position).normalize(), up));
     }
+    //! not working as intended!
     look_at(p, up){
-        this.rotation = this.get_look_direction(p, up);
+        //this.rotation = this.get_look_direction(p, up);
     }
     get_transformed_position(){
         return this.get_parent_matrix().transform(this.position);
@@ -118,6 +120,9 @@ export class transform  {
     set_position(p){
         this.position = p;
     }
+    set_rot(r) {
+		this.rotation = r;
+	}
     clone() {
         var new_transform = new transform(
             this.position.clone(),

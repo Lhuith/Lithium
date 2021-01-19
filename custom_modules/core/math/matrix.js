@@ -70,18 +70,18 @@ export class matrix  {
         var r = right.clone();
         var u = up.clone();
     
-        this.m[0][0] = r.x; this.m[0][1] = r.y; this.m[0][2] = r.z; this.m[0][3] = 0;
-        this.m[1][0] = u.x; this.m[1][1] = u.y; this.m[1][2] = u.z; this.m[1][3] = 0;
-        this.m[2][0] = f.x; this.m[2][1] = f.y; this.m[2][2] = f.z; this.m[2][3] = 0;
-        this.m[3][0] = 0;   this.m[3][1] = 0;   this.m[3][2] = 0;   this.m[3][3] = 1;
+        this.m[0][0] = (r.x); this.m[0][1] = (r.y); this.m[0][2] = (r.z); this.m[0][3] = 0;
+        this.m[1][0] = (u.x); this.m[1][1] = (u.y); this.m[1][2] = (u.z); this.m[1][3] = 0;
+        this.m[2][0] = (f.x); this.m[2][1] = (f.y); this.m[2][2] = (f.z); this.m[2][3] = 0;
+        this.m[3][0] = 0;   this.m[3][1] = 0;   this.m[3][2] = 0;   this.m[3][3] =  (1);
 
         return this;
     }
     rotation_fu(forward, up){
-        var f = forward.normalize();
-        var r = up.normalize();
-        r = r.clone().cross(f);
-        var u = f.clone().cross(r);
+        var f = forward.clone().normalize();
+        var r_clone = up.clone().normalize();
+        var r = r_clone.cross(f)
+        var u = forward.clone().cross(r);
         return this.rotation_fur(f, u, r);
     }
     transform(v){

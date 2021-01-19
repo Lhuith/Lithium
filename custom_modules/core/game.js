@@ -13,6 +13,8 @@ import { controller } from '/nomads/components/controller.js';
 
 import * as sky from '/nomads/systems/sky.js'
 
+import * as THREE from '/build/three.module.js';
+
 export class game {
     constructor(n){
         this.name = n
@@ -20,7 +22,12 @@ export class game {
         this.somthing = 0;
     }
     init(data, three){
+
+        this.arrow_helper = new THREE.ArrowHelper()
+
+
         this.three = three;
+        three.scene.add(this.arrow_helper)
         console.log("%c"+this.name+" Initialized", "color:#FFE532");
     
         this.show_data = false;
@@ -53,11 +60,11 @@ export class game {
             new animation("dead_end", 6, 1)], 2, false)]));
 
         var npc = new gameobject("steve", 
-        new Vector3(2,0.5,0), 
+        new Vector3(0,0.5,0), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1, null, null, null))
 
-        npc.add_component(solid(get_meta().lithy));
+        npc.add_component(solid(get_meta().default));
 
         npc.add_component( new animator([
                 new animation_sequence("idle", [new animation("idle", 0, 4)], 8, true),
@@ -71,18 +78,19 @@ export class game {
             new Vector3(0, 0, 0), new Vector3(0, 1, 0))
     }
     update(delta){
-        this.somthing += 0.01
-        this.time += delta;
-        this.objects[0].transform.rotation.y += 0.1;
-
-        this.objects[1].transform.look_at(
-            this.three.camera.position, new Vector3(0, 1, 0))
-
-        //console.log(this.objects[1].transform.rotation)
         for (let o of this.objects){    
             o.update(delta);
         }
-        
+        this.time += delta;
+        //this.objects[0].transform.rotation.y += 0.1;
+        var newRot = this.objects[1].transform.get_look_direction(
+            this.objects[0].transform.position, new Vector3(0,1,0))
+
+        this.arrow_helper.position.copy(this.objects[1].transform.position);
+
+        this.objects[1].transform.rotation = this.objects[1].transform.rotation.slerp(newRot, delta * 5, true);
+        this.arrow_helper.setDirection(newRot.get_forward())
+
         sky.update(delta);
     }
     get_time(){

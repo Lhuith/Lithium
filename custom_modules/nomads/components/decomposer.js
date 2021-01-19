@@ -17,7 +17,6 @@ export const solid = (meta, pass_transform) => {
 export const particle = (meta, pass_transform) => {
     return new decomposer(meta, PARTICLE, pass_transform)
 } 
-
 export class decomposer extends component {
     type = "decomposer"
     required = ["transform"]

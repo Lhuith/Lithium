@@ -84,14 +84,13 @@ export const update = (delta) => {
         sky_colors[(sky_index + 1) % sky_colors.length], sky_lerp_index);
     
     renderer.setClearColor(current_color.getHex(), 1 );
-    //scene.fog.color = current_color;
         
-    step = to.rad((raw_sky_index/sky_colors.length) % (Math.PI*36));
-    //console.log(step)
+    step = Math.PI/2 * raw_sky_index;//(Math.PI*2)*(raw_sky_index/sky_colors.length);
+    
     if(sky != undefined) {
         sky.transform.rotation = new quaternion(null,null,null,null, 
-        new Vector3(1, 0, 0), ((step*6500)));
-        console.log(sky.transform.rotation)
+        new Vector3(1, 0, 0), ((step)));
+        //console.log(step)
     }
    
     // TODO: find a better formula for this later on :|
