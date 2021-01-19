@@ -60,7 +60,7 @@ export class controller extends component {
     set_transform(t){
         this.transform = t;
     }
-    set_requirment(r){
+    set_requirement(r){
         if(r.type == "transform"){
             this.set_transform(r);
         }

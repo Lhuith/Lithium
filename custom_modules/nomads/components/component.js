@@ -14,7 +14,7 @@ export class component {
     set_parent(p){
         this.parent = p;
     }
-    set_requirment(r){
+    set_requirement(r){
         console.warn("default component requirment set.")
     }
 }

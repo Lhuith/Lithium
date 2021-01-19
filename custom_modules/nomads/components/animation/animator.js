@@ -10,7 +10,7 @@ export class animator extends component {
         this.current_animation = this.animations_sequences[0].current_animation;
         this.current_index = 0;
     }
-    get_current_animation = (name) => {
+    get_current_animation(name){
         for(var i = 0; i < this.animations_sequences.length; i++){
             if(this.animations_sequences[i].name == name){
                 this.current_animation = this.animations_sequences[i];
@@ -19,11 +19,11 @@ export class animator extends component {
         }
         console.error("no animation of that name exists");
     }
-    get_current_index = () => {
+    get_current_index(){
         return this.current_index;
     }
     //TODO update this!
-    set_animation_sequence = (i) => {
+    set_animation_sequence(i){
         if(i > this.animations_sequences.length) {
             console.error(
                 "exceeded animations length, max is: ", 
@@ -39,7 +39,7 @@ export class animator extends component {
             this.current_sequence.time_stamp(game_time);
         }
     }
-    update = (delta) => {
+    update(delta){
         this.current_sequence.update(delta);
         this.current_animation = this.current_sequence.current_animation;
         this.decomposer.set_animation(
@@ -47,7 +47,7 @@ export class animator extends component {
             this.current_animation.length, 
             this.current_sequence.current_frame);
      }
-     set_requirment = function(r){
+     set_requirement(r){
         if(r.type == "decomposer"){
             this.decomposer = r;
             this.decomposer.update_buffer_animation(this);

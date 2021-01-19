@@ -63,11 +63,11 @@ export class gameobject {
     // set required components/objects such as transforms
     set_required(c){
         if (c.required == "transform"){
-            c.set_requirment(this.transform)
+            c.set_requirement(this.transform)
         } else if (c.required == "decomposer"){
             var decomp = this.get_component("decomposer")
             if (decomp != null && decomp != undefined) {
-                c.set_requirment(decomp)
+                c.set_requirement(decomp)
             }
         }
     }

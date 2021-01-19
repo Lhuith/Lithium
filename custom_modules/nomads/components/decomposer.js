@@ -153,7 +153,7 @@ export class decomposer extends component {
     set_usefog = (b) => {s
         this.usefog = b;
     }
-    set_requirment(r){
+    set_requirement(r){
         if(r.type == "transform"){
             this.set_transform(r);
         }
