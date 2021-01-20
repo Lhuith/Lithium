@@ -95,14 +95,13 @@ export class quaternion  {
     }
     vec_mul(v) {
         if(v instanceof Vector3){
-            var _w = (-this.x * v.x) - (this.y * v.y) - (this.z * v.z);
-            var _x = ( this.w * v.x) + (this.y * v.z) - (this.z * v.y);
-            var _y = ( this.w * v.y) + (this.z * v.x) - (this.x * v.z);
-            var _z = ( this.w * v.z) + (this.x * v.y) - (this.y * v.x);
+            var w = (-this.x * v.x) - (this.y * v.y) - (this.z * v.z);
+            var x = ( this.w * v.x) + (this.y * v.z) - (this.z * v.y);
+            var y = ( this.w * v.y) + (this.z * v.x) - (this.x * v.z);
+            var z = ( this.w * v.z) + (this.x * v.y) - (this.y * v.x);
     
-            return new quaternion(_x, _y, _z, _w);
+            return new quaternion(x, y, z, w);
         }
-    
         return -1;
     }
     scale_mul(r){
@@ -199,7 +198,7 @@ export class quaternion  {
         //roll, pitch, yaw
         return new Vector3( 
             to.dag(roll), 
-            to.dag(pitch),
+            to.dag(pitch * -1),
             to.dag(yaw));
     }
     length() {

@@ -33,13 +33,11 @@ export class game {
                 console.log("%c -"+page.name, "color:#1C8D43")
             }
         }
-
         //! ---------- INIT ----------
             keyboard.init()
             physics.init()
             sky.init(three.renderer)
         //! ---------- INIT ----------
-
         var object = new gameobject(
             "denis", 
             new Vector3(0,0.5,0), 
@@ -59,9 +57,9 @@ export class game {
         new quaternion(0,0,0,1, null, null, null))
 
         npc.add_component(solid(get_meta().default))
-        npc.add_component(new look_at(object.transform.position))
+        npc.add_component(new look_at(three, three.camera.position))
 
-        npc.add_component( new animator([
+        npc.add_component(new animator([
                 new animation_sequence("idle", [new animation("idle", 0, 4)], 8, true),
                 new animation_sequence("wave", [new animation("wave", 4, 2)], 8, true)]))
         object.add_component(new controller(three))

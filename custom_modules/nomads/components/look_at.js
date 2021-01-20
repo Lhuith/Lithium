@@ -7,13 +7,14 @@ export class look_at extends component {
     required = ["transform"];
     
     //!add error checks 
-    constructor(t){
+    constructor(three, t){
         super()
         this.target = t
-        this.arrow = new ArrowHelper()
-        //  three.scene.add(this.arrow_helper)
+        this.arrow_helper = new ArrowHelper()
+        three.scene.add(this.arrow_helper)
     }
     update(delta){
+        this.arrow_helper.setDirection(this.parent.transform.rotation.get_forward())
         // look at function 
         this.parent.transform.rotation = this.parent.transform.rotation.slerp(
             this.parent.transform.get_look_direction(this.target, new Vector3(0,1,0)), delta * 2, true);
