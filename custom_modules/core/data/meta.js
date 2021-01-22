@@ -145,6 +145,25 @@ export const meta = {
             "colors" : ["0x815B40"],
             "map_key" : "structures",
             "tile_size" : {"x":1, "y":1}
+        },
+        "gazebo_pole" : {
+            "mapping" : [{"x":4, "y":4}],
+            "frames" :  {"x":0, "y":0},
+            "colors" : ["0xF2C594"],
+            "map_key" : "structures",
+            "tile_size" : {"x":1, "y":1}
+        },
+        "gazebo_roof" : {
+            "mapping" : [{"x":1, "y":0}],
+            "frames" :  {"x":0, "y":0},
+            "colors" : ["0xF2C594"],
+            "map_key" : "structures",
+            "tile_size" : {"x":2, "y":2},
+            "transform" : {
+                "position" : {"x":0, "y":0, "z":0},
+                "orient" : {"x":0, "y":0, "z":0, "w":1},
+                "scale" : {"x":1, "y":1, "z":1}
+            },
         }
     },
 }
