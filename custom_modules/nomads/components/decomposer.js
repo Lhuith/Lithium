@@ -4,10 +4,8 @@ import { SPRITE, SOLID, PARTICLE } from '/nomads/globals.js';
 import { get_meta, get_renderers } from '/core/data/antlion.js';
 import { misc, col } from '/meta/helpers/utils.js';
 import { quaternion } from '/core/math/quaternion.js';
+import { transform } from '/core/math/transform.js';
 
-export const pass_transforms = (o) => {
-    this.orient = o;
-}
 export const sprite = (meta, pass_transform) => {
     return new decomposer(meta, SPRITE, pass_transform)
 }
@@ -21,7 +19,7 @@ export class decomposer extends component {
     type = "decomposer"
     required = ["transform"]
 
-    constructor(meta, type, pass_transform) {
+    constructor(meta, type, transform_override) {
         super();
         if(meta == undefined){ 
             meta = get_meta().default
@@ -51,16 +49,34 @@ export class decomposer extends component {
         this.colors = col.arrayHexToThreeColor(meta.colors);
         this.render_type = type || 0;
         this.attributes_reference = renderer.attributes;
-    
-        this.orient;
+        
+
+        this.orient = new Vector4(0,0,0,1);
         this.scale = new Vector3(1,1,1);
         
-        if(pass_transform == null){
-            this.orient = new Vector4(
-                meta.transform.orient.x, meta.transform.orient.y, 
-                meta.transform.orient.z, meta.transform.orient.w);
+        // transform override refer's to the inner transform
+        // of the sprite, not the game object itself
+        if (transform_override != null) {
+            this.inner_transform = transform_override;
+        } else if (meta.transform != null) {
+            this.inner_transform = new transform (
+                new Vector3(
+                    meta.transform.position.x, 
+                    meta.transform.position.y, 
+                    meta.transform.position.z), 
+                new Vector3(
+                    meta.transform.scale.x, 
+                    meta.transform.scale.y,
+                    meta.transform.scale.z), 
+                new quaternion(meta.transform.orient.x, meta.transform.orient.y, 
+                    meta.transform.orient.z, meta.transform.orient.w, null, null, null)
+            );
         } else {
-            this.orient = pass_transform.orient.clone();
+            this.inner_transform = new transform (
+                new Vector3(0,0,0), 
+                new Vector3(1,1,1), 
+                new quaternion(0, 0, 0, 1, null, null, null)
+            );
         }
         
         this.parent = null; //for gameobject
@@ -75,10 +91,10 @@ export class decomposer extends component {
         //if(this.animate)
             //this.attribute_debug();
             if(this.transform != null){  
-                this.matrix = this.transform.get_transformation().to_three();
+                this.matrix = this.inner_transform.get_transformation().to_three();
                 // have to tell the buffer/instance_geometry to update aswell
                 this.attributes_reference.set_transform(this.buffer_idx, this.matrix)
-                this.attributes_reference.set_orientation(this.buffer_idx, new quaternion(0,0,0,1).to_three());
+                //this.attributes_reference.set_orientation(this.buffer_idx, new quaternion(0,0,0,1).to_three());
             }
     }
     update_buffer_animation = (animation) => {
@@ -119,10 +135,10 @@ export class decomposer extends component {
     }
     set_transform = (t) => {
         this.transform = t;
-    
+        this.inner_transform.parent = t;
         // this is why we need to split up the instance shader :|
-        this.scale = this.transform.scale;
-        this.matrix = t.get_transformation().to_three();
+        //this.scale = this.transform.scale;
+        this.matrix = this.inner_transform.get_transformation().to_three();
     
         // append to the buffer after all fields are set
         if(!this.skip_occlusion) {

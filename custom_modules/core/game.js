@@ -10,7 +10,7 @@ import { animation_sequence } from '/nomads/components/animation/animation_seque
 import { animation } from '/nomads/components/animation/animation.js'
 
 import { controller } from '/nomads/components/controller.js'
-
+import { gazebo } from '/nomads/tests/gazebo.js'
 import * as sky from '/nomads/systems/sky.js'
 import { look_at } from '/nomads/components/look_at.js'
 
@@ -52,12 +52,12 @@ export class game {
             new animation("dead_end", 6, 1)], 2, false)]))
 
         var npc = new gameobject("steve", 
-        new Vector3(0,0.5,0), 
+        new Vector3(3,0.5,0), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1, null, null, null))
 
-        npc.add_component(solid(get_meta().default))
-        npc.add_component(new look_at(three, three.camera.position))
+        npc.add_component(sprite(get_meta().lithy))
+        //npc.add_component(new look_at(three, three.camera.position))
 
         npc.add_component(new animator([
                 new animation_sequence("idle", [new animation("idle", 0, 4)], 8, true),
@@ -69,6 +69,8 @@ export class game {
 
         this.objects[1].transform.look_at(
             new Vector3(0, 0, 0), new Vector3(0, 1, 0))
+
+        gazebo(this.objects)
     }
     update(delta){
         this.time += delta

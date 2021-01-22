@@ -4,33 +4,18 @@ export const meta = {
         "mapping" : [{"x":1, "y":0}],
         "colors" : ["0xFF00FF"],
         "frames" : [],
-        "transform" : {
-            "position" : {"x":0, "y":0, "z":0},
-            "orient" : {"x":0, "y":0, "z":0, "w":1},
-            "scale" : {"x":1, "y":1, "z":1}
-        },
         "map_key" : "debug"
     },
     "crab" : {
         "mapping" : [{"x":0, "y":0}],
         "colors" : ["0xF8665E"],
         "frames" : [],
-        "transform" : {
-            "position" : {"x":0, "y":0, "z":0},
-            "orient" : {"x":0, "y":0, "z":0, "w":1},
-            "scale" : {"x":1, "y":1, "z":1}
-        },
         "map_key" : "critters"
     },
     "lithy" : {
         "mapping" : [{"x":0, "y":0}],
         "frames" :  {"x":0, "y":0},
         "colors" : ["0xffffff"],
-        "transform" : {
-            "position" : {"x":0, "y":0, "z":0},
-            "orient" : {"x":0, "y":0, "z":0, "w":1},
-            "scale" : {"x":1, "y":1, "z":1}
-        },
         "map_key" : "lithies"
     },
     "tree_01" : {
@@ -103,11 +88,6 @@ export const meta = {
         "mapping" : [{"x":0, "y":1}],
         "frames" :  {"x":1, "y":1},
         "colors" : ["0xFFD27D"],
-        "transform" : {
-            "position" : {"x":0, "y":0, "z":0},
-            "orient" : {"x":0, "y":0, "z":0, "w":1},
-            "scale" : {"x":1, "y":1, "z":1}
-        },
         "map_key" : "sky",
         "tile_size" : {"x":1, "y":1},
         "skip_occlusion" : true
@@ -116,11 +96,6 @@ export const meta = {
         "mapping" : [{"x":0, "y":2}],
         "frames" :  {"x":1, "y":1},
         "colors" : ["0xFFFFFF"],
-        "transform" : {
-            "position" : {"x":0, "y":0, "z":0},
-            "orient" : {"x":0, "y":0, "z":0, "w":1},
-            "scale" : {"x":1, "y":1, "z":1}
-        },
         "map_key" : "sky",
         "tile_size" : {"x":1, "y":1},
         "skip_occlusion" : true
@@ -129,13 +104,46 @@ export const meta = {
         "mapping" : [{"x":0, "y":0}],
         "frames" :  {"x":1, "y":1},
         "colors" : ["0xFFFFFF", "0xFFEDB4", "0xFFB8EA", "0xB9CEFB", "0xDFAEFF"],
-        "transform" : {
-            "position" : {"x":0, "y":100, "z":0},
-            "orient" : {"x":0, "y":0, "z":0, "w":1},
-            "scale" : {"x":1, "y":1, "z":1}
-        },
         "map_key" : "sky",
         "tile_size" : {"x":1, "y":1},
         "skip_occlusion" : true
-    }
+    },
+    "gazebo" : {
+        "gazebo_side" : {
+            "mapping" : [{"x":0, "y":4}],
+            "frames" :  {"x":0, "y":0},
+            "colors" : ["0x815B40"],
+            "map_key" : "structures",
+            "tile_size" : {"x":1, "y":1}
+        },
+        "gazebo_side_intersect" : {
+            "mapping" : [{"x":1, "y":4}],
+            "frames" :  {"x":0, "y":0},
+            "colors" : ["0x815B40"],
+            "map_key" : "structures",
+            "tile_size" : {"x":1, "y":1}
+        },
+        "gazebo_front" : {
+            "mapping" : [{"x":2, "y":4}],
+            "frames" :  {"x":0, "y":0},
+            "colors" : ["0x815B40"],
+            "map_key" : "structures",
+            "tile_size" : {"x":1, "y":1}
+        },
+        "gazebo_top" : {
+            "mapping" : [{"x":3, "y":4}],
+            "frames" :  {"x":0, "y":0},
+            "colors" : ["0x815B40"],
+            "map_key" : "structures",
+            "tile_size" : {"x":1, "y":1}
+        }
+    },
 }
+
+/*
+                "transform" : {
+                "position" : {"x":0, "y":0, "z":0},
+                "orient" : {"x":0, "y":0, "z":0, "w":1},
+                "scale" : {"x":1, "y":1, "z":1}
+            },
+*/
