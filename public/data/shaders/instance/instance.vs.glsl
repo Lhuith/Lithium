@@ -103,7 +103,6 @@
 			mat4 view_matrix_transpose = transpose(viewMatrix);
 			mat4 S2 = view_matrix_transpose * viewMatrix;	
 
-			
 			//viewdirection
 			posWorld = transform_matrix * vec4((vec3(0,0,0)),1.0);
 			viewDirection = normalize((posWorld.xz - cameraPosition.xz));	

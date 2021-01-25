@@ -108,7 +108,7 @@ export class quaternion  {
             1.0 - 2.0 * (this.y * this.y + this.z * this.z),
             2.0 * (this.x * this.y - this.w * this.z),
             2.0 * (this.x * this.z + this.w * this.y));
-        return new matrix().rotation(forward, up, right);;
+        return new matrix().rotation_fur(forward, up, right);
     }
     /**
      * 
@@ -191,6 +191,7 @@ export class quaternion  {
         //    to.dag(yaw));
 
         var q = this;
+        // 
         return this.three_axis_rot (
             2*(q.x*q.z + q.w*q.y),
             q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z, -2*(q.y*q.z - q.w*q.x),

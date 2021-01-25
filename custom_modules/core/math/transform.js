@@ -33,9 +33,10 @@ export class transform  {
     
     get_transformation(){
         var rotation = this.rotation.to_euler();
-        
+        ////new matrix().rotation(to.rad(rotation.x),to.rad(rotation.y),to.rad(rotation.z));
+        // rot.toRotationMatrix();
         var t = new matrix().translation(this.position.x, this.position.y, this.position.z);
-        var r = new matrix().rotation(to.rad(rotation.x),to.rad(rotation.y),to.rad(rotation.z));
+        var r = this.rotation.to_rotation_matrix();
         var s = new matrix().scale(this.scale.x, this.scale.y, this.scale.z);
 
         return this.get_parent_matrix().mul(t.mul(r.mul(s)));

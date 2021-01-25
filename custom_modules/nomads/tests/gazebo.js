@@ -90,13 +90,13 @@ const roof = (list, position, scale, rot) => {
     ))
     roof_obj.add_component(solid(get_meta().gazebo.gazebo_roof, 
     new transform(
-        new Vector3(spread,0,0), 
+        new Vector3(-spread,0,0), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(45, 90, 0)))
     ))
     roof_obj.add_component(solid(get_meta().gazebo.gazebo_roof, 
     new transform(
-        new Vector3(-spread,0,0), 
+        new Vector3(spread,0,0), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(-45, 90, 0)))
     ))
