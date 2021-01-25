@@ -7,22 +7,10 @@ export class quaternion  {
     constructor(x, y, z, w, axis = null, angle = null, rot = null){
         if(axis != null && angle != null) {
             var sinHalfAngle = Math.sin(angle/2);
-
             this.x = axis.x * sinHalfAngle;
             this.y = axis.y * sinHalfAngle;
             this.z = axis.z * sinHalfAngle;
             this.w = Math.cos(angle/2);
-
-            var length = Math.sqrt(
-                this.x * this.x + 
-                this.y * this.y + 
-                this.z * this.z + 
-                this.w * this.w);
-
-            this.x /= length;
-            this.y /= length;
-            this.z /= length;
-            this.w /= length;
         } else if (rot != null){
             this.matrix_constructor(rot);
         } else {
@@ -83,10 +71,10 @@ export class quaternion  {
 
     quat_mul(q){
         if (q.type == "quaternion"){
-            var w = (this.w * q.w) - (this.x * q.x) - (this.y * q.y) - (this.z * q.z);
-            var x = (this.x * q.w) + (this.w * q.x) + (this.y * q.z) - (this.z * q.y);
-            var y = (this.y * q.w) + (this.w * q.y) + (this.z * q.x) - (this.x * q.z);
-            var z = (this.z * q.w) + (this.w * q.z) + (this.x * q.y) - (this.y * q.x);
+            var w = this.w * q.w - this.x * q.x - this.y * q.y - this.z * q.z;
+            var x = this.x * q.w + this.w * q.x + this.y * q.z - this.z * q.y;
+            var y = this.y * q.w + this.w * q.y + this.z * q.x - this.x * q.z;
+            var z = this.z * q.w + this.w * q.z + this.x * q.y - this.y * q.x;
             return new quaternion(x, y, z, w);
         } else {
             console.error("q isn't of type quaternion")
@@ -173,33 +161,42 @@ export class quaternion  {
             this.w/length
         );
     }
-    //https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
-    to_euler(){
-        //roll x axis rotation
-        var sinr_cosp = 2 * (this.w * this.x + this.y * this.z);
-        var cosr_cosp = 1 - 2 * (this.x * this.x + this.y * this.y);
-        var roll = Math.atan2(sinr_cosp, cosr_cosp)
+    // http://bediyap.com/programming/convert-quaternion-to-euler-rotations/
+    three_axis_rot(r11, r12, r21, r31, r32){
+        return new Vector3(
+            to.dag(Math.asin ( r21 )),
+            to.dag(Math.atan2( r11, r12)),
+            to.dag(Math.atan2( r31, r32 )))
+    }
+    // https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
+    to_euler(debug){
+        if(debug) {console.log(this,  to.dag(this.x))}
+        //var t0 = +2.0 * (this.w * this.x + this.y * this.z)
+        //var t1 = +1.0 - 2.0 * (this.x * this.x + this.y * this.y)
+        //var roll = Math.atan2(t0, t1);
+//
+        //var t2 = +2.0 * (this.w * this.y - this.z * this.x);
+        //if(t2 > +1.0) {t2 = +1.0}
+        //if(t2 < -1.0) {t2 = -1.0}
+        //var pitch = Math.asin(t2);
+//
+        //var t3 = +2.0 * (this.w * this.z + this.x * this.y);
+        //var t4 = +1.0 - 2.0 * (this.y * this.y + this.z * this.z)
+        //var yaw = Math.atan2(t3, t4);
+//
+        ////roll, pitch, yaw
+        //return new Vector3( 
+        //    to.dag(roll), 
+        //    to.dag(pitch),
+        //    to.dag(yaw));
 
-        //pitch y axis rotation
-        var sin_p = 2 * (this.w * this.y - this.z * this.x);
-        var pitch = 0.0;
-       
-        if (Math.abs(sin_p) >= 1){
-            pitch = math.copy_sign(Math.PI / 2, sin_p); //use 90 degrees if out of range
-        } else {
-            pitch = Math.asin(sin_p);
-        }
-
-        //yaw z axis rotation
-        var siny_cosp = 2 * (this.w * this.z + this.x * this.y);
-        var cosy_cosp = 1 - 2 * (this.y * this.y + this.z * this.z);
-        var yaw = Math.atan2(siny_cosp, cosy_cosp)
-        
-        //roll, pitch, yaw
-        return new Vector3( 
-            to.dag(roll), 
-            to.dag(pitch * -1),
-            to.dag(yaw));
+        var q = this;
+        return this.three_axis_rot (
+            2*(q.x*q.z + q.w*q.y),
+            q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z, -2*(q.y*q.z - q.w*q.x),
+            2*(q.x*q.y + q.w*q.z),
+            q.w*q.w - q.x*q.x + q.y*q.y - q.z*q.z
+        )
     }
     length() {
         return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w);
@@ -255,11 +252,26 @@ export class quaternion  {
     }
     to_three(){
         return new Quaternion(
-            to.rad(this.x), 
-            to.rad(this.y), 
-            to.rad(this.z), 
-            to.rad(this.w));
+           this.x, 
+           this.y, 
+           this.z, 
+           this.w);
     }
-
+   
+    eulerToQuaternion(e) {
+        var cp = Math.cos(to.rad(e.y) * 0.5);
+        var sp = Math.sin(to.rad(e.y) * 0.5);
+        var cr = Math.cos(to.rad(e.x) * 0.5);
+        var sr = Math.sin(to.rad(e.x) * 0.5);
+        var cy = Math.cos(to.rad(e.z) * 0.5);
+        var sy = Math.sin(to.rad(e.z) * 0.5);
+        
+        return new quaternion(
+            sr * cp * cy - cr * sp * sy,
+            cr * sp * cy + sr * cp * sy,
+            cr * cp * sy - sr * sp * cy,
+            cr * cp * cy + sr * sp * sy
+        );
+    }
 
 }

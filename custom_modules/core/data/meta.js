@@ -154,16 +154,11 @@ export const meta = {
             "tile_size" : {"x":1, "y":1}
         },
         "gazebo_roof" : {
-            "mapping" : [{"x":1, "y":0}],
+            "mapping" : [{"x":0, "y":5}],
             "frames" :  {"x":0, "y":0},
-            "colors" : ["0xF2C594"],
+            "colors" : ["0x73654A"],
             "map_key" : "structures",
             "tile_size" : {"x":2, "y":2},
-            "transform" : {
-                "position" : {"x":0, "y":0, "z":0},
-                "orient" : {"x":0, "y":0, "z":0, "w":1},
-                "scale" : {"x":1, "y":1, "z":1}
-            },
         }
     },
 }

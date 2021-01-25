@@ -44,7 +44,7 @@ export class matrix  {
         var rx = new matrix();
         var ry = new matrix();
         var rz = new matrix();
-    
+        
         rz.m[0][0] = +Math.cos(z); rz.m[0][1] = -Math.sin(z); rz.m[0][2] = 0; rz.m[0][3] = 0;
         rz.m[1][0] = +Math.sin(z); rz.m[1][1] = +Math.cos(z); rz.m[1][2] = 0; rz.m[1][3] = 0;
         rz.m[2][0] = 0;            rz.m[2][1] = 0;            rz.m[2][2] = 1; rz.m[2][3] = 0;

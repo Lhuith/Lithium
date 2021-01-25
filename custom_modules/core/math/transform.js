@@ -32,7 +32,7 @@ export class transform  {
     }
     
     get_transformation(){
-        var rotation = this.rotation.normalize().to_euler();
+        var rotation = this.rotation.to_euler();
         
         var t = new matrix().translation(this.position.x, this.position.y, this.position.z);
         var r = new matrix().rotation(to.rad(rotation.x),to.rad(rotation.y),to.rad(rotation.z));

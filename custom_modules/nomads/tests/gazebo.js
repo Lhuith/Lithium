@@ -1,9 +1,13 @@
-import { Vector3 } from '/build/three.module.js'
+import { Vector3, Euler } from '/build/three.module.js'
 import { gameobject } from '/core/data/gameobject.js'
 import { quaternion } from '/core/math/quaternion.js'
 import { sprite, solid, particle } from '/nomads/components/decomposer.js'
 import { get_meta } from '/core/data/antlion.js'
 import { transform } from '/core/math/transform.js'
+import { to, math } from '/meta/helpers/utils.js'
+
+var roof_test = []
+var rotation_test = 0
 
 const box = (list, position, rot) => {
     var box_obj = new gameobject(
@@ -63,7 +67,41 @@ const bench = (list, position, scale, rot) => {
             new Vector3(1,1,1), 
             new quaternion(0,0,0,1, new Vector3(0, 1, 0), Math.PI/2)
     )))
-    bench.add_component(solid(get_meta().gazebo.gazebo_roof))
+}
+
+const roof = (list, position, scale, rot) => {
+    var roof_obj = new gameobject(
+        "gazebo_armrest", 
+        position, 
+        scale, 
+        rot)
+    var spread = 0.3
+    roof_obj.add_component(solid(get_meta().gazebo.gazebo_roof,
+    new transform(
+        new Vector3(0,0,-spread), 
+        new Vector3(1,1,1), 
+        new quaternion(0,0,0,1, new Vector3(1, 0, 0), Math.PI/4))
+    ))
+    roof_obj.add_component(solid(get_meta().gazebo.gazebo_roof,
+    new transform(
+        new Vector3(0,0,spread), 
+        new Vector3(1,1,1), 
+        new quaternion(0,0,0,1, new Vector3(-1, 0, 0), Math.PI/4))
+    ))
+    roof_obj.add_component(solid(get_meta().gazebo.gazebo_roof, 
+    new transform(
+        new Vector3(spread,0,0), 
+        new Vector3(1,1,1), 
+        new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(45, 90, 0)))
+    ))
+    roof_obj.add_component(solid(get_meta().gazebo.gazebo_roof, 
+    new transform(
+        new Vector3(-spread,0,0), 
+        new Vector3(1,1,1), 
+        new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(-45, 90, 0)))
+    ))
+    roof_test.push(roof_obj)
+    return roof_obj
 }
 
 export const gazebo = (list) => {
@@ -85,5 +123,13 @@ export const gazebo = (list) => {
         new Vector3(width,0,-depth), 
         new Vector3(-1,1,-1), 
         new quaternion(0,0,0,1))
+
+    roof(list, 
+        new Vector3(0,1.65,0), 
+        new Vector3(1.25,1,1.25), 
+        new quaternion(0,0,0,1))
+}
+
+export const gazebo_update = (delta) => {
 }
 

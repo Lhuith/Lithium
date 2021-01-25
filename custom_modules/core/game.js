@@ -10,7 +10,7 @@ import { animation_sequence } from '/nomads/components/animation/animation_seque
 import { animation } from '/nomads/components/animation/animation.js'
 
 import { controller } from '/nomads/components/controller.js'
-import { gazebo } from '/nomads/tests/gazebo.js'
+import { gazebo, gazebo_update} from '/nomads/tests/gazebo.js'
 import * as sky from '/nomads/systems/sky.js'
 import { look_at } from '/nomads/components/look_at.js'
 
@@ -79,6 +79,7 @@ export class game {
             o.update(delta)
         }
         sky.update(delta)
+        gazebo_update(delta)
     }
     get_time(){
         return this.time

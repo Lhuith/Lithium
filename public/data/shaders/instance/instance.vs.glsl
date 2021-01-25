@@ -150,8 +150,7 @@
 				//---------------------------------------------------Solid Sprite ---------------------------------------------------
 			}
 
-			vUv = vec2(((uv.x/spriteSheetX) + (uvoffset.x)) * tile_size.x, ((uv.y/spriteSheetY) + (uvoffset.y)) * tile_size.y);
-
+			vUv = vec2((((uv.x/spriteSheetX) * tile_size.x) + (uvoffset.x)), (((uv.y/spriteSheetY) * tile_size.y) + (uvoffset.y)));
 
 			colorPass = col;
 
