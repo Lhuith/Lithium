@@ -76,7 +76,7 @@ const roof = (list, roof_transform) => {
         new Vector3(0,0,-spread), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1, new Vector3(1, 0, 0), Math.PI/4))
-    )
+    ).set_transform(roof_transform)
     solid(get_meta().gazebo.gazebo_roof,
     new transform(
         new Vector3(0,0,spread), 

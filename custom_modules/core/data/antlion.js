@@ -28,8 +28,16 @@ export const init = (bs) => {
     
     bootstrap = bs;
     async_time = Date.now();
+     // grabbing player position
+    file.get({
+                id: "player", 
+                position:{x:0,y:0,z:0},
+                rotation_euler:{x:0,y:0,z:0},
+            }, 
+            ajax_callback, 
+            "player")
 
-    fall(payload.length - 1, []);
+    fall(payload.length - 1, []); 
 }
 
 // TODO clean up after everything is confirmed to work
@@ -111,14 +119,16 @@ const fall = (i, data) => {
     //console.log("%cFALLING: " + i, 'color: #FF0000');
 }
 
+const ajax_callback = (e, n) => {
+    completed.push({name:n, data: e})
+}
+
 // push the last data, and flag for done;
 const done = (i, data) => {
     DONE = true;
     completed.push(data);
-    // grabbing player position
-    completed.push({name:"camera", data: file.get({id: "player"})})
+    
     elapsed_time = Date.now() - async_time;
-    console.log(completed)
     // loading renderers here as they need textures/shaders loaded first
     load_renderers();
    
@@ -195,13 +205,11 @@ const shader_parse = (glsl, shadow_text, dither_text) => {
 
 export const get_data = (key) => {
     if(is.alpha(key)){
-        //console.log(key);
         for(var i = 0; i < completed.length; i++){
             if(completed[i].name == key){return completed[i];}
         }
 
     } else if(is.num(key)){
-       // console.log(key);
         for(var i = 0; i < completed.length; i++){
             if(completed[i].index != null){
                     if(completed[i].index == key){return completed[i];}
