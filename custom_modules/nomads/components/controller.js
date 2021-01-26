@@ -3,14 +3,16 @@ import {Vector3, Euler} from '/build/three.module.js';
 import {PointerLockControls} from '/jsm/controls/PointerLockControls.js';
 import * as keyboard from '/core/input/keyboard.js';
 import { quaternion } from '/core/math/quaternion.js'
+import { get_data } from '/core/data/antlion.js'
 
 export class controller extends component {
     type = "controller"
     required = ["transform"];
     
-    constructor(three){
+    constructor(data, three){
         super();
         
+        console.log(data["camera"])
         console.log("%cController Initialized", "color:#7d57c1")
 
         var controller = new PointerLockControls(three.camera, document.body)

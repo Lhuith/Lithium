@@ -10,7 +10,7 @@
             res.send(load(fs, req));
         } else {
             //res.send("file not found")
-            console.log("%ccreating entry", "color:#7ab264")
+            console.log("%creating entry", "color:#7ab264")
             res.send(save(fs, req));
         }
     } else if (req.body.task == "u") {
@@ -35,7 +35,7 @@
 const remove = (fs, req) => {
     try {
         fs.unlinkSync('./public/data/saved/' + req.body.playerName +'.json')
-        return "file removed succesfully."
+        return "file removed successfully."
       } catch(err) {
         console.error(err)
         return "error occured"
@@ -45,7 +45,8 @@ const remove = (fs, req) => {
 const save = (fs, req) =>{
     try {
         // remove appended task field
-        // only used to seperate post operations
+        // only used to separate post operations
+        
         delete req.body.task;
         var new_json = JSON.stringify(req.body)
 
@@ -53,7 +54,7 @@ const save = (fs, req) =>{
             './public/data/saved/' + req.body.playerName +'.json',
             new_json)
         return new_json
-    } catch {
+    } catch (err){
         console.error(err)
         return null
     }

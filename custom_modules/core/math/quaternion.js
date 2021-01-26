@@ -4,7 +4,7 @@ import { matrix } from '/core/math/matrix.js'
 
 export class quaternion  {
     type = "quaternion"
-    constructor(x, y, z, w, axis = null, angle = null, rot = null){
+    constructor(x = 0, y = 0, z = 0, w = 1, axis = null, angle = null, rot = null){
         if(axis != null && angle != null) {
             var sinHalfAngle = Math.sin(angle/2);
             this.x = axis.x * sinHalfAngle;

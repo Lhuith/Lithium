@@ -1,10 +1,12 @@
 import { transform } from '/core/math/transform.js';
 import {is} from '/meta/helpers/utils.js';
+import { quaternion } from '/core/math/quaternion.js'
+import { Vector3 } from '/build/three.module.js'
 
 export class gameobject {
     type = "gameobject";
 
-    constructor(n, p, s, r){
+    constructor(n, p = new Vector3(), s = new Vector3(), r = new quaternion()){
         this.name = n;
         this.transform = new transform(p, s, r);
         

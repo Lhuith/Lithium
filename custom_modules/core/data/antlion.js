@@ -5,7 +5,7 @@ import {img, is} from '/meta/helpers/utils.js';
 import {meta} from '/core/data/meta.js';
 import {renderering_meta} from '/core/data/renderering_meta.js'
 import {instance_renderer} from '/core/data/instance_geometry/instance_renderer.js'
-
+import * as file from '/meta/helpers/ajax.js'
 var compiled = []
 
 // ensure nothing else interfaces as resources are loading
@@ -115,11 +115,13 @@ const fall = (i, data) => {
 const done = (i, data) => {
     DONE = true;
     completed.push(data);
+    // grabbing player position
+    completed.push({name:"camera", data: file.get({id: "player"})})
     elapsed_time = Date.now() - async_time;
- 
+    console.log(completed)
     // loading renderers here as they need textures/shaders loaded first
     load_renderers();
-
+   
     // start up init after data loaded
     console.log("%cAntlion Completed in "+ elapsed_time*0.000001+" seconds", "color:#FF9900")
     bootstrap(completed);

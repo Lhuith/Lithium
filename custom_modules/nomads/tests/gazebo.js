@@ -69,44 +69,42 @@ const bench = (list, position, scale, rot) => {
     )))
 }
 
-const roof = (list, position, scale, rot) => {
-    var roof_obj = new gameobject(
-        "gazebo_armrest", 
-        position, 
-        scale, 
-        rot)
+const roof = (list, roof_transform) => {
     var spread = 0.3
-    roof_obj.add_component(solid(get_meta().gazebo.gazebo_roof,
+    solid(get_meta().gazebo.gazebo_roof,
     new transform(
         new Vector3(0,0,-spread), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1, new Vector3(1, 0, 0), Math.PI/4))
-    ))
-    roof_obj.add_component(solid(get_meta().gazebo.gazebo_roof,
+    )
+    solid(get_meta().gazebo.gazebo_roof,
     new transform(
         new Vector3(0,0,spread), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1, new Vector3(-1, 0, 0), Math.PI/4))
-    ))
-    roof_obj.add_component(solid(get_meta().gazebo.gazebo_roof, 
+    ).set_transform(roof_transform)
+    solid(get_meta().gazebo.gazebo_roof, 
     new transform(
         new Vector3(-spread,0,0), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(45, 90, 0)))
-    ))
-    roof_obj.add_component(solid(get_meta().gazebo.gazebo_roof, 
-    new transform(
+    ).set_transform(roof_transform)
+    solid(get_meta().gazebo.gazebo_roof, 
+    new transform (
         new Vector3(spread,0,0), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(-45, 90, 0)))
-    ))
-    roof_test.push(roof_obj)
-    return roof_obj
+    ).set_transform(roof_transform)
+    return 
 }
 
 export const gazebo = (list) => {
+
+    var gazebo = new gameobject("gazebo")
+
     var depth = (1.0 - (10/32)/2) * (1.5 -  (10/32)/2)
     var width = (1.0 - 0.5) * 1.5
+
     bench(list, 
         new Vector3(-width,0, depth), 
         new Vector3(1,1,1), 
@@ -123,11 +121,14 @@ export const gazebo = (list) => {
         new Vector3(width,0,-depth), 
         new Vector3(-1,1,-1), 
         new quaternion(0,0,0,1))
-
+    
     roof(list, 
-        new Vector3(0,1.65,0), 
-        new Vector3(1.25,1,1.25), 
-        new quaternion(0,0,0,1))
+        new transform(
+            new Vector3(0,1.65,0), 
+            new Vector3(1.25,1,1.25), 
+            new quaternion(0,0,0,1)
+        )
+    )
 }
 
 export const gazebo_update = (delta) => {
