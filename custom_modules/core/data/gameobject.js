@@ -6,7 +6,7 @@ import { Vector3 } from '/build/three.module.js'
 export class gameobject {
     type = "gameobject";
 
-    constructor(n, p = new Vector3(), s = new Vector3(), r = new quaternion()){
+    constructor(n, p = new Vector3(), s = new Vector3(1,1,1), r = new quaternion()){
         this.name = n;
         this.transform = new transform(p, s, r);
         

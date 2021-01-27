@@ -110,7 +110,7 @@ export class transform  {
         return parentRotation.q_mul(this.rotation);
     }
     set_parent(t){
-        if(t instanceof transform){
+        if(t.type == "transform"){
             this.parent = t;
             this.parent_matrix = t.get_transformation();
             this.update()

@@ -15,6 +15,12 @@ export const meta = {
         "frames" : [],
         "map_key" : "debug"
     },
+    "box" : {
+        "mapping" : [{"x":0, "y":1}],
+        "colors" : ["0xFFFFFF"],
+        "frames" : [],
+        "map_key" : "debug"
+    },
     "crab" : {
         "mapping" : [{"x":0, "y":0}],
         "colors" : ["0xF8665E"],

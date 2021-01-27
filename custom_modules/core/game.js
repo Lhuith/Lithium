@@ -10,7 +10,10 @@ import { animation_sequence } from '/nomads/components/animation/animation_seque
 import { animation } from '/nomads/components/animation/animation.js'
 
 import { controller } from '/nomads/components/controller.js'
-import { gazebo, gazebo_update} from '/nomads/tests/gazebo.js'
+
+import { gazebo } from '/nomads/tests/gazebo.js'
+import { box } from '/nomads/tests/box.js'
+
 import * as sky from '/nomads/systems/sky.js'
 import { look_at } from '/nomads/components/look_at.js'
 
@@ -71,7 +74,15 @@ export class game {
             new Vector3(0, 0, 0), new Vector3(0, 1, 0))
 
         gazebo(this.objects)
+        var box_obj = box(
+            new Vector3(-2,0,0),
+            new Vector3(1,1,1),
+            new quaternion(0,0,0,1)
+        )
+        box_obj.add_component(new look_at(three, three.camera.position))
+        this.objects.push(box_obj)
     }
+
     update(delta){
         this.time += delta
 
@@ -79,7 +90,6 @@ export class game {
             o.update(delta)
         }
         sky.update(delta)
-        gazebo_update(delta)
     }
     get_time(){
         return this.time
