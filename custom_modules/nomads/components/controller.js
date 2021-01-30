@@ -74,7 +74,7 @@ export class controller extends component {
         this.parent.transform.position = 
         new Vector3(
             this.controls.getObject().position.x, 
-            this.controls.getObject().position.y, 
+            this.controls.getObject().position.y - 0.25, 
             this.controls.getObject().position.z - 1)
             
         file.update({id: "player", position:{
@@ -94,7 +94,7 @@ export class controller extends component {
         this.parent.transform.position = 
         new Vector3(
             this.controls.getObject().position.x, 
-            this.controls.getObject().position.y, 
+            this.controls.getObject().position.y - 0.25, 
             this.controls.getObject().position.z - 1)
 
     }

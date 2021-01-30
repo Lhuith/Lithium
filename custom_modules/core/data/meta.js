@@ -8,7 +8,10 @@
     },
 */
 export const meta = {
+    // 256/32 = 8 
     "SPRITE_SHEET_SIZE" : {"x":8, "y":8},
+    // 32 = size of individual sprite block
+    "SPRITE_RESOLUTION" : 32,
     "default" : {
         "mapping" : [{"x":1, "y":0}],
         "colors" : ["0xFF00FF"],
@@ -127,21 +130,21 @@ export const meta = {
         "gazebo_side" : {
             "mapping" : [{"x":0, "y":4}],
             "frames" :  {"x":0, "y":0},
-            "colors" : ["0x815B40"],
+            "colors" : ["0xC2B362"],
             "map_key" : "structures",
             "tile_size" : {"x":1, "y":1}
         },
         "gazebo_side_intersect" : {
             "mapping" : [{"x":1, "y":4}],
             "frames" :  {"x":0, "y":0},
-            "colors" : ["0x815B40"],
+            "colors" : ["0xC2B362"],
             "map_key" : "structures",
             "tile_size" : {"x":1, "y":1}
         },
         "gazebo_front" : {
             "mapping" : [{"x":2, "y":4}],
             "frames" :  {"x":0, "y":0},
-            "colors" : ["0x815B40"],
+            "colors" : ["0xC2B362"],
             "map_key" : "structures",
             "tile_size" : {"x":1, "y":1}
         },
@@ -155,16 +158,68 @@ export const meta = {
         "gazebo_pole" : {
             "mapping" : [{"x":4, "y":4}],
             "frames" :  {"x":0, "y":0},
-            "colors" : ["0xF2C594"],
+            "colors" : ["0xAFD0AD"],
             "map_key" : "structures",
             "tile_size" : {"x":1, "y":1}
         },
         "gazebo_roof" : {
             "mapping" : [{"x":0, "y":5}],
             "frames" :  {"x":0, "y":0},
-            "colors" : ["0x73654A"],
+            "colors" : ["0x60432E"],
             "map_key" : "structures",
             "tile_size" : {"x":2, "y":2},
         }
     },
+    "wheelchair" : {
+        "frame" : {
+            "mapping" : [{"x":2, "y":5}],
+            "colors" : ["0x6F7687"],
+            "frames" : [],
+            "map_key" : "structures"
+        },
+        "seat" : {
+            "mapping" : [{"x":3, "y":5}],
+            "colors" : ["0x6F7687"],
+            "frames" : [],
+            "map_key" : "structures"
+        },
+    },
+    "pole" : {
+        "mapping" : [{"x":5, "y":4}],
+        "colors" : ["0x9B9E97"],
+        "frames" : [],
+        "map_key" : "structures"
+    },
+    "bench" : {
+        "top_t" : {
+            "mapping" : [{"x":1, "y":3}],
+            "colors" : ["0xC2C65C"],
+            "frames" : [],
+            "map_key" : "structures"
+        },
+        "top_s" : {
+            "mapping" : [{"x":2, "y":3}],
+            "colors" : ["0xC2C65C"],
+            "frames" : [],
+            "map_key" : "structures"
+        },
+        "top_f" : {
+            "mapping" : [{"x":3, "y":3}],
+            "colors" : ["0xC2C65C"],
+            "frames" : [],
+            "map_key" : "structures"
+        },
+        "leg_s" : {
+            "mapping" : [{"x":4, "y":3}],
+            "colors" : ["0xC2C65C"],
+            "frames" : [],
+            "map_key" : "structures"
+        },
+        "leg_f" : {
+            "mapping" : [{"x":5, "y":3}],
+            "colors" : ["0xC2C65C"],
+            "frames" : [],
+            "map_key" : "structures"
+        },
+    }
 }

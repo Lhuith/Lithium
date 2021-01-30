@@ -8,14 +8,17 @@ import { sprite, solid, particle } from '/nomads/components/decomposer.js'
 import { animator } from '/nomads/components/animation/animator.js'
 import { animation_sequence } from '/nomads/components/animation/animation_sequence.js'
 import { animation } from '/nomads/components/animation/animation.js'
-
 import { controller } from '/nomads/components/controller.js'
 
 import { gazebo } from '/nomads/tests/gazebo.js'
 import { box } from '/nomads/tests/box.js'
+import { wheelchair } from '/nomads/tests/wheelchair.js'
+import { pole, pole_T, pole_R, pole_M } from '/nomads/tests/pole.js'
+import { bench } from '/nomads/tests/bench.js'
 
 import * as sky from '/nomads/systems/sky.js'
 import { look_at } from '/nomads/components/look_at.js'
+import { transform } from '/core/math/transform.js'
 
 export class game {
     constructor(n){
@@ -74,13 +77,47 @@ export class game {
             new Vector3(0, 0, 0), new Vector3(0, 1, 0))
 
         gazebo(this.objects)
-        var box_obj = box(
+        var box_obj = box (
             new Vector3(-2,0,0),
             new Vector3(1,1,1),
             new quaternion(0,0,0,1)
         )
         box_obj.add_component(new look_at(three, three.camera.position))
         this.objects.push(box_obj)
+
+        var wheelchair_obj = wheelchair (
+            new Vector3(-5,0,0),
+            new Vector3(1,1,1),
+            new quaternion(0,0,0,1))
+
+        var object2  = new gameobject("pole", 
+            new Vector3(0,0,0),
+            new Vector3(1,1,1),
+            new quaternion(0,0,0,1))
+
+        var pole_obj = bench (
+            new transform(
+                new Vector3(2,0,0),
+                new Vector3(1,1,1),
+                new quaternion(0,0,0,1)))
+
+        var pole_obj = pole_T (
+            new transform(
+                new Vector3(-4,0,0),
+                new Vector3(1,1,1),
+                new quaternion(0,0,0,1)))
+
+        var pole_obj = pole_R (
+            new transform(
+                new Vector3(-3,0,0),
+                new Vector3(1,1,1),
+                new quaternion(0,0,0,1)))
+        var pole_obj = pole_M (
+            new transform(
+                new Vector3(-3,0,-1),
+                new Vector3(1,1,1),
+                new quaternion(0,0,0,1)))
+
     }
 
     update(delta){
@@ -91,6 +128,7 @@ export class game {
         }
         sky.update(delta)
     }
+
     get_time(){
         return this.time
     }

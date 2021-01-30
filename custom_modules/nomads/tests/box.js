@@ -12,8 +12,8 @@ export const box = (pos, scale, rotation) => {
         scale, 
         rotation
     )
-    var size = 0.5
-    var position = 0.5
+    var size = 0.25
+    var position = 0.25
     box_obj.add_component(solid(get_meta().box, 
     new transform (
         new Vector3(0, position, size), 
