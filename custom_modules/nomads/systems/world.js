@@ -15,7 +15,7 @@ export const init = (three, data) => {
     renderer = three.renderer
 
     var crab_isle = new zone("ponyo_island", "land_shader", 0, true, three)
-    var water = new zone("water", "water_shader", 0, true, three)
+    var water = new zone("water", "water_shader", 0, false, three)
 }
 
 export const update = (delta) => {

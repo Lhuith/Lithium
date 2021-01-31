@@ -68,7 +68,7 @@ const map_rgba = (index, map_data) => {
  * @param {*} detial_map 
  * @param {*} size 
 */
-export const texture_to_mesh = (height_map, detial_map, lod) => {
+export const texture_to_mesh = (height_map, detial_map, lod, build) => {
     if (lod > 6 || lod < 0) {
         console.error("LOD must be between 0 - 6")
         lod = 1
@@ -101,7 +101,7 @@ export const texture_to_mesh = (height_map, detial_map, lod) => {
         var map_data = map_rgba(index, height_map.data)
 
         var height = math.easingFunctions.easeInOutQuad(math.normalize(0, 255, map_data.r))
-        //console.log(height)
+      
         //if(map_data.b != undefined){
         //   
         //
@@ -156,7 +156,7 @@ export const texture_to_mesh = (height_map, detial_map, lod) => {
         
         vertex_index ++
     }
-    gazebo_build(max_height)
+    if (build) gazebo_build(max_height)
     //console.log(vertices.length)
     var bufferGeometry = new THREE.BufferGeometry()
 

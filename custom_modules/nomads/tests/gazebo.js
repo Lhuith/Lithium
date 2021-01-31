@@ -118,41 +118,34 @@ const build_roof = (t) => {
     var new_list = []
     var roof_rotation = Math.PI/4.45
 
-    //new_list.push(solid(get_meta().gazebo.gazebo_roof, new transform(
-    //    new Vector3(0,0,-spread), 
-    //    new Vector3(1,1,1), 
-    //    new quaternion(0,0,0,1, new Vector3(1, 0, 0), roof_rotation))))
-    //    
-    //new_list.push(solid(get_meta().gazebo.gazebo_roof,
-    //new transform(
-    //    new Vector3(0,0,spread), 
-    //    new Vector3(1,1,1), 
-    //    new quaternion(0,0,0,1, new Vector3(-1, 0, 0), roof_rotation))
-    //))
-//
-    //new_list.push(solid(get_meta().gazebo.gazebo_roof, 
-    //new transform(
-    //    new Vector3(-spread,0,0), 
-    //    new Vector3(1,1,1), 
-    //    new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(to.dag(roof_rotation), 90, 0)))
-    //))
-
-
-    //var t_a = 
-    //t_a.set_parent(roof_transform)
-
-    var sprite = solid(get_meta().gazebo.gazebo_roof, new transform (
+    new_list.push(solid(get_meta().gazebo.gazebo_roof, new transform(
+        new Vector3(0,0,-spread), 
+        new Vector3(1,1,1), 
+        new quaternion(0,0,0,1, new Vector3(1, 0, 0), roof_rotation))))
+        
+    new_list.push(solid(get_meta().gazebo.gazebo_roof,
+    new transform(
+        new Vector3(0,0,spread), 
+        new Vector3(1,1,1), 
+        new quaternion(0,0,0,1, new Vector3(-1, 0, 0), roof_rotation))
+    ))
+    new_list.push(solid(get_meta().gazebo.gazebo_roof, 
+    new transform(
+        new Vector3(-spread,0,0), 
+        new Vector3(1,1,1), 
+        new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(to.dag(roof_rotation), 90, 0)))
+    ))
+    new_list.push(solid(get_meta().gazebo.gazebo_roof, new transform (
         new Vector3(spread,0,0), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(-to.dag(roof_rotation), 90, 0)))
-    )
-    sprite.set_transform(roof_transform)
-    //for(let d of new_list){
-    //    d.set_transform(t)
-    //}
+    ))
+    for(let d of new_list){
+        d.set_transform(roof_transform)
+    }
 }
 export const build_gazebo = (t) => {
-    //build_bench(t)
+    build_bench(t)
     build_roof(t)
 
     //return gazebo

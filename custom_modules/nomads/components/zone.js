@@ -13,9 +13,10 @@ export class zone extends component {
 
         var map = get_data(key)
         this.shader = get_data(s)
-        console.log(map)
+
         map.color.wrapS = THREE.RepeatWrapping
         map.color.wrapT = THREE.RepeatWrapping
+
         this.generate_tile({
                 height: map.height, 
                 color: map.color, 
@@ -58,8 +59,7 @@ export class zone extends component {
         material.uniforms.texture.value = maps.color
 
         var materialTemp = new THREE.MeshBasicMaterial({ map: maps.color});
-
-        var tile_geo = texture_to_mesh(maps.height, maps.detail, lod)
+        var tile_geo = texture_to_mesh(maps.height, maps.detail, lod, physical)
         tile_geo.computeBoundingBox()
     
         var tile = new THREE.Mesh( tile_geo, materialTemp )
