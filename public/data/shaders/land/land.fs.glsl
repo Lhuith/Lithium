@@ -1,4 +1,5 @@
 		 
+precision highp float;
 uniform sampler2D texture;	
 uniform sampler2D extra;		 	
 varying vec2 vUv;
@@ -53,12 +54,10 @@ uniform vec3 SunLightPosition;
 			//vec4 light = vec4(dither(sumDirLights), 1.0);
 			vec4 color;
 			//dither
-			if(customColorSwitch == 1)
-			{
+			if(customColorSwitch == 1){
 				color = customColor;
 			}
-			else
-			{
+			else {
 				color = vec4(1.0, 1.0, 1.0, 1.0);
 			}
 	

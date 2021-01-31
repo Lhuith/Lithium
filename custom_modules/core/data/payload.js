@@ -23,7 +23,7 @@ export const payload = [
         {wf:false, trans:true, anim:false}  
     ),
     new datatype.shader_resource(
-        "water_Shader", 
+        "water_shader", 
         "s", 
         '/data/shaders/water/water.vs.glsl',
         '/data/shaders/water/water.fs.glsl',
@@ -37,11 +37,18 @@ export const payload = [
         '/data/img/tile/Crab_Island/Crab_Island_detail.png',
     ),
     new datatype.tile_resource(
-        "water_tile",
+        "ponyo_island",
+        't', 
+        '/data/img/tile/ponyo_island/ponyo_island_color.png', 
+        '/data/img/tile/ponyo_island/ponyo_island_height.png', 
+        '/data/img/tile/ponyo_island/ponyo_island_detail.png',
+    ),
+    new datatype.tile_resource(
+        "water",
         't',
-        '/data/img/tile/water_tile.png', 
-        '/data/img/tile/water_level_color.png', 
-        '/data/img/tile/water_level_color.png',
+        '/data/img/tile/water/water_color.png', 
+        '/data/img/tile/water/water_height.png', 
+        '/data/img/tile/water/water_detail.png',
     ),
     new datatype.tile_resource(
         "sea_floor",

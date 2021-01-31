@@ -1,4 +1,4 @@
-import {Color, Vector2} from '/build/three.module.js' 
+import { Color, Vector2 } from '/build/three.module.js' 
 import { get_meta } from '/core/data/antlion.js'
 
 export const pixel = {

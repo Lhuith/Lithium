@@ -33,7 +33,6 @@ export class controller extends component {
         this.controls.getObject().position.x = saved_player_information.position.x
         this.controls.getObject().position.y = saved_player_information.position.y
         this.controls.getObject().position.z = saved_player_information.position.z
-
         this.controls.getObject().rotation.x = saved_player_information.rotation_euler.x
         this.controls.getObject().rotation.y = saved_player_information.rotation_euler.y
         this.controls.getObject().rotation.z = saved_player_information.rotation_euler.z

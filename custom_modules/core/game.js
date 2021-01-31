@@ -1,4 +1,4 @@
-import { get_meta} from '/core/data/antlion.js'
+import { get_meta } from '/core/data/antlion.js'
 import * as physics from '/core/physics/physics.js'
 import * as keyboard from '/core/input/keyboard.js'
 import { quaternion } from '/core/math/quaternion.js'
@@ -10,15 +10,18 @@ import { animation_sequence } from '/nomads/components/animation/animation_seque
 import { animation } from '/nomads/components/animation/animation.js'
 import { controller } from '/nomads/components/controller.js'
 
-import { gazebo } from '/nomads/tests/gazebo.js'
+// GAZEBO TECH stuff
+import { build_gazebo } from '/nomads/tests/gazebo.js'
 import { box } from '/nomads/tests/box.js'
 import { wheelchair } from '/nomads/tests/wheelchair.js'
 import { pole, pole_T, pole_R, pole_M } from '/nomads/tests/pole.js'
 import { bench } from '/nomads/tests/bench.js'
 
 import * as sky from '/nomads/systems/sky.js'
+import * as world from '/nomads/systems/world.js'
 import { look_at } from '/nomads/components/look_at.js'
 import { transform } from '/core/math/transform.js'
+
 
 export class game {
     constructor(n){
@@ -27,7 +30,6 @@ export class game {
     }
     init(data, three){
         this.three = three
-      
         console.log("%c"+this.name+" Initialized", "color:#FFE532")
     
         this.show_data = false
@@ -43,6 +45,7 @@ export class game {
             keyboard.init()
             physics.init()
             sky.init(three.renderer)
+            world.init(three)
         //! ---------- INIT ----------
         var object = new gameobject(
             "denis", 
@@ -75,15 +78,19 @@ export class game {
 
         this.objects[1].transform.look_at(
             new Vector3(0, 0, 0), new Vector3(0, 1, 0))
-
-        gazebo(this.objects)
+        
         var box_obj = box (
             new Vector3(-2,0,0),
             new Vector3(1,1,1),
             new quaternion(0,0,0,1)
         )
-        box_obj.add_component(new look_at(three, three.camera.position))
         this.objects.push(box_obj)
+
+        //this.gazebo_build()
+    }
+
+    gazebo_build(){
+        this.gaz = gazebo(this.objects)
 
         var wheelchair_obj = wheelchair (
             new Vector3(-5,0,0),
@@ -117,7 +124,6 @@ export class game {
                 new Vector3(-3,0,-1),
                 new Vector3(1,1,1),
                 new quaternion(0,0,0,1)))
-
     }
 
     update(delta){

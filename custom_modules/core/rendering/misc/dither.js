@@ -1,3 +1,5 @@
+import { Vector3} from '/build/three.module.js'
+
 export const dither8x8 = [
     0,  32, 8,  40, 2,  34, 10, 42,
     48, 16, 56, 24, 50, 18, 58, 26,
@@ -31,11 +33,12 @@ export const dither3x3 = [
 ]
 
 // this is giving weird results at times so will need to test or change later
-export const gray_scale = [new THREE.Vector3( 0.0, 0.0, 0.0),
-  new THREE.Vector3( .14, .14, .14 ),
-  new THREE.Vector3( .28, .28, .28 ),
-  new THREE.Vector3( .43, .43, .43 ),
-  new THREE.Vector3( .57, .57, .57 ),
-  new THREE.Vector3( .71, .71, .71 ),
-  new THREE.Vector3( .85, .85, .85 ),
-  new THREE.Vector3( .9, .9, .9)];
+export const gray_scale = [
+    new Vector3( 0.0, 0.0, 0.0),
+    new Vector3( .14, .14, .14 ),
+    new Vector3( .28, .28, .28 ),
+    new Vector3( .43, .43, .43 ),
+    new Vector3( .57, .57, .57 ),
+    new Vector3( .71, .71, .71 ),
+    new Vector3( .85, .85, .85 ),
+    new Vector3( .9, .9, .9)];

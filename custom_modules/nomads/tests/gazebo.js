@@ -51,14 +51,14 @@ const bench = (box_transform) => {
         new Vector3(1,1,1),
         new quaternion(0,0,0,1, null, null, null))
     transformA.set_parent(box_transform)
-    var sprite_listA = box(transformA)
+    box(transformA)
     
     var transformB = new transform(
         new Vector3(0 - (0.5 - (10/32)/2), 0.5, 0 - (0.5 - (10/32)/2)),
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1, new Vector3(0, 1, 0), Math.PI/2, null))
     transformB.set_parent(box_transform)
-    var sprite_listB = box(transformB)
+    box(transformB)
     
     solid(get_meta().gazebo.gazebo_pole, 
         new transform(
@@ -74,7 +74,7 @@ const bench = (box_transform) => {
             new quaternion(0,0,0,1, new Vector3(0, 1, 0), Math.PI/2)
     )).set_transform(box_transform)
 }
-const build_bench = (parent) => {
+const build_bench = (t) => {
     var depth = (1.0 - (10/32)/2) * (1.35 -  (10/32)/2)
     var width = (1.0 - 0.5) * 1.35
 
@@ -83,76 +83,77 @@ const build_bench = (parent) => {
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1)
     )
-    benchA.set_parent(parent.transform)
+    benchA.set_parent(t)
     bench(benchA)
 
     var benchB = new transform(
     new Vector3(width,0, depth), 
     new Vector3(-1,1,1), 
     new quaternion(0,0,0,1))
-    benchB.set_parent(parent.transform)
+    benchB.set_parent(t)
     bench(benchB)
 
     var benchC = new transform(
     new Vector3(-width,0,-depth), 
     new Vector3(1,1,-1), 
     new quaternion(0,0,0,1))
-    benchC.set_parent(parent.transform)
+    benchC.set_parent(t)
     bench(benchC)
 
     var benchD =  new transform(
     new Vector3(width,0,-depth), 
     new Vector3(-1,1,-1), 
     new quaternion(0,0,0,1)) 
-    benchD.set_parent(parent.transform)
+    benchD.set_parent(t)
     bench(benchD)
 }
-const build_roof = (parent) => {
+const build_roof = (t) => {
     var roof_transform = new transform(
         new Vector3(0,1.65,0), 
         new Vector3(1.25,1,1.25), 
         new quaternion(0,0,0,1))
-    roof_transform.set_parent(parent.transform)
+    roof_transform.set_parent(t)
 
     var spread = 0.3
     var new_list = []
     var roof_rotation = Math.PI/4.45
 
-    new_list.push(solid(get_meta().gazebo.gazebo_roof, new transform(
-        new Vector3(0,0,-spread), 
-        new Vector3(1,1,1), 
-        new quaternion(0,0,0,1, new Vector3(1, 0, 0), roof_rotation))))
-    new_list.push(solid(get_meta().gazebo.gazebo_roof,
-    new transform(
-        new Vector3(0,0,spread), 
-        new Vector3(1,1,1), 
-        new quaternion(0,0,0,1, new Vector3(-1, 0, 0), roof_rotation))
-    ))
-    new_list.push(solid(get_meta().gazebo.gazebo_roof, 
-    new transform(
-        new Vector3(-spread,0,0), 
-        new Vector3(1,1,1), 
-        new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(to.dag(roof_rotation), 90, 0)))
-    ))
-    new_list.push(solid(get_meta().gazebo.gazebo_roof, 
-    new transform (
+    //new_list.push(solid(get_meta().gazebo.gazebo_roof, new transform(
+    //    new Vector3(0,0,-spread), 
+    //    new Vector3(1,1,1), 
+    //    new quaternion(0,0,0,1, new Vector3(1, 0, 0), roof_rotation))))
+    //    
+    //new_list.push(solid(get_meta().gazebo.gazebo_roof,
+    //new transform(
+    //    new Vector3(0,0,spread), 
+    //    new Vector3(1,1,1), 
+    //    new quaternion(0,0,0,1, new Vector3(-1, 0, 0), roof_rotation))
+    //))
+//
+    //new_list.push(solid(get_meta().gazebo.gazebo_roof, 
+    //new transform(
+    //    new Vector3(-spread,0,0), 
+    //    new Vector3(1,1,1), 
+    //    new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(to.dag(roof_rotation), 90, 0)))
+    //))
+
+
+    //var t_a = 
+    //t_a.set_parent(roof_transform)
+
+    var sprite = solid(get_meta().gazebo.gazebo_roof, new transform (
         new Vector3(spread,0,0), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(-to.dag(roof_rotation), 90, 0)))
-    )) 
-    for(let d of new_list){
-        d.set_transform(roof_transform)
-    }
-    // remove new_list?
-    new_list = null
-    return 
-}
-export const gazebo = () => {
-    var gazebo = new gameobject("gazebo",
-        new Vector3(0,0,0),
-        new Vector3(1,1,1),
-        new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 90, 0))
     )
-    build_bench(gazebo)
-    build_roof(gazebo)
+    sprite.set_transform(roof_transform)
+    //for(let d of new_list){
+    //    d.set_transform(t)
+    //}
+}
+export const build_gazebo = (t) => {
+    //build_bench(t)
+    build_roof(t)
+
+    //return gazebo
 }
