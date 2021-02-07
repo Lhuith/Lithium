@@ -90,7 +90,6 @@ export const update = (delta) => {
     if(sky != undefined) {
         sky.transform.rotation = new quaternion(null,null,null,null, 
         new Vector3(1, 0, 0), ((step)));
-        //console.log(step)
     }
    
     // TODO: find a better formula for this later on :|

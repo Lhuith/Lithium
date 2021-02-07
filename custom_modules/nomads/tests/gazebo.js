@@ -22,13 +22,13 @@ const box = (box_transform) => {
     )))
     new_list.push(solid(get_meta().gazebo.gazebo_front, 
     new transform (
-        new Vector3(.498,0,0), 
+        new Vector3((26/32)/2,0,0), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1, new Vector3(0,1,0), Math.PI/2, null)
     )))
     new_list.push(solid(get_meta().gazebo.gazebo_front, 
     new transform(
-        new Vector3(-.498,0,0), 
+        new Vector3(-(26/32)/2,0,0), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1, new Vector3(0,1,0), Math.PI/2, null)
     )))
@@ -46,6 +46,7 @@ const box = (box_transform) => {
     return new_list
 }
 const bench = (box_transform) => {
+    
     var transformA = new transform( 
         new Vector3(0, 0.5, 0), 
         new Vector3(1,1,1),
@@ -54,7 +55,7 @@ const bench = (box_transform) => {
     box(transformA)
     
     var transformB = new transform(
-        new Vector3(0 - (0.5 - (10/32)/2), 0.5, 0 - (0.5 - (10/32)/2)),
+        new Vector3(0 - ((26/32)/2 - (10/32)/2), 0.5, 0 - ((26/32)/2 - (10/32)/2)),
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1, new Vector3(0, 1, 0), Math.PI/2, null))
     transformB.set_parent(box_transform)
@@ -76,7 +77,7 @@ const bench = (box_transform) => {
 }
 const build_bench = (t) => {
     var depth = (1.0 - (10/32)/2) * (1.35 -  (10/32)/2)
-    var width = (1.0 - 0.5) * 1.35
+    var width = (1.0 - (26/32)/2) * 1.25
 
     var benchA = new transform (
         new Vector3(-width,0, depth), 
@@ -109,14 +110,14 @@ const build_bench = (t) => {
 }
 const build_roof = (t) => {
     var roof_transform = new transform(
-        new Vector3(0,1.65,0), 
+        new Vector3(0,1.7 ,0), 
         new Vector3(1.25,1,1.25), 
         new quaternion(0,0,0,1))
     roof_transform.set_parent(t)
 
-    var spread = 0.3
+    var spread = 0.25
     var new_list = []
-    var roof_rotation = Math.PI/4.45
+    var roof_rotation = Math.PI/4
 
     new_list.push(solid(get_meta().gazebo.gazebo_roof, new transform(
         new Vector3(0,0,-spread), 

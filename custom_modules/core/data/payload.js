@@ -20,7 +20,7 @@ export const payload = [
         "s", 
         '/data/shaders/land/land.vs.glsl',
         '/data/shaders/land/land.fs.glsl',
-        {wf:false, trans:true, anim:false}  
+        {wf:true, trans:true, anim:false}  
     ),
     new datatype.shader_resource(
         "water_shader", 

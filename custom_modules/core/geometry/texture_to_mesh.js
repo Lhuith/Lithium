@@ -13,27 +13,37 @@ import { bench } from '/nomads/tests/bench.js'
 
 const gazebo_build = (h) => {
     build_gazebo( new transform(
-        new THREE.Vector3(0,h,0),
+        new THREE.Vector3(1.35,h - 0.06,-0.4),
         new THREE.Vector3(1,1,1),
-        new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 90, 0))
+        new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 0, 0))
     ))
 
-   // var wheelchair_obj = wheelchair (
-   //     new THREE.Vector3(-5,h,0),
-   //     new THREE.Vector3(1,1,1),
-   //     new quaternion(0,0,0,1))
-//
+    wheelchair (
+       new THREE.Vector3(5.6,0.55,0),
+       new THREE.Vector3(1,1,1),
+       new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 90, 0)))
+    wheelchair (
+        new THREE.Vector3(5.2,0.55,0.5),
+        new THREE.Vector3(1,1,1),
+        new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 80, 0)))
+    wheelchair (
+        new THREE.Vector3(4.9,0.55,0),
+        new THREE.Vector3(1,1,1),
+        new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 90, 0)))
+    wheelchair (
+            new THREE.Vector3(5.6,0.55,0.8),
+            new THREE.Vector3(1,1,1),
+            new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 65, 0)))
    // var object2  = new gameobject("pole", 
    //     new THREE.Vector3(0,h,0),
    //     new THREE.Vector3(1,1,1),
    //     new quaternion(0,0,0,1))
-//
-   // var pole_obj = bench (
-   //     new transform(
-   //         new THREE.Vector3(2,h,0),
-   //         new THREE.Vector3(1,1,1),
-   //         new quaternion(0,0,0,1)))
-//
+    //
+    bench (
+    new transform(
+        new THREE.Vector3(-1.15,h-0.05,-1.5),
+        new THREE.Vector3(1,1,1),
+        new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, -15, 0))))
    // var pole_obj = pole_T (
    //     new transform(
    //         new THREE.Vector3(-4,h,0),
@@ -99,8 +109,7 @@ export const texture_to_mesh = (height_map, detial_map, lod, build) => {
         
         var index = (x + (height_map.width) * y)
         var map_data = map_rgba(index, height_map.data)
-
-        var height = math.easingFunctions.easeInOutQuad(math.normalize(0, 255, map_data.r))
+        var height = math.easingFunctions.easeInOutCubic(math.normalize(0, 255, map_data.r)) * 1.45
       
         //if(map_data.b != undefined){
         //   
@@ -126,9 +135,9 @@ export const texture_to_mesh = (height_map, detial_map, lod, build) => {
         //    }
         //}
 
-        vertices[(vertex_index * 3) + 0] = (top_left_x + x)
+        vertices[(vertex_index * 3) + 0] = (top_left_x + x) * 0.125
         vertices[(vertex_index * 3) + 1] = height
-        vertices[(vertex_index * 3) + 2] = (top_left_z - y)
+        vertices[(vertex_index * 3) + 2] = (top_left_z - y) * 0.125
         
         // ¯\_(ツ)_/¯
        // normals.push(0, 1, 0);

@@ -17,10 +17,10 @@ export class zone extends component {
         map.color.wrapS = THREE.RepeatWrapping
         map.color.wrapT = THREE.RepeatWrapping
 
-        this.generate_tile({
-                height: map.height, 
-                color: map.color, 
-                detail: map.detail, 
+        this.tile = this.generate_tile({
+            height: map.height, 
+            color: map.color, 
+            detail: map.detail, 
             }, lod, physical, three.scene)
 
         this.collider = null
@@ -28,12 +28,12 @@ export class zone extends component {
     }
     init(){
     }
-    generate_tile(maps, lod, physical, scene){
+    generate_tile(maps, lod, physical){
         var land_uniform = {
            indexMatrix16x16: { type: "fv1", value: dither4x4 },
            palette: { type: "v3v", value: gray_scale },
            paletteSize: { type: "i", value: 8 },
-           texture: { type: "t", value: maps.color },
+           texture: { type: "t", value: maps.height},
            extra: { type: "t", value: null },
            time: { type: "f", value: 1.0 },
            lightpos: { type: 'v3', value: new THREE.Vector3(0, 30, 20) },
@@ -41,7 +41,6 @@ export class zone extends component {
            customColorSwitch: { type: "i", value: 1 },
            customColor: { type: "i", value: new THREE.Vector4(.48, .89, .90, 1) }
         }
-     
         var material = new THREE.ShaderMaterial({
             uniforms: THREE.UniformsUtils.merge([
                 THREE.UniformsLib['lights'],
@@ -56,14 +55,18 @@ export class zone extends component {
         });
     
         material.side = THREE.DoubleSide
-        material.uniforms.texture.value = maps.color
-
-        var materialTemp = new THREE.MeshBasicMaterial({ map: maps.color});
+        material.uniforms.texture.value = maps.height
+        //, wireframe:this.shader.extra.wf
+        var materialTemp = new THREE.MeshBasicMaterial({ 
+            map: maps.color
+        });
         var tile_geo = texture_to_mesh(maps.height, maps.detail, lod, physical)
         tile_geo.computeBoundingBox()
     
-        var tile = new THREE.Mesh( tile_geo, materialTemp )
-        scene.add( tile )
+        return new THREE.Mesh( tile_geo, materialTemp )
+    }
+    add_to_scene(scene){
+        scene.add(this.tile)
     }
     update(){
         //console.warn("default component update.")
