@@ -173,7 +173,7 @@ export const meta = {
     "wheelchair" : {
         "frame" : {
             "mapping" : [{"x":2, "y":5}],
-            "colors" : ["0x6F7687"],
+            "colors" : ["0x676371"],
             "frames" : [],
             "map_key" : "structures"
         },

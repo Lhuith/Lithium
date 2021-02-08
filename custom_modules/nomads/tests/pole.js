@@ -8,31 +8,25 @@ import { to, math , pixel} from '/meta/helpers/utils.js'
 
 export const pole_M = (t) => {
     var t_a = new transform (
-        new Vector3(0, 0, 0), 
+        new Vector3(0,  - pixel.map(1), 0), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1))
     t_a.set_parent(t)
     pole(t_a)
-    var t_b = new transform (
-        new Vector3(0, pixel.map(14) - pixel.map(4), 0), 
+    var t_c = new transform (
+        new Vector3(pixel.map(7), pixel.map(14), 0), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 0, 90)))
-    t_b.set_parent(t)
-    pole(t_b)
-    var t_c = new transform (
-        new Vector3(0, pixel.map(14) - pixel.map(4), 0), 
-        new Vector3(1,1,1), 
-        new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 0, -90)))
     t_c.set_parent(t)
     pole(t_c)
     var t_a = new transform (
-        new Vector3(pixel.map(14), 0, 0), 
+        new Vector3(pixel.map(7), 0, 0), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1))
     t_a.set_parent(t)
     pole(t_a)
     var t_a = new transform (
-        new Vector3(-pixel.map(14), 0, 0), 
+        new Vector3(-pixel.map(7), 0, 0), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1))
     t_a.set_parent(t)
@@ -60,6 +54,42 @@ export const pole_T = (t) => {
         new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 0, -90)))
     t_c.set_parent(t)
     pole(t_c)
+}
+
+export const pole_M_connector = (t) => {
+    var t_a = new transform (
+        new Vector3(0,  - pixel.map(1), 0), 
+        new Vector3(1,1,1), 
+        new quaternion(0,0,0,1))
+    t_a.set_parent(t)
+    pole(t_a)
+    var t_c = new transform (
+        new Vector3(pixel.map(7), pixel.map(14), 0), 
+        new Vector3(1,1,1), 
+        new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 0, 90)))
+    t_c.set_parent(t)
+    pole(t_c)
+    var t_a = new transform (
+        new Vector3(pixel.map(7), 0, 0), 
+        new Vector3(1,1,1), 
+        new quaternion(0,0,0,1))
+    t_a.set_parent(t)
+    pole(t_a)
+}
+
+export const pole_M_fence = (t, length) => {
+    if (length <= 0){return console.error("cant be less or = 0")}
+
+    pole_M (t)
+
+    if (length > 1) {
+        for(var i = 1; i < length; i++) {
+            pole_M_connector (new transform(
+                new Vector3(2.5,0.15,t.position.z - (i * .44)),
+                new Vector3(1,1,1),
+                new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 90, 0))))
+        }
+    }
 }
 
 export const pole_R = (t) => {

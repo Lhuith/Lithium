@@ -8,16 +8,15 @@ import { transform } from '/core/math/transform.js'
 import { build_gazebo } from '/nomads/tests/gazebo.js'
 import { box } from '/nomads/tests/box.js'
 import { wheelchair } from '/nomads/tests/wheelchair.js'
-import { pole, pole_T, pole_R, pole_M } from '/nomads/tests/pole.js'
+import { pole, pole_T, pole_R, pole_M, pole_M_fence} from '/nomads/tests/pole.js'
 import { bench } from '/nomads/tests/bench.js'
 
 const gazebo_build = (h) => {
     build_gazebo( new transform(
-        new THREE.Vector3(1.35,h - 0.06,-0.4),
+        new THREE.Vector3(1.35,h - 0.01,-0.4),
         new THREE.Vector3(1,1,1),
         new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 0, 0))
     ))
-
     wheelchair (
        new THREE.Vector3(5.6,0.55,0),
        new THREE.Vector3(1,1,1),
@@ -34,32 +33,28 @@ const gazebo_build = (h) => {
             new THREE.Vector3(5.6,0.55,0.8),
             new THREE.Vector3(1,1,1),
             new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 65, 0)))
-   // var object2  = new gameobject("pole", 
-   //     new THREE.Vector3(0,h,0),
-   //     new THREE.Vector3(1,1,1),
-   //     new quaternion(0,0,0,1))
-    //
     bench (
     new transform(
-        new THREE.Vector3(-1.15,h-0.05,-1.5),
+        new THREE.Vector3(-1.31,h-0.05,-1.5),
         new THREE.Vector3(1,1,1),
         new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, -15, 0))))
-   // var pole_obj = pole_T (
-   //     new transform(
-   //         new THREE.Vector3(-4,h,0),
-   //         new THREE.Vector3(1,1,1),
-   //         new quaternion(0,0,0,1)))
-//
-   // var pole_obj = pole_R (
-   //     new transform(
-   //         new THREE.Vector3(-3,h,0),
-   //         new THREE.Vector3(1,1,1),
-   //         new quaternion(0,0,0,1)))
-   // var pole_obj = pole_M (
-   //     new transform(
-   //         new THREE.Vector3(-3,h,-1),
-   //         new THREE.Vector3(1,1,1),
-   //         new quaternion(0,0,0,1)))
+    pole_M_fence (
+       new transform(
+           new THREE.Vector3(2.5,0.15,-6.0),
+           new THREE.Vector3(1,1,1),
+           new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 90, 0)))
+    , 10)
+    var pole_obj = pole (
+        new transform(
+            new THREE.Vector3(2.52,0.55,-5.75),
+            new THREE.Vector3(1,1,1),
+            new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(40, 31, -90))))
+            
+    var pole_obj = pole_M (
+        new transform(
+            new THREE.Vector3(3.1,0,-5.36),
+            new THREE.Vector3(1,1,1),
+            new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0,-30, 0))))
 }
 
 const map_rgba = (index, map_data) => {
