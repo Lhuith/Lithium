@@ -65,49 +65,49 @@ export const init = (r) => {
 
 export const update = (delta) => {
 
-    //stars.update(delta);
-
-    time += delta; 
-    current_time = (time % cycle_length);
+    ////stars.update(delta);
+//
+    //time += delta; 
+    //current_time = (time % cycle_length);
+    //
+    //var ingame_time = (current_time/cycle_length) * 24;
+//
+    //var raw_sky_index = math.normalize(0, cycle_length, current_time) * sky_colors.length;
+//
+    //sky_index = Math.floor(raw_sky_index);
+//
+    ////need to figure out length to next color and lerp to it
+    ////current to next, length
+    //sky_lerp_index = raw_sky_index - sky_index;
+//
+    //var current_color = new Color(sky_colors[sky_index].getHex()).lerp(
+    //    sky_colors[(sky_index + 1) % sky_colors.length], sky_lerp_index);
     
-    var ingame_time = (current_time/cycle_length) * 24;
+    renderer.setClearColor(sky_colors[1]);
+    //current_color.getHex(), 1 
+   //step = Math.PI/2 * raw_sky_index;//(Math.PI*2)*(raw_sky_index/sky_colors.length);
+   //
+   //if(sky != undefined) {
+   //    sky.transform.rotation = new quaternion(null,null,null,null, 
+   //    new Vector3(1, 0, 0), ((step)));
+   //}
+   //
+   //// TODO: find a better formula for this later on :|
+   //var index_normal = ((raw_sky_index/sky_colors.length) + 0.25) % 1;
+   //
+   //if(index_normal > 0.5){
+   //    index_normal = Math.cos(index_normal + 0.5);
+   //}
 
-    var raw_sky_index = math.normalize(0, cycle_length, current_time) * sky_colors.length;
+   //sun.update(delta);
+   //moon.update(delta);
+   //sky.update(delta);
+   ////sun.intensity = math.clamp(math.easingFunctions.easeInOutCubic(index_normal) * 4.75, 0.//05, 1);
 
-    sky_index = Math.floor(raw_sky_index);
-
-    //need to figure out length to next color and lerp to it
-    //current to next, length
-    sky_lerp_index = raw_sky_index - sky_index;
-
-    var current_color = new Color(sky_colors[sky_index].getHex()).lerp(
-        sky_colors[(sky_index + 1) % sky_colors.length], sky_lerp_index);
-    
-    renderer.setClearColor(current_color.getHex(), 1 );
-        
-    step = Math.PI/2 * raw_sky_index;//(Math.PI*2)*(raw_sky_index/sky_colors.length);
-    
-    if(sky != undefined) {
-        sky.transform.rotation = new quaternion(null,null,null,null, 
-        new Vector3(1, 0, 0), ((step)));
-    }
-   
-    // TODO: find a better formula for this later on :|
-    var index_normal = ((raw_sky_index/sky_colors.length) + 0.25) % 1;
-    
-    if(index_normal > 0.5){
-        index_normal = Math.cos(index_normal + 0.5);
-    }
-
-    sun.update(delta);
-    moon.update(delta);
-    sky.update(delta);
-    //sun.intensity = math.clamp(math.easingFunctions.easeInOutCubic(index_normal) * 4.75, 0.05, 1);
-
-    // 0 = sun.intensity - (sun.intensity/1.0)
-    // 1 = sun.intensity - (sun.intensity/1.0)
-    // TODO: Fix formula for better star alpha lerping :c
-    //for(var i = 0; i < stars_array.length; i++){
-    //    stars_array[i].get_component("decomposer").set_alpha(Math.cos(((sun.intensity/-1.0) - 0.5)));
-    //}
+   //// 0 = sun.intensity - (sun.intensity/1.0)
+   //// 1 = sun.intensity - (sun.intensity/1.0)
+   //// TODO: Fix formula for better star alpha lerping :c
+   ////for(var i = 0; i < stars_array.length; i++){
+   ////    stars_array[i].get_component("decomposer").set_alpha(Math.cos(((sun.intensity/-1.0) //- 0.5)));
+   ////}
 }

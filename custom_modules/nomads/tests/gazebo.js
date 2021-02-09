@@ -115,7 +115,7 @@ const build_roof = (t) => {
         new quaternion(0,0,0,1))
     roof_transform.set_parent(t)
 
-    var spread = 0.25
+    var spread = 0.22
     var new_list = []
     var roof_rotation = Math.PI/4
 
