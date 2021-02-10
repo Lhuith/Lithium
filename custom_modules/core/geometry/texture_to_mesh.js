@@ -77,12 +77,12 @@ const gazebo_build = (h) => {
             new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 0, -5))))
     pole (
         new transform(
-            new THREE.Vector3(4.35,0.68,0.55),
+            new THREE.Vector3(4.35,0.64,0.55),
             new THREE.Vector3(1,1,1),
             new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 0, 0))))
     pole (
         new transform(
-            new THREE.Vector3(4.75,0.43,0.55),
+            new THREE.Vector3(4.75,0.41,0.55),
             new THREE.Vector3(1,1,1),
             new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 0, 0))))
     
