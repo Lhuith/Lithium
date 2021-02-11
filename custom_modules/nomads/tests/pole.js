@@ -126,3 +126,21 @@ export const pole = (t) => {
 
     return 
 }
+
+export const pole_s = (t) => {
+    var sprite_a = solid(get_meta().pole_s, new transform (
+        new Vector3(0, (14/32)/2, 0), 
+        new Vector3(1,1,1), 
+        new quaternion(0,0,0,1)
+    ))
+    var sprite_b = solid(get_meta().pole_s, new transform (
+        new Vector3(0, (14/32)/2, 0), 
+        new Vector3(1,1,1), 
+        new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 90, 0))
+    ))
+
+    sprite_a.set_transform(t)
+    sprite_b.set_transform(t)
+
+    return 
+}

@@ -46,7 +46,6 @@ const box = (box_transform) => {
     return new_list
 }
 const bench = (box_transform) => {
-    
     var transformA = new transform( 
         new Vector3(0, 0.5, 0), 
         new Vector3(1,1,1),
@@ -63,14 +62,14 @@ const bench = (box_transform) => {
     
     solid(get_meta().gazebo.gazebo_pole, 
         new transform(
-            new Vector3((-(10/32)/2),0.5,-((10/32)/2) - (2/32)/2), 
+            new Vector3((-(4/32)/2),0.5,-((10/32)/2) - (2/32)/2), 
             new Vector3(1,1,1), 
             new quaternion(0,0,0,1)
     )).set_transform(box_transform)
 
     solid(get_meta().gazebo.gazebo_pole, 
         new transform(
-            new Vector3((-(10/32)/2),(0.5),-((10/32)/2) - (2/32)/2), 
+            new Vector3((-(4/32)/2),(0.5),-((10/32)/2) - (2/32)/2), 
             new Vector3(1,1,1), 
             new quaternion(0,0,0,1, new Vector3(0, 1, 0), Math.PI/2)
     )).set_transform(box_transform)

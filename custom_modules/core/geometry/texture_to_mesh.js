@@ -8,12 +8,12 @@ import { transform } from '/core/math/transform.js'
 import { build_gazebo } from '/nomads/tests/gazebo.js'
 import { box } from '/nomads/tests/box.js'
 import { wheelchair } from '/nomads/tests/wheelchair.js'
-import { pole, pole_T, pole_R, pole_M, pole_M_fence} from '/nomads/tests/pole.js'
+import { pole, pole_T, pole_R, pole_M, pole_M_fence, pole_s} from '/nomads/tests/pole.js'
 import { bench } from '/nomads/tests/bench.js'
 
 const gazebo_build = (h) => {
     build_gazebo( new transform(
-        new THREE.Vector3(1.35,h - 0.01,-0.4),
+        new THREE.Vector3(1.22,h - 0.01,-0.4),
         new THREE.Vector3(1,1,1),
         new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 0, 0))
     ))
@@ -43,13 +43,12 @@ const gazebo_build = (h) => {
            new THREE.Vector3(2.5,0.15,-6.0),
            new THREE.Vector3(1,1,1),
            new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 90, 0)))
-    , 10)
+    , 15)
     pole_M (
         new transform(
             new THREE.Vector3(3.1,0,-5.36),
             new THREE.Vector3(1,1,1),
             new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0,-30, 0))))
-
     pole (
         new transform(
             new THREE.Vector3(2.52,0.58,-5.75),
@@ -57,9 +56,34 @@ const gazebo_build = (h) => {
             new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(40, 28, -90))))
     pole (
         new transform(
-            new THREE.Vector3(2.7,1.2,0.55),
+            new THREE.Vector3(2.7,1.15,0.55),
             new THREE.Vector3(1,1,1),
             new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 0, -5))))
+    pole_s (
+        new transform(
+            new THREE.Vector3(3.11,1.625,0.55),
+            new THREE.Vector3(1,1,1),
+            new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 0, 85))))
+    pole_s (
+        new transform(
+            new THREE.Vector3(3.55,1.503,0.55),
+            new THREE.Vector3(1,1,1),
+            new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 0, 75))))
+    pole_s (
+        new transform(
+            new THREE.Vector3(4.0,1.34,0.55),
+            new THREE.Vector3(1,1,1),
+            new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 0, 70))))
+    pole_s (
+        new transform(
+            new THREE.Vector3(4.4,1.125,0.55),
+            new THREE.Vector3(1,1,1),
+            new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 0, 62))))
+    pole_s (
+        new transform(
+            new THREE.Vector3(4.8,0.89,0.55),
+            new THREE.Vector3(1,1,1),
+            new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 0, 60))))
     pole (
         new transform(
             new THREE.Vector3(3.15,1.15,0.55),
@@ -82,7 +106,7 @@ const gazebo_build = (h) => {
             new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 0, 0))))
     pole (
         new transform(
-            new THREE.Vector3(4.75,0.41,0.55),
+            new THREE.Vector3(4.71,0.41,0.55),
             new THREE.Vector3(1,1,1),
             new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 0, 0))))
     

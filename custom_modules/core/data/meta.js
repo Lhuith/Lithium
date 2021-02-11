@@ -190,6 +190,12 @@ export const meta = {
         "frames" : [],
         "map_key" : "structures"
     },
+    "pole_s" : {
+        "mapping" : [{"x":6, "y":4}],
+        "colors" : ["0x9B9E97"],
+        "frames" : [],
+        "map_key" : "structures"
+    },
     "bench" : {
         "top_t" : {
             "mapping" : [{"x":1, "y":3}],
