@@ -48,7 +48,6 @@ export const meta = {
             },
             "map_key" : "trees",
             "skip_occlusion" : true
-            
         },
         "root" : {
             "mapping" : [{"x":0, "y":0}],
@@ -227,5 +226,53 @@ export const meta = {
             "frames" : [],
             "map_key" : "structures"
         },
-    }
+    }, 
+    "ponyo_bush" : {
+        "mapping" : [{"x":0, "y":1}],
+        "frames" :  {"x":1, "y":1},
+        "colors" : ["0x99E273"],
+        "map_key" : "trees",
+    },
+    "ponyo_tree" : {
+        "roots" : {
+            "mapping" : [{"x":0, "y":2}],
+            "frames" :  {"x":1, "y":1},
+            "colors" : ["0x829E79"],
+            "map_key" : "trees",
+        },
+        "trunk_a" : {
+            "mapping" : [{"x":1, "y":3}],
+            "frames" :  {"x":1, "y":1},
+            "colors" : ["0x829E79"],
+            "map_key" : "trees",
+            "tile_size" : {"x":1, "y":2},
+        },
+        "trunk_b" : {
+            "mapping" : [{"x":2, "y":2}],
+            "frames" :  {"x":1, "y":1},
+            "colors" : ["0x829E79"],
+            "map_key" : "trees",
+            "tile_size" : {"x":1, "y":2},
+        },
+        "large_branch" : {
+            "mapping" : [{"x":3, "y":2}],
+            "frames" :  {"x":1, "y":1},
+            "colors" : ["0x829E79"],
+            "map_key" : "trees",
+            "tile_size" : {"x":1, "y":2},
+        },
+        "small_branch_a" : {
+            "mapping" : [{"x":4, "y":2}],
+            "frames" :  {"x":1, "y":1},
+            "colors" : ["0x829E79"],
+            "map_key" : "trees",
+            "tile_size" : {"x":1, "y":2},
+        },
+        "small_branch_b" : {
+            "mapping" : [{"x":5, "y":2}],
+            "frames" :  {"x":1, "y":1},
+            "colors" : ["0x829E79"],
+            "map_key" : "trees",
+        },
+    },
 }

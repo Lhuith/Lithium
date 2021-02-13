@@ -171,33 +171,24 @@ export class quaternion  {
     // https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
     to_euler(debug){
         if(debug) {console.log(this,  to.dag(this.x))}
-        //var t0 = +2.0 * (this.w * this.x + this.y * this.z)
-        //var t1 = +1.0 - 2.0 * (this.x * this.x + this.y * this.y)
-        //var roll = Math.atan2(t0, t1);
-//
-        //var t2 = +2.0 * (this.w * this.y - this.z * this.x);
-        //if(t2 > +1.0) {t2 = +1.0}
-        //if(t2 < -1.0) {t2 = -1.0}
-        //var pitch = Math.asin(t2);
-//
-        //var t3 = +2.0 * (this.w * this.z + this.x * this.y);
-        //var t4 = +1.0 - 2.0 * (this.y * this.y + this.z * this.z)
-        //var yaw = Math.atan2(t3, t4);
-//
-        ////roll, pitch, yaw
-        //return new Vector3( 
-        //    to.dag(roll), 
-        //    to.dag(pitch),
-        //    to.dag(yaw));
+       var t0 = +2.0 * (this.w * this.x + this.y * this.z)
+       var t1 = +1.0 - 2.0 * (this.x * this.x + this.y * this.y)
+       var roll = Math.atan2(t0, t1);
 
-        var q = this;
-        // 
-        return this.three_axis_rot (
-            2*(q.x*q.z + q.w*q.y),
-            q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z, -2*(q.y*q.z - q.w*q.x),
-            2*(q.x*q.y + q.w*q.z),
-            q.w*q.w - q.x*q.x + q.y*q.y - q.z*q.z
-        )
+       var t2 = +2.0 * (this.w * this.y - this.z * this.x);
+       if(t2 > +1.0) {t2 = +1.0}
+       if(t2 < -1.0) {t2 = -1.0}
+       var pitch = Math.asin(t2);
+
+       var t3 = +2.0 * (this.w * this.z + this.x * this.y);
+       var t4 = +1.0 - 2.0 * (this.y * this.y + this.z * this.z)
+       var yaw = Math.atan2(t3, t4);
+
+       //roll, pitch, yaw
+       return new Vector3( 
+           to.dag(roll), 
+           to.dag(pitch),
+           to.dag(yaw));
     }
     length() {
         return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w);

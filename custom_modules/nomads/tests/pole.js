@@ -144,3 +144,61 @@ export const pole_s = (t) => {
 
     return 
 }
+
+export const temp_inner_fence = (h_offset) => {
+    pole (
+        new transform(
+            new Vector3(2.7,1.15 - h_offset,0.55),
+            new Vector3(1,1,1),
+            new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 0, -5))))
+    pole_s (
+        new transform(
+            new Vector3(3.11,1.625 - h_offset,0.55),
+            new Vector3(1,1,1),
+            new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 0, 85))))
+    pole_s (
+        new transform(
+            new Vector3(3.55,1.503 - h_offset,0.55),
+            new Vector3(1,1,1),
+            new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 0, 75))))
+    pole_s (
+        new transform(
+            new Vector3(4.0,1.34 - h_offset,0.55),
+            new Vector3(1,1,1),
+            new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 0, 70))))
+    pole_s (
+        new transform(
+            new Vector3(4.4,1.125 - h_offset,0.55),
+            new Vector3(1,1,1),
+            new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 0, 62))))
+    pole_s (
+        new transform(
+            new Vector3(4.8,0.89 - h_offset,0.55),
+            new Vector3(1,1,1),
+            new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 0, 60))))
+    pole (
+        new transform(
+            new Vector3(3.15,1.15 - h_offset,0.55),
+            new Vector3(1,1,1),
+            new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 0, 9))))
+    pole (
+        new transform(
+            new Vector3(3.46,1.0 - h_offset,0.55),
+            new Vector3(1,1,1),
+            new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 0, -5))))
+    pole (
+        new transform(
+            new Vector3(3.92,0.85 - h_offset,0.55),
+            new Vector3(1,1,1),
+            new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 0, -5))))
+    pole (
+        new transform(
+            new Vector3(4.35,0.64 - h_offset,0.55),
+            new Vector3(1,1,1),
+            new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 0, 0))))
+    pole (
+        new transform(
+            new Vector3(4.71,0.41 - h_offset,0.55),
+            new Vector3(1,1,1),
+            new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 0, 0))))
+}
