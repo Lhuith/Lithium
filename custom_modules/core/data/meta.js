@@ -264,14 +264,14 @@ export const meta = {
         "small_branch_a" : {
             "mapping" : [{"x":4, "y":2}],
             "frames" :  {"x":1, "y":1},
-            "colors" : ["0x829E79"],
+            "colors" : ["0xff00ff"],
             "map_key" : "trees",
             "tile_size" : {"x":1, "y":2},
         },
         "small_branch_b" : {
             "mapping" : [{"x":5, "y":2}],
             "frames" :  {"x":1, "y":1},
-            "colors" : ["0x829E79"],
+            "colors" : ["0xff00ff"],
             "map_key" : "trees",
         },
     },

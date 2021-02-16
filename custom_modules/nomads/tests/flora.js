@@ -39,18 +39,20 @@ export const tree = (t) => {
             new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 0, 0))
         ), get_meta().ponyo_tree.roots, solid);
 
-    var trunk_a_transform =    new transform (
+    var trunk_a_transform = new transform (
         new Vector3(-0.05, 1.0, 0), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 0, 10)))
+
     var trunk_a = unfold(t, trunk_a_transform, get_meta().ponyo_tree.trunk_a, solid);
 
+    var trunk_b_transform = new transform (
+        new Vector3(0.03, pixel.map(15) + pixel.map(22), 0.12), 
+        new Vector3(1,1,1), 
+        new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(10, 0, -1))
+    )
     var trunk_b = unfold(trunk_a_transform, 
-        new transform (
-            new Vector3(0.03, pixel.map(15) + pixel.map(22), 0.2), 
-            new Vector3(1,1,1), 
-            new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(15, 0, -1))
-        ), get_meta().ponyo_tree.trunk_b, solid);
+        trunk_b_transform, get_meta().ponyo_tree.trunk_b, solid);
 
     var large_branch_transform = new transform (
         new Vector3(-0.14, pixel.map(15) + pixel.map(20), -0.04), 
@@ -60,10 +62,12 @@ export const tree = (t) => {
     var large_branch = unfold(trunk_a_transform, 
         large_branch_transform, get_meta().ponyo_tree.large_branch, solid);
 
+        //## ------------------------------ RIGHT SIDE ------------------------------##
+
     var small_branch_a_transform = new transform (
-        new Vector3(0.3, pixel.map(28), 0), 
+        new Vector3(0.16, pixel.map(28), 0.22), 
         new Vector3(1,1,1), 
-        new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 0, -40))
+        new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(30, 0, -15))
     )
 
     var small_branch_a = unfold(large_branch_transform, 
@@ -85,7 +89,7 @@ export const tree = (t) => {
         small_branch_a_transform, get_meta().ponyo_tree.small_branch_a, solid);
 
     var small_branch_a_transform = new transform (
-        new Vector3(-0.23, pixel.map(20), -0.41), 
+        new Vector3(-0.23, pixel.map(14), -0.41), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(-65, 34, 0))
     )
@@ -93,11 +97,76 @@ export const tree = (t) => {
             small_branch_a_transform, get_meta().ponyo_tree.small_branch_a, solid)
     
     var small_branch_a_transform = new transform (
-        new Vector3(-0.34, pixel.map(6), -0.11), 
+        new Vector3(pixel.map(4), -pixel.map(4), -0.47), 
         new Vector3(1,1,1), 
-        new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(-45, 65, 0))
+        new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(-100, 0, 90))
     )
     var small_branch_a = unfold(large_branch_transform, 
             small_branch_a_transform, get_meta().ponyo_tree.small_branch_a, solid)
+    
+    var small_branch_a_transform = new transform (
+        new Vector3(-0.3, -pixel.map(3), 0.125), 
+        new Vector3(1,1,1), 
+        new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(15, 0, 75))
+    )
+    var small_branch_a = unfold(large_branch_transform, 
+            small_branch_a_transform, get_meta().ponyo_tree.small_branch_b, solid)
+    //## ------------------------------ RIGHT SIDE ------------------------------##
 
+    //## ------------------------------ LEFT SIDE ------------------------------##
+
+    var small_branch_a_transform = new transform (
+        new Vector3(pixel.map(12), pixel.map(23), pixel.map(5)), 
+        new Vector3(1,1,1), 
+        new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(20, 0, -45))
+    )
+    var small_branch_a = unfold(trunk_a_transform, 
+            small_branch_a_transform, get_meta().ponyo_tree.small_branch_a, solid)
+
+    var small_branch_a = unfold(small_branch_a_transform, 
+        new transform (
+            new Vector3(pixel.map(4), pixel.map(1), 0), 
+            new Vector3(1,1,1), 
+            new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(-5, 0, -30))
+        ), get_meta().ponyo_tree.small_branch_b, solid)
+
+    var small_branch_a_transform = new transform (
+        new Vector3(pixel.map(16), -pixel.map(8), -pixel.map(4)), 
+        new Vector3(1,1,1), 
+        new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(-10, 0, -100))
+    )
+    var small_branch_a = unfold(trunk_b_transform, 
+            small_branch_a_transform, get_meta().ponyo_tree.small_branch_a, solid)
+
+    var small_branch_a_transform = new transform (
+        new Vector3(pixel.map(14), pixel.map(9), pixel.map(4)), 
+        new Vector3(1,1,1), 
+        new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(15, 0, -60))
+    )
+    var small_branch_a = unfold(trunk_b_transform, 
+            small_branch_a_transform, get_meta().ponyo_tree.small_branch_a, solid)
+
+    var small_branch_a = unfold(trunk_b_transform, 
+        new transform (
+            new Vector3(pixel.map(4), pixel.map(12), 0), 
+            new Vector3(1,1,1), 
+            new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(-5, 0, -30))
+        ), get_meta().ponyo_tree.small_branch_b, solid)
+
+    var small_branch_a_transform = new transform (
+        new Vector3(pixel.map(1), -pixel.map(3), pixel.map(12)), 
+        new Vector3(1,1,1), 
+        new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(55, 0, 0))
+    )
+    var small_branch_a = unfold(trunk_b_transform, 
+            small_branch_a_transform, get_meta().ponyo_tree.small_branch_a, solid)
+
+    var small_branch_a_transform = new transform (
+        new Vector3(-pixel.map(6), pixel.map(20), pixel.map(10)), 
+        new Vector3(1,1,1), 
+        new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(35, 0, 25))
+    )
+    var small_branch_a = unfold(trunk_b_transform, 
+            small_branch_a_transform, get_meta().ponyo_tree.small_branch_a, solid)
+    //## ------------------------------ LEFT SIDE ------------------------------##
 }
