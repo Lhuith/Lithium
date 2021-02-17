@@ -49,8 +49,6 @@ export class decomposer extends component {
         this.colors = col.arrayHexToThreeColor(meta.colors);
         this.render_type = type || 0;
         this.attributes_reference = renderer.attributes;
-        
-
         this.orient = new Vector4(0,0,0,1);
         this.scale = new Vector3(1,1,1);
         
@@ -90,8 +88,13 @@ export class decomposer extends component {
     update = () => {
         //if(this.animate)
             //this.attribute_debug();
-            if(this.transform != null){  
-                this.matrix = this.inner_transform.get_transformation().to_three();
+            if(this.transform != null) {  
+
+                if(this.render_type == 0) {
+                    this.matrix = this.inner_transform.get_transformation_noRot().to_three();
+                } else {
+                    this.matrix = this.inner_transform.get_transformation().to_three();
+                }
                 // have to tell the buffer/instance_geometry to update aswell
                 this.attributes_reference.set_transform(this.buffer_idx, this.matrix)
                 //this.attributes_reference.set_orientation(this.buffer_idx, new quaternion(0,0,0,1).to_three());
@@ -139,8 +142,11 @@ export class decomposer extends component {
             this.inner_transform.parent = t;
             // this is why we need to split up the instance shader :|
             //this.scale = this.transform.scale;
-            this.matrix = this.inner_transform.get_transformation().to_three();
-        
+            if(this.render_type == 0) {
+                this.matrix = this.inner_transform.get_transformation_noRot().to_three();
+            } else {
+                this.matrix = this.inner_transform.get_transformation().to_three();
+            }
             // append to the buffer after all fields are set
             if(!this.skip_occlusion) {
                 //TestQuadTree.insert(new qt_point(

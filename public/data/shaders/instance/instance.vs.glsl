@@ -93,7 +93,6 @@
 			return vec3(w.x, w.y, w.z);
 		}
 
-
 		void main() {
 			forward = normalize(rotate(vec3(0, 0, 1), orientation));
 
@@ -108,7 +107,6 @@
 			viewDirection = normalize((posWorld.xz - cameraPosition.xz));	
 		
 			//---------------------------------------------------------
-
 			if(type == 0.0){
 				//---------------------------------------------------Normal/3D Sprite ---------------------------------------------------
 				/* Sprites Face The Camera in Y Axis*/

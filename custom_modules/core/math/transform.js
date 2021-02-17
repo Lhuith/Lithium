@@ -41,6 +41,14 @@ export class transform  {
 
         return this.get_parent_matrix().mul(t.mul(r.mul(s)));
     }
+    get_transformation_noRot(){
+        var rotation = new quaternion(0,0,0,1);
+        var t = new matrix().translation(this.position.x, this.position.y, this.position.z);
+        var r = rotation.to_rotation_matrix();
+        var s = new matrix().scale(this.scale.x, this.scale.y, this.scale.z);
+
+        return this.get_parent_matrix_noRot().mul(t.mul(r.mul(s)));
+    }
     get_inverse_transformation(){
         var t = new matrix().translation(-this.position.x, -this.position.y, -this.position.z);
         
@@ -55,6 +63,14 @@ export class transform  {
     get_parent_matrix(){
         if(this.parent != null){
             this.parent_matrix = (this.parent.get_transformation());
+        } else {
+            this.parent_matrix =  new matrix();
+        }
+        return this.parent_matrix;
+    }
+    get_parent_matrix_noRot(){
+        if(this.parent != null){
+            this.parent_matrix = (this.parent.get_transformation_noRot());
         } else {
             this.parent_matrix =  new matrix();
         }
