@@ -218,12 +218,75 @@ export const tree = (t) => {
             new quaternion(0,0,0,1)))
     leaves(large_branch_transform, 
         new transform (
-            new Vector3(0.01, .75, 0.2), 
+            new Vector3(0.2, .85, 0.2), 
+            new Vector3(1,1,1), 
+            new quaternion(0,0,0,1)))
+
+        leaves(large_branch_transform, 
+            new transform (
+                new Vector3(-0.4, .85, 0.5), 
+                new Vector3(1,1,1), 
+                new quaternion(0,0,0,1)))
+
+    leaves(large_branch_transform, 
+        new transform (
+            new Vector3(-0.65, 1.25, 0.4), 
+            new Vector3(1,1,1), 
+            new quaternion(0,0,0,1)))
+
+    leaves(large_branch_transform, 
+        new transform (
+            new Vector3(-1.05, 0.75, 0.2), 
+            new Vector3(1,1,1), 
+            new quaternion(0,0,0,1)))
+
+    leaves(large_branch_transform, 
+        new transform (
+            new Vector3(-0.65, 0.95, -0.3), 
+            new Vector3(1,1,1), 
+            new quaternion(0,0,0,1)))
+
+    leaves(large_branch_transform, 
+        new transform (
+            new Vector3(-1.05, 0.35, -0.6), 
+            new Vector3(1,1,1), 
+            new quaternion(0,0,0,1)))
+
+    leaves(large_branch_transform, 
+        new transform (
+            new Vector3(-0.55, 0.15, 0.4), 
+            new Vector3(1,1,1), 
+            new quaternion(0,0,0,1)))
+    
+    leaves(large_branch_transform, 
+        new transform (
+            new Vector3(-0.55, 0.35, -0.3), 
             new Vector3(1,1,1), 
             new quaternion(0,0,0,1)))
     leaves(large_branch_transform, 
         new transform (
-            new Vector3(-0.65, 1.25, 0.4), 
+            new Vector3(0.35, 0.55, -0.3), 
+            new Vector3(1,1,1), 
+            new quaternion(0,0,0,1)))
+
+    leaves(large_branch_transform, 
+        new transform (
+            new Vector3(-0.65, 0.75, 0.9), 
+            new Vector3(1,1,1), 
+            new quaternion(0,0,0,1)))
+    leaves(large_branch_transform, 
+        new transform (
+            new Vector3(-0.2, 0.05, 0.9), 
+            new Vector3(1,1,1), 
+            new quaternion(0,0,0,1)))
+    leaves(large_branch_transform, 
+        new transform (
+            new Vector3(-0.2, 0, -0.8), 
+            new Vector3(1,1,1), 
+            new quaternion(0,0,0,1)))
+    leaves(large_branch_transform, 
+        new transform (
+            new Vector3(-0.2, -0.2, -0.2), 
             new Vector3(1,1,1), 
             new quaternion(0,0,0,1)))
 
