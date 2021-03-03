@@ -22,19 +22,19 @@ const box = (box_transform) => {
     )))
     new_list.push(solid(get_meta().gazebo.gazebo_front, 
     new transform (
-        new Vector3((26/32)/2,0,0), 
+        new Vector3((28/32)/2,0,0), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1, new Vector3(0,1,0), Math.PI/2, null)
     )))
     new_list.push(solid(get_meta().gazebo.gazebo_front, 
     new transform(
-        new Vector3(-(26/32)/2,0,0), 
+        new Vector3(-(28/32)/2,0,0), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1, new Vector3(0,1,0), Math.PI/2, null)
     )))
     new_list.push(solid(get_meta().gazebo.gazebo_top, 
     new transform(
-        new Vector3(0,-(3/32),0), 
+        new Vector3(0,-(4/32),0), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1, new Vector3(1,0,0), Math.PI/2, null)
     )))
@@ -54,7 +54,7 @@ const bench = (box_transform) => {
     box(transformA)
     
     var transformB = new transform(
-        new Vector3(0 - ((26/32)/2 - (10/32)/2), 0.5, 0 - ((26/32)/2 - (10/32)/2)),
+        new Vector3(0 - ((28/32)/2 - (10/32)/2), 0.5, 0 - ((28/32)/2 - (10/32)/2)),
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1, new Vector3(0, 1, 0), Math.PI/2, null))
     transformB.set_parent(box_transform)
@@ -62,21 +62,21 @@ const bench = (box_transform) => {
     
     solid(get_meta().gazebo.gazebo_pole, 
         new transform(
-            new Vector3((-(4/32)/2),0.5,-((10/32)/2) - (2/32)/2), 
+            new Vector3((-(4/32)/2),0.71,-((10/32)/2) - (2/32)/2), 
             new Vector3(1,1,1), 
             new quaternion(0,0,0,1)
     )).set_transform(box_transform)
 
     solid(get_meta().gazebo.gazebo_pole, 
         new transform(
-            new Vector3((-(4/32)/2),(0.5),-((10/32)/2) - (2/32)/2), 
+            new Vector3((-(4/32)/2),(0.71),-((10/32)/2) - (2/32)/2), 
             new Vector3(1,1,1), 
             new quaternion(0,0,0,1, new Vector3(0, 1, 0), Math.PI/2)
     )).set_transform(box_transform)
 }
 const build_bench = (t) => {
     var depth = (1.0 - (10/32)/2) * (1.35 -  (10/32)/2)
-    var width = (1.0 - (26/32)/2) * 1.25
+    var width = (1.0 - (28/32)/2) * 1.25
 
     var benchA = new transform (
         new Vector3(-width,0, depth), 

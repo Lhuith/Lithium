@@ -1,4 +1,4 @@
-import { to, math } from '/meta/helpers/utils.js'
+import { to, math, pixel} from '/meta/helpers/utils.js'
 import * as THREE from '/build/three.module.js'
 
 import { quaternion } from '/core/math/quaternion.js'
@@ -10,11 +10,13 @@ import { box } from '/nomads/tests/box.js'
 import { wheelchair } from '/nomads/tests/wheelchair.js'
 import { pole, pole_T, pole_R, pole_M, pole_M_fence, pole_s, temp_inner_fence} from '/nomads/tests/pole.js'
 import { bench } from '/nomads/tests/bench.js'
-import { bush, tree} from '/nomads/tests/flora.js'
+import { bush, tree, grass} from '/nomads/tests/flora.js'
+import { steps } from '/nomads/tests/stairs.js'
+import { point } from '/nomads/tests/point.js'
 
 const gazebo_build = (h) => {
     build_gazebo( new transform(
-        new THREE.Vector3(1.22,h - 0.01,-0.4),
+        new THREE.Vector3(1.05,h - 0.01,-0.22),
         new THREE.Vector3(1,1,1),
         new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 0, 0))
     ))
@@ -36,38 +38,53 @@ const gazebo_build = (h) => {
            new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 65, 0)))
     bench (
     new transform(
-        new THREE.Vector3(-1.31,h-0.05,-1.5),
+        new THREE.Vector3(-1.2,h-0.15,-1.55),
         new THREE.Vector3(1,1,1),
-        new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, -15, 0))))
+        new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, -25, 0))))
     pole_M_fence (
        new transform(
-           new THREE.Vector3(2.5,0.15,-6.0),
+           new THREE.Vector3(1.75,0.15,-5.85),
            new THREE.Vector3(1,1,1),
            new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 90, 0)))
     , 15)
     pole_M (
         new transform(
-            new THREE.Vector3(3.1,0,-5.36),
+            new THREE.Vector3(2.41,0,-5.17),
             new THREE.Vector3(1,1,1),
             new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0,-30, 0))))
     pole (
         new transform(
-            new THREE.Vector3(2.52,0.58,-5.75),
+            new THREE.Vector3(1.8,0.58,-5.6),
             new THREE.Vector3(1,1,1),
             new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(40, 28, -90))))
 
-    temp_inner_fence(0.001);
+    temp_inner_fence(0.22, -0.05);
 
     bush (
         new transform(
-            new THREE.Vector3(-3.8,0.78,-1.5),
+            new THREE.Vector3(-3.3,0.65,-1.5),
             new THREE.Vector3(1,1,1),
             new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 0, 0))))
     tree (
         new transform(
-            new THREE.Vector3(-2.1,0.9,-1.75),
+            new THREE.Vector3(-1.75,0.77,-1.75),
             new THREE.Vector3(1,1,1),
             new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 0, 5))))
+
+    steps(new transform(
+        new THREE.Vector3(2.55,1.15,-0.175),
+        new THREE.Vector3(1,1,1),
+        new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 90, 0))), 11)
+
+    steps(new transform(
+        new THREE.Vector3(1,1.11,-2.45),
+        new THREE.Vector3(1,1,1),
+        new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 180, 0))), 11)
+
+    steps(new transform(
+        new THREE.Vector3(1,0.44,-5.25),
+        new THREE.Vector3(1,1,1),
+        new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(0, 180, 0))), 5)
 }
 
 const map_rgba = (index, map_data) => {
@@ -102,6 +119,9 @@ export const texture_to_mesh = (height_map, detial_map, lod, build) => {
 
     var vertices = [(map_size) * 3]
     var indices = [(vertices_per_line - 1) * (vertices_per_line - 1) * 6]
+
+    console.log("verts length : ", vertices, "indices length: ", indices)
+
     var normals = [map_size * 3]
     var uvs = [map_size * 2]
 
@@ -109,6 +129,18 @@ export const texture_to_mesh = (height_map, detial_map, lod, build) => {
     var triangle_index = 0
     var normals_index = 0
     var uv_index = 0
+
+    var cutoff = 0.4;
+    // cloned for extrusion testing
+    var vertices_copy = []
+    var indices_copy = []
+    var normals_copy = []
+    var uvs_copy = []
+
+    var vertex_copy_index = 0
+    var triangle_copy_index = 0
+    var normals_copy_index = 0
+    var uvs_copy_index = 0
 
     var max_height = -Infinity
 
@@ -119,47 +151,67 @@ export const texture_to_mesh = (height_map, detial_map, lod, build) => {
         var map_data = map_rgba(index, height_map.data)
         var height = math.easingFunctions.easeInOutCubic(math.normalize(0, 255, map_data.r)) * 1.45
       
-        //if(map_data.b != undefined){
-        //   
-        //
         if (height > max_height){
             max_height = height
         }
-//
-        //    if (height == 0){
-        //        height = -5
-        //    }
-        //} else {
-        //    height = 10000
-        //}
-        
-        //if(detial_map != undefined){
-        //    var detials = map_rgba(index, detial_map.data)
-//
-        //    if(detials.g > 100){
-        //        tree_01_create(new THREE.Vector3((top_left_x + x), height, (top_left_z - y)), //new quaternion())
-        //    } else {
-        //       
-        //    }
-        //}
 
-        vertices[(vertex_index * 3) + 0] = (top_left_x + x) * 0.125
-        vertices[(vertex_index * 3) + 1] = height
-        vertices[(vertex_index * 3) + 2] = (top_left_z - y) * 0.125
+        if(detial_map != undefined){
+            var details = map_rgba(index, detial_map.data)
+            
+            var base_x = top_left_x + x;
+            var next_x = top_left_x + (x + 1);
+            var centre_x = ((base_x + next_x) / 2);
+
+            var next_z = top_left_z - (y + 1);
+            var base_z = top_left_z - y;
+            var centre_z = ((base_z + next_z) / 2)-4;
+
+            var next_map_data = map_rgba(((x + 1) + (height_map.width) * (y+1)), height_map.data)
+            var height_next = math.easingFunctions.easeInOutCubic(math.normalize(0, 255, next_map_data.r)) * 1.45
+
+            var centre_height = (height + height_next) / 2;
+
+            if(details.g > 100){
+                //grass(
+               //     new transform(
+               //     new THREE.Vector3(
+               //         (centre_x) * 0.125, 
+               //         centre_height - pixel.map(12), 
+               //         (centre_z) * 0.125), 
+               //     new THREE.Vector3(1,1,1),
+                //    new quaternion(0,0,0,1).eulerToQuaternion(new THREE.Vector3(45 , 0, 0)//)))
+            }
+        }
+        
+        var vertex_0 = (top_left_x + x) * 0.125
+        var vertex_1 = height
+        var vertex_2 = (top_left_z - y) * 0.125
+
+        // captured vertices past height
+        if (height >= cutoff) {
+            vertices_copy.push(vertex_0)
+            vertices_copy.push(vertex_1)
+            vertices_copy.push(vertex_2)
+
+            vertex_copy_index++
+        }
+
+        vertices[(vertex_index * 3) + 0] = vertex_0
+        vertices[(vertex_index * 3) + 1] = vertex_1
+        vertices[(vertex_index * 3) + 2] = vertex_2
         
         // ¯\_(ツ)_/¯
-       // normals.push(0, 1, 0);
-        normals[(normals_index * 3) + 0] = 0.0
-        normals[(normals_index * 3) + 1] = 1.0
-        normals[(normals_index * 3) + 2] = 0.0
-        normals_index++
+       // normals.push(0, 1, 0)
+       normals[(normals_index * 3) + 0] = 0.0
+       normals[(normals_index * 3) + 1] = 1.0
+       normals[(normals_index * 3) + 2] = 0.0
+       normals_index++
 
         uvs[(uv_index * 2) + 0] = (x/height_map.width)
         uvs[(uv_index * 2) + 1] = 1 - (y/height_map.height)
         uv_index++
 
         if(x < height_map.width - increment && y < height_map.height - increment){
-            //console.log(vertex_index)
             indices[(triangle_index * 6) + 0] = vertex_index
             indices[(triangle_index * 6) + 1] = vertex_index + vertices_per_line + 1
             indices[(triangle_index * 6) + 2] = vertex_index + vertices_per_line
@@ -170,9 +222,10 @@ export const texture_to_mesh = (height_map, detial_map, lod, build) => {
 
             triangle_index ++
         }
-        
+
         vertex_index ++
     }
+
     if (build) gazebo_build(max_height)
     //console.log(vertices.length)
     var bufferGeometry = new THREE.BufferGeometry()
@@ -187,6 +240,32 @@ export const texture_to_mesh = (height_map, detial_map, lod, build) => {
     geo.computeFaceNormals()
     geo.computeVertexNormals()
     geo.computeBoundingSphere()
+
+
+    if(vertices_copy.length > 0 && build) {
+        console.log(vertices_copy.length)
+        
+        //! Leaving it here
+        //! leaving it here
+        // need to create separated mesh for SOC style hair/grass
+        for(var i = 0; i < vertices_copy.length; i+= 3){
+            var index = i / 3;
+        }
+      
+        console.log(indices_copy.length)
+        var bufferGeometryCopy = new THREE.BufferGeometry()
+
+        bufferGeometryCopy.setIndex(indices_copy)
+        bufferGeometryCopy.setAttribute('position', new THREE.Float32BufferAttribute(vertices_copy, 3))
+        bufferGeometryCopy.setAttribute('normal', new THREE.Float32BufferAttribute(normals_copy, 3))
+        bufferGeometryCopy.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2))
+       
+        var geoCopy = new THREE.Geometry().fromBufferGeometry(bufferGeometryCopy)
+        geoCopy.mergeVertices()
+        geoCopy.computeFaceNormals()
+        geoCopy.computeVertexNormals()
+        geoCopy.computeBoundingSphere()
+    }
 
     return geo
 }

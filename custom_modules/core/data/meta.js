@@ -228,10 +228,12 @@ export const meta = {
         },
     }, 
     "ponyo_bush" : {
-        "mapping" : [{"x":0, "y":1}],
-        "frames" :  {"x":1, "y":1},
-        "colors" : ["0x99E273"],
-        "map_key" : "trees",
+        "leaves" : {
+            "mapping" : [{"x":0, "y":1}],
+            "frames" :  {"x":1, "y":1},
+            "colors" : ["0x99E273"],
+            "map_key" : "trees",
+        },
     },
     "ponyo_tree" : {
         "roots" : {
@@ -281,4 +283,42 @@ export const meta = {
             "map_key" : "trees",
         },
     },
+    "ponyo_grass" : {
+        "mapping" : [{"x":0, "y":5}],
+        "frames" :  {"x":1, "y":1},
+        "colors" : ["0x81bb43"],
+        "map_key" : "trees",
+    },
+    "ponyo_stairs" : {
+        "step" : {
+            "mapping" : [{"x":0, "y":7}],
+            "frames" :  {"x":1, "y":1},
+            "colors" : ["0x563C29"],
+            "map_key" : "structures",
+        },
+        "step_bottom" : {
+            "mapping" : [{"x":2, "y":7}],
+            "frames" :  {"x":1, "y":1},
+            "colors" : ["0x563C29"],
+            "map_key" : "structures",
+        },
+        "railing" : {
+            "mapping" : [{"x":1, "y":7}],
+            "frames" :  {"x":1, "y":1},
+            "colors" : ["0xFF5AC3"],
+            "map_key" : "structures",
+        },
+        "railing_cap" : {
+            "mapping" : [{"x":3, "y":7}],
+            "frames" :  {"x":1, "y":1},
+            "colors" : ["0xFF5AC3"],
+            "map_key" : "structures",
+        }
+    },
+    "point" : {
+        "mapping" : [{"x":1, "y":1}],
+        "frames" :  {"x":1, "y":1},
+        "colors" : ["0xFFFFFF"],
+        "map_key" : "debug",
+    }
 }
