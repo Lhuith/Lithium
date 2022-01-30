@@ -28,11 +28,11 @@ const init = (data) => {
 
     const geometry = new THREE.BoxGeometry()
     const material = new THREE.MeshBasicMaterial({
-        color: 0xffffff,
+        color: 0x0000ff,
     })
 
     const cube = new THREE.Mesh(geometry, material)
-    //scene.add(cube);
+    scene.add(cube);
 
     const gridHelper = new THREE.GridHelper( 10, 10 )
     scene.add( gridHelper )

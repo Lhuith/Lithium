@@ -1,5 +1,5 @@
 import { get_meta } from '/core/data/antlion.js'
-import * as physics from '/core/physics/physics.js'
+import * as physics from '/core/math/physics/physics.js'
 import * as keyboard from '/core/input/keyboard.js'
 import { quaternion } from '/core/math/quaternion.js'
 import { Vector3 } from '/build/three.module.js'
@@ -11,11 +11,7 @@ import { animation } from '/nomads/components/animation/animation.js'
 import { controller } from '/nomads/components/controller.js'
 
 // GAZEBO TECH stuff
-import { build_gazebo } from '/nomads/tests/gazebo.js'
 import { box } from '/nomads/tests/box.js'
-import { wheelchair } from '/nomads/tests/wheelchair.js'
-import { pole, pole_T, pole_R, pole_M } from '/nomads/tests/pole.js'
-import { bench } from '/nomads/tests/bench.js'
 
 import * as sky from '/nomads/systems/sky.js'
 import * as world from '/nomads/systems/world.js'
@@ -85,45 +81,6 @@ export class game {
             new quaternion(0,0,0,1)
         )
         this.objects.push(box_obj)
-
-        //this.gazebo_build()
-    }
-
-    gazebo_build(){
-        this.gaz = gazebo(this.objects)
-
-        var wheelchair_obj = wheelchair (
-            new Vector3(-5,0,0),
-            new Vector3(1,1,1),
-            new quaternion(0,0,0,1))
-
-        var object2  = new gameobject("pole", 
-            new Vector3(0,0,0),
-            new Vector3(1,1,1),
-            new quaternion(0,0,0,1))
-
-        var pole_obj = bench (
-            new transform(
-                new Vector3(2,0,0),
-                new Vector3(1,1,1),
-                new quaternion(0,0,0,1)))
-
-        var pole_obj = pole_T (
-            new transform(
-                new Vector3(-4,0,0),
-                new Vector3(1,1,1),
-                new quaternion(0,0,0,1)))
-
-        var pole_obj = pole_R (
-            new transform(
-                new Vector3(-3,0,0),
-                new Vector3(1,1,1),
-                new quaternion(0,0,0,1)))
-        var pole_obj = pole_M (
-            new transform(
-                new Vector3(-3,0,-1),
-                new Vector3(1,1,1),
-                new quaternion(0,0,0,1)))
     }
 
     update(delta){
@@ -132,7 +89,7 @@ export class game {
         for (let o of this.objects){    
             o.update(delta)
         }
-        sky.update(delta)
+        //sky.update(delta)
     }
 
     get_time(){

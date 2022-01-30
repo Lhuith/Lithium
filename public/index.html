@@ -4,6 +4,16 @@
 	<title>Nomads</title>
     <link rel="stylesheet" href="./css/index.css">
 </head>
+<script type="importmap">
+        {
+          "imports": {
+            "three": "../build/three.module.js",
+            "three/examples/jsm/controls/OrbitControls":"./jsm/controls/OrbitControls.js",
+            "three/examples/jsm/libs/stats.module":"./jsm/libs/stats.module.js",
+            "three/examples/jsm/libs/dat.gui.module":"./jsm/libs/dat.gui.module.js"
+          }
+        }
+    </script>
 <body> 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script type="module" src="client.js"></script>

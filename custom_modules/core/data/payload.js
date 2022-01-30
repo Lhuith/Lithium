@@ -37,7 +37,7 @@ export const payload = [
         '/data/img/tile/Crab_Island/Crab_Island_detail.png',
     ),
     new datatype.tile_resource(
-        "ponyo_island",
+        "ponyo_isle",
         't', 
         '/data/img/tile/ponyo_island/ponyo_island_color.png', 
         '/data/img/tile/ponyo_island/ponyo_island_height.png', 

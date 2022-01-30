@@ -5,7 +5,7 @@ import { get_data } from '/core/data/antlion.js'
 import {renderering_meta} from '/core/data/renderering_meta.js'
 import {meta} from '/core/data/meta.js'
 
-import * as THREE from '/build/three.module.js';
+import * as THREE from 'three'
 
 export class instance_renderer {
     type = "instance_renderer"

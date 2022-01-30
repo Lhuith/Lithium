@@ -6,7 +6,7 @@ export const init = () => {
 }
 
 const start_physics = () => {
-    physics_worker = new Worker("../core/physics/physics_work.js");
+    physics_worker = new Worker("../core/math/physics/physics_work.js");
 
     // physics update's happen here
     physics_worker.onmessage = function(event){

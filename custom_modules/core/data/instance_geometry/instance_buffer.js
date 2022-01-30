@@ -21,7 +21,7 @@ export class instance_buffer {
         this.m2 = [];
         this.m3 = [];
         this.index = 0;
-        this.size = 2000;
+        this.size = 50;
     
         if(prefill){
             this.prefill()
