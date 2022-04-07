@@ -4,6 +4,7 @@
   "description": "small online web game",
   "main": "app.js",
   "dependencies": {
+    "body-parser": "^1.20.0",
     "connect-livereload": "^0.6.1",
     "default-passive-events": "^2.0.0",
     "express": "^4.17.1",

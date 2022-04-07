@@ -16,7 +16,7 @@ export class controller extends component {
     
         console.log("%cController Initialized", "color:#7d57c1")
         
-        var controller = new PointerLockControls(three.camera, document.body)
+        let controller = new PointerLockControls(three.camera, document.body)
         //add event listener to your document.body
         document.body.addEventListener( 'click', function () {
             //lock mouse on screen
@@ -33,6 +33,7 @@ export class controller extends component {
         this.controls.getObject().position.x = saved_player_information.position.x
         this.controls.getObject().position.y = saved_player_information.position.y
         this.controls.getObject().position.z = saved_player_information.position.z
+
         this.controls.getObject().rotation.x = saved_player_information.rotation_euler.x
         this.controls.getObject().rotation.y = saved_player_information.rotation_euler.y
         this.controls.getObject().rotation.z = saved_player_information.rotation_euler.z
@@ -66,7 +67,7 @@ export class controller extends component {
         if(keyboard.input.space){
         }
         
-        if (this.controls.getObject().position.y == 0.0 ) {
+        if (this.controls.getObject().position.y === 0.0 ) {
            // canJump = true;
         }
 
@@ -98,7 +99,7 @@ export class controller extends component {
 
     }
     set_requirement(r){
-        if(r.type == "transform"){
+        if(r.type === "transform"){
             this.set_transform(r);
         }
     }
