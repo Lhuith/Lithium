@@ -60,9 +60,7 @@ export class game {
                 [ new animation("dead_start", 3, 3),
             new animation("dead_end", 6, 1)], 2, false)]))
 
-        let npc = new gameobject("steve", 
-        new Vector3(3,0.5,0), 
-        new Vector3(1,1,1), 
+        let npc = new gameobject("steve", new Vector3(3,0.5,0), new Vector3(1,1,1),
         new quaternion(0,0,0,1, null, null, null))
 
         npc.add_component(sprite(get_meta().lithy))
@@ -78,8 +76,7 @@ export class game {
         this.objects.push(object)
         this.objects.push(npc)
 
-        this.objects[1].transform.look_at(
-            new Vector3(0, 0, 0), new Vector3(0, 1, 0))
+        this.objects[1].transform.look_at(new Vector3(0, 0, 0), new Vector3(0, 1, 0))
         
         let box_obj = box (
             new Vector3(-2,0,0),
@@ -95,6 +92,7 @@ export class game {
         for (let o of this.objects){    
             o.update(delta)
         }
+        map.update(delta)
         //sky.update(delta)
     }
 

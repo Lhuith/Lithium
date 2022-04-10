@@ -7,7 +7,6 @@ import * as ajax from '/meta/helpers/ajax.js'
 import {PointerLockControls} from '/jsm/controls/PointerLockControls.js'
 
 var scene, camera, stats, clock, renderer, renderers, game_time
-var controls
 
 const init = (data) => {
     console.log("%cThree Initialized", "color:#F22C2F")
@@ -23,8 +22,6 @@ const init = (data) => {
     renderer.setClearColor( 0xffffff, 1 )
     
     document.body.appendChild(renderer.domElement)
-
-    //controls = new OrbitControls(camera, renderer.domElement);
 
     const geometry = new THREE.BoxGeometry()
     const material = new THREE.MeshBasicMaterial({
