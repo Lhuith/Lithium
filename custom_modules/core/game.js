@@ -15,6 +15,7 @@ import { box } from '/nomads/tests/box.js'
 
 import * as sky from '/nomads/systems/sky.js'
 import * as world from '/nomads/systems/world.js'
+import * as map from '/nomads/systems/map.js'
 import { look_at } from '/nomads/components/look_at.js'
 import { transform } from '/core/math/transform.js'
 
@@ -42,6 +43,7 @@ export class game {
             physics.init()
             sky.init(three.renderer)
             world.init(three)
+            map.init(three)
         //! ---------- INIT ----------
         let object = new gameobject(
             "denis", 

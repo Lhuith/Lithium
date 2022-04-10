@@ -6,10 +6,10 @@ import { gameobject } from '/core/data/gameobject.js'
 import { transform } from '/core/math/transform.js'
 
 const map_rgba = (index, map_data) => {
-    var red = map_data[(index * 4) + 0]
-    var green = map_data[(index * 4) + 1]
-    var blue = map_data[(index * 4) + 2]
-    var alpha = map_data[(index* 4) + 3]
+    let red = map_data[(index * 4) + 0]
+    let green = map_data[(index * 4) + 1]
+    let blue = map_data[(index * 4) + 2]
+    let alpha = map_data[(index* 4) + 3]
 
     return {r:red, g:green,b:blue,a:alpha}
 }
@@ -27,61 +27,61 @@ export const texture_to_mesh = (height_map, detial_map, lod, build) => {
         lod = 1
     }
 
-    var top_left_x = (height_map.width - 1) / -2
-    var top_left_z = (height_map.width - 1) / +2
+    let top_left_x = (height_map.width - 1) / -2
+    let top_left_z = (height_map.width - 1) / +2
 
-    var increment = (lod == 0) ? 1 : lod * 2
-    var vertices_per_line = Math.floor(((height_map.width - 1) / increment) + 1)
+    let increment = (lod == 0) ? 1 : lod * 2
+    let vertices_per_line = Math.floor(((height_map.width - 1) / increment) + 1)
     
-    var map_size = vertices_per_line * vertices_per_line
+    let map_size = vertices_per_line * vertices_per_line
 
-    var vertices = [(map_size) * 3]
-    var indices = [(vertices_per_line - 1) * (vertices_per_line - 1) * 6]
+    let vertices = [(map_size) * 3]
+    let indices = [(vertices_per_line - 1) * (vertices_per_line - 1) * 6]
 
-    var normals = [map_size * 3]
-    var uvs = [map_size * 2]
+    let normals = [map_size * 3]
+    let uvs = [map_size * 2]
 
-    var vertex_index = 0
-    var triangle_index = 0
-    var normals_index = 0
-    var uv_index = 0
+    let vertex_index = 0
+    let triangle_index = 0
+    let normals_index = 0
+    let uv_index = 0
 
-    var max_height = -Infinity
+    let max_height = -Infinity
 
-    for(var y = 0; y < height_map.height; y+= increment)
-        for(var x = 0; x < height_map.width; x+= increment){
+    for(let y = 0; y < height_map.height; y+= increment)
+        for(let x = 0; x < height_map.width; x+= increment){
         
-        var index = (x + (height_map.width) * y)
-        var map_data = map_rgba(index, height_map.data)
-        var height = math.easingFunctions.easeInOutCubic(math.normalize(0, 255, map_data.r)) * 1.45
+        let index = (x + (height_map.width) * y)
+        let map_data = map_rgba(index, height_map.data)
+        let height = math.easingFunctions.easeInOutCubic(math.normalize(0, 255, map_data.r))
       
         if (height > max_height){
             max_height = height
         }
 
         if(detial_map != undefined) {
-            var details = map_rgba(index, detial_map.data)
+            let details = map_rgba(index, detial_map.data)
             
-            var base_x = top_left_x + x;
-            var next_x = top_left_x + (x + 1);
-            var centre_x = ((base_x + next_x) / 2);
+            let base_x = top_left_x + x;
+            let next_x = top_left_x + (x + 1);
+            let centre_x = ((base_x + next_x) / 2);
 
-            var next_z = top_left_z - (y + 1);
-            var base_z = top_left_z - y;
-            var centre_z = ((base_z + next_z) / 2)-4;
+            let next_z = top_left_z - (y + 1);
+            let base_z = top_left_z - y;
+            let centre_z = ((base_z + next_z) / 2)-4;
 
-            var next_map_data = map_rgba(((x + 1) + (height_map.width) * (y+1)), height_map.data)
-            var height_next = math.easingFunctions.easeInOutCubic(math.normalize(0, 255, next_map_data.r)) * 1.45
+            let next_map_data = map_rgba(((x + 1) + (height_map.width) * (y+1)), height_map.data)
+            let height_next = math.easingFunctions.easeInOutCubic(math.normalize(0, 255, next_map_data.r)) * 1.45
 
-            var centre_height = (height + height_next) / 2;
+            let centre_height = (height + height_next) / 2;
 
             if(details.g > 100){
             }
         }
         
-        var vertex_0 = (top_left_x + x) * 0.125
-        var vertex_1 = height
-        var vertex_2 = (top_left_z - y) * 0.125
+        let vertex_0 = (top_left_x + x)
+        let vertex_1 = height
+        let vertex_2 = (top_left_z - y)
 
         vertices[(vertex_index * 3) + 0] = vertex_0
         vertices[(vertex_index * 3) + 1] = vertex_1
@@ -113,7 +113,7 @@ export const texture_to_mesh = (height_map, detial_map, lod, build) => {
         vertex_index ++
     }
 
-    var bufferGeometry = new THREE.BufferGeometry()
+    let bufferGeometry = new THREE.BufferGeometry()
 
     bufferGeometry.setIndex(indices)
     bufferGeometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3))
