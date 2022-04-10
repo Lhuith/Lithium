@@ -45,20 +45,21 @@ export class game {
             world.init(three)
             map.init(three)
         //! ---------- INIT ----------
+
         let object = new gameobject(
             "denis", 
             new Vector3(0,0.5,0), 
             new Vector3(1,1,1), 
             new quaternion(0,0,0,1, null, null, null)
         )
-        object.add_component(solid(get_meta().crab))
+        //object.add_component(solid(get_meta().crab))
 
-        object.add_component(new animator([
-            new animation_sequence("walk",
-                [new animation("walk", 0, 3)], 2, true),
-            new animation_sequence("death",
-                [ new animation("dead_start", 3, 3),
-            new animation("dead_end", 6, 1)], 2, false)]))
+        //object.add_component(new animator([
+        //    new animation_sequence("walk",
+        //        [new animation("walk", 0, 3)], 2, true),
+        //    new animation_sequence("death",
+        //        [ new animation("dead_start", 3, 3),
+        //    new animation("dead_end", 6, 1)], 2, false)]))
 
         let npc = new gameobject("steve", new Vector3(3,0.5,0), new Vector3(1,1,1),
         new quaternion(0,0,0,1, null, null, null))

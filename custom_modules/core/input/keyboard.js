@@ -7,6 +7,8 @@ export const input = {
     w: false,
     s: false,
     q: false,
+    x: false,
+    z: false,
     space: false,
     shift: false,
     esc : false,
@@ -51,6 +53,12 @@ const onKeyDown = (e) => {
         case 87: // w
             input.w = true
             break
+        case 88: // w
+            input.x = true
+            break
+        case 90: // w
+            input.z = true
+            break
     }
 }
 
@@ -85,6 +93,12 @@ const onKeyUp = (e) => {
             break
         case 87: // w
             input.w = false
+            break
+        case 88: // w
+            input.x = false
+            break
+        case 90: // w
+            input.z = false
             break
     }
 }
