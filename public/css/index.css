@@ -4,4 +4,5 @@ body {
 }
 #map {
     position: absolute;
+    left: 90%;
 }

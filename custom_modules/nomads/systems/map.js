@@ -1,8 +1,8 @@
 import * as THREE from '/build/three.module.js'
 import * as keyboard from '/core/input/keyboard.js'
 
-let dx = 0;
-let dy = 0;
+let dx = -150/2
+let dy = -150/2
 let map_context, map_context_element;
 let atlas;
 
@@ -13,6 +13,8 @@ export const init = (three) => {
     map_context = map_context_element.getContext('2d')
 
     map_context_element.style.backgroundColor = 'black'
+    map_context_element.imageRendering = "pixilated";
+    console.log(map_context_element)
     map_context_element.width  = 150;
     map_context_element.height = 150;
 
@@ -20,7 +22,6 @@ export const init = (three) => {
     atlas.src = '/data/img/tile/Crab_Island/Crab_Island_color.png';
 
     atlas.onload = function() {
-        console.log(atlas.width, atlas.height)
         drawImageToMap(dx, dy)
     }
 }
@@ -36,5 +37,5 @@ export const update = (delta) => {
 }
 
 const drawImageToMap = (dx, dy) => {
-    map_context.drawImage(atlas, dx, dy, 32, 32);
+    map_context.drawImage(atlas, dx, dy);
 }
