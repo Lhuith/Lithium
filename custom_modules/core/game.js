@@ -43,7 +43,7 @@ export class game {
             sky.init(three.renderer)
             world.init(three)
         //! ---------- INIT ----------
-        var object = new gameobject(
+        let object = new gameobject(
             "denis", 
             new Vector3(0,0.5,0), 
             new Vector3(1,1,1), 
@@ -52,11 +52,13 @@ export class game {
         object.add_component(solid(get_meta().crab))
 
         object.add_component(new animator([
-            new animation_sequence("walk", [new animation("walk", 0, 3)], 2, true), 
-            new animation_sequence("death", [ new animation("dead_start", 3, 3), 
+            new animation_sequence("walk",
+                [new animation("walk", 0, 3)], 2, true),
+            new animation_sequence("death",
+                [ new animation("dead_start", 3, 3),
             new animation("dead_end", 6, 1)], 2, false)]))
 
-        var npc = new gameobject("steve", 
+        let npc = new gameobject("steve", 
         new Vector3(3,0.5,0), 
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1, null, null, null))
@@ -65,8 +67,10 @@ export class game {
         //npc.add_component(new look_at(three, three.camera.position))
 
         npc.add_component(new animator([
-                new animation_sequence("idle", [new animation("idle", 0, 4)], 8, true),
-                new animation_sequence("wave", [new animation("wave", 4, 2)], 8, true)]))
+                new animation_sequence("idle",
+                    [new animation("idle", 0, 4)], 8, true),
+                new animation_sequence("wave",
+                    [new animation("wave", 4, 2)], 8, true)]))
         object.add_component(new controller(three))
        
         this.objects.push(object)
@@ -75,7 +79,7 @@ export class game {
         this.objects[1].transform.look_at(
             new Vector3(0, 0, 0), new Vector3(0, 1, 0))
         
-        var box_obj = box (
+        let box_obj = box (
             new Vector3(-2,0,0),
             new Vector3(1,1,1),
             new quaternion(0,0,0,1)

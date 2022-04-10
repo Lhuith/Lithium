@@ -77,8 +77,7 @@ const fall = (i, data) => {
         map_texture_loader(payload[i].name, payload[i].url, map_index++,
             (i === 0) ? done : fall, i - 1);
     }
-
-    console.log("%c loading in : "+ payload[i].name, 'color: #FF0000');
+    console.log("%c loading in "+ payload[i].name, 'color: #FA'+i.toString(16)+i.toString(16)+'00');
 }
 
 const ajax_callback = (e, n) => {
