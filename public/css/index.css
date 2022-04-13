@@ -4,5 +4,9 @@ body {
 }
 #map {
     position: absolute;
-    left: 90%;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    border: 5px solid #ddd;
 }
