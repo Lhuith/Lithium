@@ -11,7 +11,7 @@ export const init = (three) => {
     console.log("%cMap Initialized", "color:#FFD9E5")
 
     atlas = new Image();
-    atlas.src = '/data/img/tile/Crab_Island/Crab_Island_color.png';
+    atlas.src = '/data/img/tile/world/world.png';
     atlas.style.imageRendering = "pixilated"
 
 
@@ -19,14 +19,14 @@ export const init = (three) => {
         map_context_element = document.getElementById('map');
         map_context = map_context_element.getContext('2d')
 
-        map_context_element.width = atlas.width * window.devicePixelRatio;
-        map_context_element.height = atlas.height * window.devicePixelRatio;
+        map_context_element.width = atlas.width/3 * window.devicePixelRatio;
+        map_context_element.height = atlas.height/3 * window.devicePixelRatio;
 
-        start_dx = -(atlas.width)*2
-        start_dy = -(atlas.height)*2
+        start_dx = -(atlas.width/3)*2
+        start_dy = -(atlas.height/3)*2
 
-        map_context_element.style.width = `${atlas.width/1.25}px`;
-        map_context_element.style.height = `${atlas.height/1.25}px`;
+        map_context_element.style.width = `${(atlas.width/3)/1.25}px`;
+        map_context_element.style.height = `${(atlas.height/3)/1.25}px`;
         map_context_element.style.backgroundColor = 'black'
         map_context_element.style.left = '0%'
 
@@ -50,6 +50,6 @@ export const setMapCoords = (x, y) =>{
 
 const drawImageToMap = (x, y) => {
     if (map_context != null || map_context !== undefined){
-        map_context.drawImage(atlas, start_dx + x, start_dy + y, atlas.width*5 * window.devicePixelRatio, atlas.height*5 * window.devicePixelRatio)
+        map_context.drawImage(atlas, start_dx + x, start_dy + y, (atlas.width/3)*5 * window.devicePixelRatio, (atlas.height/3)*5 * window.devicePixelRatio)
     }
 }
