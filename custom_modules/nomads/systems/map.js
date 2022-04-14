@@ -1,7 +1,7 @@
 import * as THREE from '/build/three.module.js'
 import * as keyboard from '/core/input/keyboard.js'
 
-let dx = 0, dy = 0
+let dx = 0, dy = 0, start_dx = 0, start_dy = 0
 let map_context, map_context_element;
 let atlas;
 
@@ -22,8 +22,8 @@ export const init = (three) => {
         map_context_element.width = atlas.width * window.devicePixelRatio;
         map_context_element.height = atlas.height * window.devicePixelRatio;
 
-        dx = -(atlas.width)*2
-        dy = -(atlas.height)*2
+        start_dx = -(atlas.width)*2
+        start_dy = -(atlas.height)*2
 
         map_context_element.style.width = `${atlas.width/1.25}px`;
         map_context_element.style.height = `${atlas.height/1.25}px`;
@@ -35,20 +35,21 @@ export const init = (three) => {
         ctx.webkitImageSmoothingEnabled = false;
         ctx.msImageSmoothingEnabled = false;
         ctx.imageSmoothingEnabled = false;
-        drawImageToMap(dx,dy)
+        drawImageToMap(start_dx,start_dy)
     }
 }
 
 export const update = (delta) => {
-    //drawImageToMap(dx,dy)
+    drawImageToMap(dx,dy)
 }
 
-export const updateMapePosition = (x, y) =>{
-    dx += x
-    dy += y
+export const setMapCoords = (x, y) =>{
+    dx = x
+    dy = y
 }
 
 const drawImageToMap = (x, y) => {
-    map_context.drawImage(atlas, x, y, atlas.width*5 * window.devicePixelRatio,
-        atlas.height*5 * window.devicePixelRatio)
+    if (map_context != null || map_context !== undefined){
+        map_context.drawImage(atlas, start_dx + x, start_dy + y, atlas.width*5 * window.devicePixelRatio, atlas.height*5 * window.devicePixelRatio)
+    }
 }
