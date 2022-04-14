@@ -8,6 +8,11 @@ export class gameobject {
 
     constructor(n, p = new Vector3(), s = new Vector3(1,1,1), r = new quaternion()){
         this.name = n;
+
+        if (r === null) {
+            r = new quaternion(0,0,0,1)
+            console.error("quaternion for game object not set")
+        }
         this.transform = new transform(p, s, r);
         
         this.active = true;
@@ -40,10 +45,9 @@ export class gameobject {
             this.set_required(c);
         }
     }
-    //TODO decide on requirements!
     //add_requirements
     get_component(n){
-        var components = [];
+        let components = [];
 
         if(!is.alpha(n)){
             console.error("\"n\" must be of type string.")
@@ -67,7 +71,7 @@ export class gameobject {
         if (c.required == "transform"){
             c.set_requirement(this.transform)
         } else if (c.required == "decomposer"){
-            var decomp = this.get_component("decomposer")
+            let decomp = this.get_component("decomposer")
             if (decomp != null && decomp != undefined) {
                 c.set_requirement(decomp)
             }

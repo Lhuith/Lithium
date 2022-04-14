@@ -48,8 +48,7 @@ export class game {
             map.init(three)
         //! ---------- INIT ----------
 
-        let npc = new gameobject("steve", new Vector3(3,0.8,0), new Vector3(1,1,1),
-        new quaternion(0,0,0,1, null, null, null))
+        let npc = new gameobject("steve", new Vector3(3,0.8,0), new Vector3(1,1,1))
         npc.add_component(sprite(get_meta().lithy))
         npc.add_component(new look_at(three, three.camera.position))
 
