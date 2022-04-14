@@ -2,6 +2,7 @@ import { transform } from '/core/math/transform.js';
 import {is} from '/meta/helpers/utils.js';
 import { quaternion } from '/core/math/quaternion.js'
 import { Vector3 } from '/build/three.module.js'
+import * as assert from "assert";
 
 export class gameobject {
     type = "gameobject";
@@ -63,7 +64,6 @@ export class gameobject {
                 return components;
             }
         }
-
         return null;
     }
     // set required components/objects such as transforms
@@ -72,7 +72,7 @@ export class gameobject {
             c.set_requirement(this.transform)
         } else if (c.required == "decomposer"){
             let decomp = this.get_component("decomposer")
-            if (decomp != null && decomp != undefined) {
+            if (decomp != null) {
                 c.set_requirement(decomp)
             }
         }
@@ -82,7 +82,7 @@ export class gameobject {
             console.error("\"n\" must be of type string.")
         } else {
             for(let c of this.components){
-                if(c.name == n){
+                if(c.name == n) {
                     return true
                 }
             }
