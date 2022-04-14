@@ -67,15 +67,15 @@ const fall = (i, data) => {
     }
 
     // Keep falling baby
-    if(payload[i].type === "s"){
+    if(payload[i].type == "s"){
         shader_loader(payload[i].name, payload[i].vert, payload[i].frag, payload[i].extra,
-            (i === 0) ? done : fall, i - 1);
-    } else if(payload[i].type === "t"){
+            (i == 0) ? done : fall, i - 1);
+    } else if(payload[i].type == "t"){
         texture_loader(payload[i].name, payload[i].color, payload[i].height, payload[i].detail,
-            (i === 0) ? done : fall, i - 1);
-    } else if(payload[i].type === "m"){
+            (i == 0) ? done : fall, i - 1);
+    } else if(payload[i].type == "m"){
         map_texture_loader(payload[i].name, payload[i].url, map_index++,
-            (i === 0) ? done : fall, i - 1);
+            (i == 0) ? done : fall, i - 1);
     }
     console.log("%c loading in "+ payload[i].name, 'color: #FA'+i.toString(16)+i.toString(16)+'00');
 }
@@ -124,9 +124,8 @@ const shader_loader = (name, vertex_url, fragment_url, custom, onLoad, i, onProg
 const texture_loader  = (name, urlc, urlh, urld, onLoad, i, onProgress, onError) => {
     let texture_c = new THREE.TextureLoader().load(urlc, function (event) {
         let texture_h = new THREE.TextureLoader().load(urlh, function (event) {
+            let image_data = img.get_image_data(texture_h.image);
             let texture_d = new THREE.TextureLoader().load(urld, function (event) {
-
-                let image_data = img.get_image_data(texture_h.image);
                 let detail_data = img.get_image_data(texture_d.image);
 
                 texture_c.magFilter = THREE.NearestFilter;
@@ -148,7 +147,6 @@ const texture_loader  = (name, urlc, urlh, urld, onLoad, i, onProgress, onError)
                     detail: detail_data,
                     detail_test: texture_d
                 }, onProgress, onError)
-
             })
         })
     });
@@ -172,13 +170,13 @@ const shader_parse = (glsl, shadow_text, dither_text) => {
 export const get_data = (key) => {
     if(is.alpha(key)){
         for(let i = 0; i < completed.length; i++){
-            if(completed[i].name === key){return completed[i];}
+            if(completed[i].name == key){return completed[i];}
         }
 
     } else if(is.num(key)){
         for(let i = 0; i < completed.length; i++){
             if(completed[i].index != null){
-                    if(completed[i].index === key){return completed[i];}
+                    if(completed[i].index == key){return completed[i];}
             }
         }
     }

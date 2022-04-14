@@ -37,13 +37,6 @@ export const payload = [
         '/data/img/tile/Crab_Island/Crab_Island_detail.png',
     ),
     new datatype.tile_resource(
-        "ponyo_isle",
-        't', 
-        '/data/img/tile/ponyo_island/ponyo_island_color.png', 
-        '/data/img/tile/ponyo_island/ponyo_island_height.png', 
-        '/data/img/tile/ponyo_island/ponyo_island_detail.png',
-    ),
-    new datatype.tile_resource(
         "water",
         't',
         '/data/img/tile/water/water_color.png', 
@@ -56,6 +49,13 @@ export const payload = [
         '/data/img/tile/sea_floor_color.png', 
         '/data/img/tile/sea_floor.png', 
         '/data/img/tile/sea_floor_detail.png',
+    ),
+    new datatype.tile_resource(
+        "world",
+        't',
+        '/data/img/tile/world/world.png',
+        '/data/img/tile/world/world.png',
+        '/data/img/tile/world/world.png',
     ),
     new datatype.map_resource("critters", 'm', '/data/img/sprite_sheets/critters.png'),
     new datatype.map_resource("trees", 'm','/data/img/sprite_sheets/trees.png'),

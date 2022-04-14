@@ -2,7 +2,6 @@ import { transform } from '/core/math/transform.js';
 import {is} from '/meta/helpers/utils.js';
 import { quaternion } from '/core/math/quaternion.js'
 import { Vector3 } from '/build/three.module.js'
-import * as assert from "assert";
 
 export class gameobject {
     type = "gameobject";
