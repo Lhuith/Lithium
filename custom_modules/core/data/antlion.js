@@ -113,7 +113,6 @@ const shader_loader = (name, vertex_url, fragment_url, custom, onLoad, i, onProg
                 let dither_loader = new THREE.FileLoader(THREE.DefaultLoadingManager);
                 dither_loader.setResponseType('text');
                 dither_loader.load("/data/shaders/dither.glsl", function (dither_text) {
-                    //this needs an i
                     onLoad(i, {name: name, extra: custom, vert: shader_parse(vertex_text, shadow_text, dither_text), frag: shader_parse(fragment_text, shadow_text, dither_text) });
                 })
             });

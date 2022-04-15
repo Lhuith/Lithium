@@ -8,11 +8,11 @@ import { texture_to_mesh } from '/core/geometry/texture_to_mesh.js'
 export class zone extends component {
     type = "zone"
     required = [];
-    constructor(key, s, lod, physical, three){
+    constructor(key, lod, physical, three){
         super()
 
-        var map = get_data(key)
-        this.shader = get_data(s)
+        let map = get_data(key)
+        this.shader = get_data("land_shader")
 
         map.color.wrapS = THREE.RepeatWrapping
         map.color.wrapT = THREE.RepeatWrapping
@@ -21,7 +21,7 @@ export class zone extends component {
             height: map.height, 
             color: map.color, 
             detail: map.detail, 
-            }, lod, physical, three.scene)
+        }, lod, physical, three.scene)
 
         this.collider = null
         this.land = null
@@ -29,7 +29,7 @@ export class zone extends component {
     init(){
     }
     generate_tile(maps, lod, physical){
-        var land_uniform = {
+        let land_uniform = {
            indexMatrix16x16: { type: "fv1", value: dither4x4 },
            palette: { type: "v3v", value: gray_scale },
            paletteSize: { type: "i", value: 8 },
@@ -41,7 +41,7 @@ export class zone extends component {
            customColorSwitch: { type: "i", value: 1 },
            customColor: { type: "i", value: new THREE.Vector4(.48, .89, .90, 1) }
         }
-        var material = new THREE.ShaderMaterial({
+        let material = new THREE.ShaderMaterial({
             uniforms: THREE.UniformsUtils.merge([
                 THREE.UniformsLib['lights'],
                 THREE.UniformsLib['fog'],
@@ -53,17 +53,30 @@ export class zone extends component {
             transparent: this.shader.extra.trans,
             fog: true
         });
-    
+        let tile_geo = texture_to_mesh(maps.height, maps.detail, lod)
+
+        let colorData = new THREE.DataTexture(
+            tile_geo.colormap,
+            maps.height.width,
+            maps.height.height,
+            THREE.RGBAFormat)
+
+        colorData.needsUpdate = true
+
+        console.log(colorData)
+
         material.side = THREE.DoubleSide
-        material.uniforms.texture.value = maps.height
+        material.uniforms.texture.value = colorData
+
         //, wireframe:this.shader.extra.wf
-        var materialTemp = new THREE.MeshBasicMaterial({ 
-            map: maps.color
+        let materialTemp = new THREE.MeshBasicMaterial({ 
+            map: colorData
         });
-        var tile_geo = texture_to_mesh(maps.height, maps.detail, lod, physical)
-        tile_geo.computeBoundingBox()
-    
-        return new THREE.Mesh( tile_geo, materialTemp )
+        tile_geo.geo.computeBoundingBox()
+
+
+
+        return new THREE.Mesh( tile_geo.geo, materialTemp )
     }
     add_to_scene(scene){
         scene.add(this.tile)

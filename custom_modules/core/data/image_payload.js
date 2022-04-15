@@ -54,7 +54,7 @@ export const payload = [
         "world",
         't',
         '/data/img/tile/world/world.png',
-        '/data/img/tile/world/world.png',
+        '/data/img/tile/world/world_height.png',
         '/data/img/tile/world/world.png',
     ),
     new datatype.map_resource("critters", 'm', '/data/img/sprite_sheets/critters.png'),
