@@ -7,7 +7,8 @@ export const init = (three, data) => {
 
     let world = new zone("world", 1, true, three)
     three.scene.add(world.tile)
-    map.init(three)
+
+    map.init(world.color)
 
     //let water = new zone("water",1, false, three)
     //water.add_to_scene(three.scene)

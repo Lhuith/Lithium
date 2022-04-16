@@ -47,10 +47,12 @@ app.use('/core/geometry/', express.static(path.join(__dirname, 'custom_modules/c
 app.use('/core/data/instance_geometry', express.static(path.join(__dirname, 'custom_modules/core/data/instance_geometry')))
 //!---------------------- custom modules ----------------------!//
 
-const publicDirectory = path.join(__dirname)
+const directory = path.join(__dirname)
+const publicDirectory = path.join(__dirname+ '/public')
 var liveReloadServer = livereload.createServer()
-liveReloadServer.watch(publicDirectory);
 
+liveReloadServer.watch(directory);
+liveReloadServer.watch(publicDirectory);
 
 liveReloadServer.server.once("connection", () => {
     setTimeout(() => {

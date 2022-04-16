@@ -49,7 +49,7 @@ export class controller extends component {
         this.direction.normalize(); 
 
         if(keyboard.input.shift) { 
-            this.speed_mult = 2.1;
+            this.speed_mult = 12.1;
         } else { 
             this.speed_mult = 1;
         }

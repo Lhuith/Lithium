@@ -10,14 +10,14 @@ import { animation_sequence } from '/nomads/components/animation/animation_seque
 import { animation } from '/nomads/components/animation/animation.js'
 import { controller } from '/nomads/components/controller.js'
 
-// GAZEBO TECH stuff
+
 import { box } from '/nomads/tests/box.js'
 
 import * as sky from '/nomads/systems/sky.js'
 import * as world from '/nomads/systems/world.js'
-import * as map from '/nomads/systems/map.js'
+import * as time from '/nomads/systems/time.js'
+
 import { look_at } from '/nomads/components/look_at.js'
-import { transform } from '/core/math/transform.js'
 
 
 let player
@@ -41,6 +41,7 @@ export class game {
             }
         }
         //! ---------- INIT ----------
+            time.init()
             keyboard.init()
             physics.init()
             sky.init(three.renderer)
@@ -83,6 +84,7 @@ export class game {
         for (let o of this.objects){    
             o.update(delta)
         }
+        time.update(delta)
         //sky.update(delta)
     }
 

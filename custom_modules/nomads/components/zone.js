@@ -2,21 +2,7 @@ import { component } from '/nomads/components/component.js';
 import { get_data} from '/core/data/antlion.js'
 
 import * as THREE from '/build/three.module.js'
-import { dither4x4, gray_scale } from '/core/rendering/misc/dither.js'
-import { texture_to_mesh } from '/core/geometry/texture_to_mesh.js'
-
-let land_uniform = {
-    indexMatrix16x16: { type: "fv1", value: dither4x4 },
-    palette: { type: "v3v", value: gray_scale },
-    paletteSize: { type: "i", value: 8 },
-    texture: { type: "t", value: null},
-    extra: { type: "t", value: null },
-    time: { type: "f", value: 1.0 },
-    lightpos: { type: 'v3', value: new THREE.Vector3(0, 30, 20) },
-    noTexture: { type: "i", value: 0 },
-    customColorSwitch: { type: "i", value: 1 },
-    customColor: { type: "i", value: new THREE.Vector4(.48, .89, .90, 1) }
-}
+import { color_and_mesh_from_height } from '/core/geometry/color_and_mesh_from_height.js'
 
 export class zone extends component {
     type = "zone"
@@ -31,49 +17,28 @@ export class zone extends component {
         map.color.wrapT = THREE.RepeatWrapping
 
         this.tile = this.generate_tile({
-            height: map.height, 
-            color: map.color, 
+            height: map.height,
             detail: map.detail, 
         }, lod, physical, three.scene)
-
-        this.color = null
     }
     init(){
     }
     generate_tile(maps, lod){
-        let material = this.create_material()
-        let newTile = texture_to_mesh(maps.height, maps.detail, lod)
+        //let material = this.create_material()
+        let newTile = color_and_mesh_from_height(maps.height, maps.detail, lod)
 
-        let colorData = new THREE.DataTexture(
+        this.color = new THREE.DataTexture(
             newTile.colormap, maps.height.width, maps.height.height, THREE.RGBAFormat)
-        colorData.needsUpdate = true
+        this.color.needsUpdate = true
 
-        console.log(colorData)
+        this.color.wraps = THREE.RepeatWrapping
+        this.color.wrapT = THREE.RepeatWrapping
+        //this.color.repeat.x = - 1;
+        this.color.flipX = true;
 
-        material.side = THREE.DoubleSide
-        material.uniforms.texture.value = colorData
-
-        //, wireframe:this.shader.extra.wf
-        let materialTemp = new THREE.MeshBasicMaterial({ 
-            map: colorData
-        });
-        newTile.geo.computeBoundingBox()
-
-        return new THREE.Mesh( newTile.geo, materialTemp )
-    }
-    create_material(){
-        return new THREE.ShaderMaterial({
-            uniforms: THREE.UniformsUtils.merge([
-                THREE.UniformsLib['lights'],
-                THREE.UniformsLib['fog'],
-                land_uniform]),
-            vertexShader: this.shader.vert,
-            fragmentShader: this.shader.frag,
-            lights: true,
-            wireframe: this.shader.extra.wf,
-            transparent: this.shader.extra.trans,
-            fog: true
-        });
+        return new THREE.Mesh( newTile.geo, new THREE.MeshBasicMaterial({
+            map: this.color
+        }))
     }
     update(){
         //console.warn("default component update.")
