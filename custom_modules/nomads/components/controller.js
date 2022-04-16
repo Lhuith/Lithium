@@ -24,8 +24,8 @@ export class controller extends component {
         }, false ) 
         this.controls = controller
 
-        this.speed = 5.25;
-        this.speed_mult = 1.5;
+        this.speed = 10.25;
+        this.speed_mult = 4.5;
         this.direction = new Vector3();
 
         var saved_player_information = JSON.parse(get_data("player").data)

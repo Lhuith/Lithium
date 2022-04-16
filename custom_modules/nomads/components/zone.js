@@ -5,6 +5,19 @@ import * as THREE from '/build/three.module.js'
 import { dither4x4, gray_scale } from '/core/rendering/misc/dither.js'
 import { texture_to_mesh } from '/core/geometry/texture_to_mesh.js'
 
+let land_uniform = {
+    indexMatrix16x16: { type: "fv1", value: dither4x4 },
+    palette: { type: "v3v", value: gray_scale },
+    paletteSize: { type: "i", value: 8 },
+    texture: { type: "t", value: null},
+    extra: { type: "t", value: null },
+    time: { type: "f", value: 1.0 },
+    lightpos: { type: 'v3', value: new THREE.Vector3(0, 30, 20) },
+    noTexture: { type: "i", value: 0 },
+    customColorSwitch: { type: "i", value: 1 },
+    customColor: { type: "i", value: new THREE.Vector4(.48, .89, .90, 1) }
+}
+
 export class zone extends component {
     type = "zone"
     required = [];
@@ -23,44 +36,16 @@ export class zone extends component {
             detail: map.detail, 
         }, lod, physical, three.scene)
 
-        this.collider = null
-        this.land = null
+        this.color = null
     }
     init(){
     }
-    generate_tile(maps, lod, physical){
-        let land_uniform = {
-           indexMatrix16x16: { type: "fv1", value: dither4x4 },
-           palette: { type: "v3v", value: gray_scale },
-           paletteSize: { type: "i", value: 8 },
-           texture: { type: "t", value: maps.height},
-           extra: { type: "t", value: null },
-           time: { type: "f", value: 1.0 },
-           lightpos: { type: 'v3', value: new THREE.Vector3(0, 30, 20) },
-           noTexture: { type: "i", value: 0 },
-           customColorSwitch: { type: "i", value: 1 },
-           customColor: { type: "i", value: new THREE.Vector4(.48, .89, .90, 1) }
-        }
-        let material = new THREE.ShaderMaterial({
-            uniforms: THREE.UniformsUtils.merge([
-                THREE.UniformsLib['lights'],
-                THREE.UniformsLib['fog'],
-                land_uniform]),
-            vertexShader: this.shader.vert,
-            fragmentShader: this.shader.frag,
-            lights: true,
-            wireframe: this.shader.extra.wf,
-            transparent: this.shader.extra.trans,
-            fog: true
-        });
-        let tile_geo = texture_to_mesh(maps.height, maps.detail, lod)
+    generate_tile(maps, lod){
+        let material = this.create_material()
+        let newTile = texture_to_mesh(maps.height, maps.detail, lod)
 
         let colorData = new THREE.DataTexture(
-            tile_geo.colormap,
-            maps.height.width,
-            maps.height.height,
-            THREE.RGBAFormat)
-
+            newTile.colormap, maps.height.width, maps.height.height, THREE.RGBAFormat)
         colorData.needsUpdate = true
 
         console.log(colorData)
@@ -72,14 +57,23 @@ export class zone extends component {
         let materialTemp = new THREE.MeshBasicMaterial({ 
             map: colorData
         });
-        tile_geo.geo.computeBoundingBox()
+        newTile.geo.computeBoundingBox()
 
-
-
-        return new THREE.Mesh( tile_geo.geo, materialTemp )
+        return new THREE.Mesh( newTile.geo, materialTemp )
     }
-    add_to_scene(scene){
-        scene.add(this.tile)
+    create_material(){
+        return new THREE.ShaderMaterial({
+            uniforms: THREE.UniformsUtils.merge([
+                THREE.UniformsLib['lights'],
+                THREE.UniformsLib['fog'],
+                land_uniform]),
+            vertexShader: this.shader.vert,
+            fragmentShader: this.shader.frag,
+            lights: true,
+            wireframe: this.shader.extra.wf,
+            transparent: this.shader.extra.trans,
+            fog: true
+        });
     }
     update(){
         //console.warn("default component update.")

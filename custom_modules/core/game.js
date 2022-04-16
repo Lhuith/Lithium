@@ -45,7 +45,6 @@ export class game {
             physics.init()
             sky.init(three.renderer)
             world.init(three)
-            map.init(three)
         //! ---------- INIT ----------
 
         let npc = new gameobject("steve", new Vector3(3,0.8,0), new Vector3(1,1,1))
@@ -84,9 +83,6 @@ export class game {
         for (let o of this.objects){    
             o.update(delta)
         }
-        map.update(delta)
-
-        map.setMapCoords(player.transform.position.x*-2, player.transform.position.z*2)
         //sky.update(delta)
     }
 
