@@ -85,7 +85,7 @@ export class game {
             o.update(delta)
         }
         time.update(delta)
-        //sky.update(delta)
+        sky.update(delta)
     }
 
     get_time(){
