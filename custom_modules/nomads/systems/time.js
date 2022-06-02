@@ -1,28 +1,54 @@
-let game_second = 0
-let game_minute = 0
-let game_hour = 0
 
-let time_fraction = 50
-let divisor = 60/time_fraction
+let actual_second = 0
+let actual_minute = 0
+let actual_hour = 0
 
-let day_length = (86400/time_fraction)/time_fraction // length in second
+let time_divisor = 60
+let seconds_in_rl_day = 86400
+
+let world_time_divisor = 24*1000 // x length of a real day i.e 24 times faster
+let world_day_length = (seconds_in_rl_day/world_time_divisor) // length in second
+
+export const day_event = {
+    NewDay : new Event('New Day')
+}
 
 export const init = () => {
+    console.log(day_event.NewDay.type)
     console.log("%cTime Initialized", "color:#eb33b5")
-    console.log("length of day(in game seconds): ", (day_length))
+    let timeOfDayMessage = "World Day"
+    console.log(`%c${timeOfDayMessage}: ${world_day_length} seconds`, "color:#eb33b5")
 }
 
 export const update = (delta) => {
-    game_second += delta
-    game_minute = game_second/divisor
-    game_hour = game_minute/divisor
-    if (game_second >= day_length) {
-        console.log("new day")
-        game_second = 0
+    actual_second += delta
+    actual_minute = actual_second/time_divisor
+    actual_hour = actual_minute/time_divisor
+
+    if (actual_second >= world_day_length) {
+        dispatchEvent(day_event.NewDay)
+        actual_second = 0
     }
 }
 
+addEventListener(day_event.NewDay.type, function (e) {
+    console.log("%c☼ New Day ☼", "color:#EEB768")
+}, false)
+
 // get_time_of_day_normalized, returns 0-1 value of a day, 0.5 being 12 hours or halfway in :3
 export const get_time_of_day_normalized = () => {
-    return game_second/day_length
+    return actual_second/world_day_length
 }
+
+export const get_world_hour = () => {
+    return get_time_of_day_normalized() * 24
+}
+
+export const get_world_minute = () => {
+    return get_world_hour() * 60
+}
+
+export const get_world_second = () => {
+    return get_world_minute() * 60
+}
+

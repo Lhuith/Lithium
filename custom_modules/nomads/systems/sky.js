@@ -20,19 +20,30 @@ let renderer
 
 export const init = (r) => {
     console.log("%cSky Initialized", "color:#65cdc4")
-    console.log(sky_colors.length)
     renderer = r
+}
+
+// capture new day from ./time.js
+addEventListener(time.day_event.NewDay.type, function () {
+    new_day_sky()
+}, false)
+
+const new_day_sky = () => {
+    console.log("New Day Event In Sky!")
 }
 
 export const update = () => {
     var timeOfDayInSkyLength = time.get_time_of_day_normalized()*sky_colors.length
 
     var currentIndex = Math.floor(timeOfDayInSkyLength)
-    var transitionToNext = timeOfDayInSkyLength - currentIndex
     var nextIndex = (currentIndex + 1)%sky_colors.length
 
-    var transitionSkyColor = new Color().lerpColors(sky_colors[currentIndex], sky_colors[nextIndex], transitionToNext)
-
-
-    renderer.setClearColor(transitionSkyColor.getHex())
+    // create a new color that is A now -> B coming lerp/blended, i.e morning orange blends to afternoon blue
+    renderer.setClearColor(
+        new Color().lerpColors(
+            sky_colors[currentIndex],
+            sky_colors[nextIndex],
+            // timeOfDayInSkyLength - currentIndex  (transition to next value)
+            timeOfDayInSkyLength - currentIndex).getHex()
+    )
 }
