@@ -18,18 +18,13 @@ var sky_colors = [
 
 let renderer
 
+addEventListener(time.day_event.NewDay.type, function (e) {
+    //console.log("New Day Event In Sky!")
+}, false)
+
 export const init = (r) => {
     console.log("%cSky Initialized", "color:#65cdc4")
     renderer = r
-}
-
-// capture new day from ./time.js
-addEventListener(time.day_event.NewDay.type, function () {
-    new_day_sky()
-}, false)
-
-const new_day_sky = () => {
-    console.log("New Day Event In Sky!")
 }
 
 export const update = () => {

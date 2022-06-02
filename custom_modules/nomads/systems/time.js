@@ -6,18 +6,22 @@ let actual_hour = 0
 let time_divisor = 60
 let seconds_in_rl_day = 86400
 
-let world_time_divisor = 24*1000 // x length of a real day i.e 24 times faster
+let world_time_divisor = 24*10 // x length of a real day i.e 24 times faster
 let world_day_length = (seconds_in_rl_day/world_time_divisor) // length in second
 
 export const day_event = {
-    NewDay : new Event('New Day')
+    NewDay : new Event('New Day'),
+    Morning : new Event('Morning'),
+    Afternoon : new Event('Afternoon')
 }
 
 export const init = () => {
-    console.log(day_event.NewDay.type)
-    console.log("%cTime Initialized", "color:#eb33b5")
-    let timeOfDayMessage = "World Day"
-    console.log(`%c${timeOfDayMessage}: ${world_day_length} seconds`, "color:#eb33b5")
+    console.log("%cTime Initialized -", "color:#eb33b5")
+    console.log(`%c\tWorld Day: ${world_day_length} seconds`, "color:#eb33b5")
+
+    for (const event in day_event) {
+        console.log(`%c\tTime Event Added: ${event}`, "color:#eb33b5");
+    }
 }
 
 export const update = (delta) => {
