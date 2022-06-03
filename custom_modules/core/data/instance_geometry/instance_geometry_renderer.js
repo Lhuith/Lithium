@@ -7,15 +7,16 @@ import {meta} from '/core/data/meta.js'
 
 import * as THREE from 'three'
 
-export class instance_renderer {
-    type = "instance_renderer"
+export class instance_geometry_renderer {
+    type = "instance_geometry_renderer"
 
     constructor(map_index, mesh, animate, is3D = false, shader){
         this.buffer = new instance_geometry_buffer(50)
+        this.size = 50
+        
         this.attributes = new instance_geometry_attributes()
         this.mesh = mesh
         this.map_index = map_index
-        
         this.shader = null
     
         if(shader == undefined){
@@ -186,6 +187,7 @@ export class instance_renderer {
         material.side = THREE.DoubleSide
         mesh.frustumCulled = false
         mesh.castShadow = true
+
         console.log("objects baked: ", this.buffer.index)
 
         this.mesh.add(mesh)

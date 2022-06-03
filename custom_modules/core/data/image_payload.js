@@ -1,4 +1,4 @@
-import * as datatype from '/core/data/data_types.js';
+import * as datatype from '/core/data/datatypes.js';
 
 export const payload = [
     new datatype.shader_resource(

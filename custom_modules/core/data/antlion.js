@@ -4,7 +4,7 @@ import * as THREE from 'three'
 import {img, is} from '/meta/helpers/utils.js';
 import {meta} from '/core/data/meta.js';
 import {renderering_meta} from '/core/data/renderering_meta.js'
-import {instance_renderer} from '/core/data/instance_geometry/instance_renderer.js'
+import {instance_geometry_renderer} from '/core/data/instance_geometry/instance_geometry_renderer.js'
 import * as file from '/meta/helpers/ajax.js'
 
 let compiled = []
@@ -44,7 +44,7 @@ export const init = (bs) => {
 // TODO clean up after everything is confirmed to work
 const load_renderers = () => {
     for(let i = 0; i < renderering_meta.length; i++){
-        let inst_renderer = new instance_renderer(
+        let inst_renderer = new instance_geometry_renderer(
             i, renderering_meta[i].container, renderering_meta[i].animate, renderering_meta[i].is3D,
             get_data(renderering_meta[i].shader),
         );
@@ -52,7 +52,7 @@ const load_renderers = () => {
 
         // load/save renderers5
         {
-            inst_renderer.save_buffer()
+            //inst_renderer.save_buffer()
             //console.log(inst_renderer)
             //console.log(JSON.parse(JSON.stringify(inst_renderer)))
         }

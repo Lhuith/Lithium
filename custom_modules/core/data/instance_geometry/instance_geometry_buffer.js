@@ -56,6 +56,7 @@ export class instance_geometry_buffer {
         this.animation_time[index] = random_range(0, 3);
     }
     set = (decomposer, animation) => {
+        console.log("setting to buffer??")
         this.tile_size[this.index] = decomposer.tile_size.x; 
         this.tile_size[this.index + 1] = decomposer.tile_size.y;
     

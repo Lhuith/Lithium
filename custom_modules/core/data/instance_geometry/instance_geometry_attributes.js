@@ -10,8 +10,6 @@ export class instance_geometry_attributes {
         }
     }
     populate = (array, index) => {
-        console.log(array)
-
         var states = []
         for(var i = 0; i < index; i++){
             states.push(false)
