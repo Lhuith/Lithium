@@ -77,10 +77,8 @@ export class decomposer extends component {
             );
         }
         
-        this.parent = null; //for gameobject
-    
-        this.buffer_idx = renderer.buffer.index;
-        this.buffer = renderer.buffer;
+        //this.parent = null; //for gameobject
+        this.buffer_idx = renderer.size;
         this.animate = renderer.animate;
     
         this.rendering = false;

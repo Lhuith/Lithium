@@ -1,4 +1,3 @@
-import {instance_geometry_buffer} from '/core/data/instance_geometry/instance_geometry_buffer.js'
 import {instance_geometry_attributes} from '/core/data/instance_geometry/instance_geometry_attributes.js'
 import { get_data } from '/core/data/antlion.js'
 
@@ -6,14 +5,68 @@ import {renderering_meta} from '/core/data/renderering_meta.js'
 import {meta} from '/core/data/meta.js'
 
 import * as THREE from 'three'
+import {Vector4} from '/build/three.module.js'
+
+const predefine_buffer = (size = 0) => {
+    let translation = []
+    let orientations = []
+    let vector =  new Vector4()
+    let scales = []
+    let colors = []
+    let uvoffsets = []
+    let tile_size = []
+    let animation_start = []
+    let animation_end = []
+    let animation_time = []
+    let render_type = []
+    let fog = []
+    let m0 = []
+    let m1 = []
+    let m2 = []
+    let m3 = []
+
+    for(let i = 0; i < size; i++){
+        translation.push(0,0,0)
+        orientations.push(0,0,0,1)
+        scales.push(0,0,0)
+        colors.push(0,0,0,1)
+        uvoffsets.push(0,0)
+        tile_size.push(0,0)
+        animation_start.push(0)
+        animation_end.push(0)
+        animation_time.push(0)
+        render_type.push(0)
+        fog.push(0)
+        m0.push(0,0,0,1)
+        m1.push(0,0,0,1)
+        m2.push(0,0,0,1)
+        m3.push(0,0,0,1)
+    }
+    return {
+        translation,
+        orientations,
+        vector,
+        scales,
+        colors,
+        uvoffsets,
+        tile_size,
+        animation_start,
+        animation_end,
+        animation_time,
+        render_type,
+        fog,
+        m0,
+        m1,
+        m2,
+        m3,
+    }
+}
 
 export class instance_geometry_renderer {
     type = "instance_geometry_renderer"
 
     constructor(map_index, mesh, animate, is3D = false, shader){
-        this.buffer = new instance_geometry_buffer(50)
-        this.size = 50
-        
+        this.buffer_size = 50
         this.attributes = new instance_geometry_attributes()
         this.mesh = mesh
         this.map_index = map_index
@@ -29,36 +82,14 @@ export class instance_geometry_renderer {
         this.animate = animate
         this.is3D = is3D
     }
-
-    load_buffer = () => {
-    }
-
-    save_buffer = () => {
-        console.log(this.buffer, this.attributes)
-    }
-
-    get_buffer = () => {
-        return this.buffer
+    save_attributes = () => {
+        console.log(this.attributes)
     }
     get_attributes = () => {
         return this.attributes
     }
-    buffer_append = (o) => {
-        if(o != undefined){
-            if(o.get_component("decomposer") != null){
-                this.buffer.append(o.get_component("decomposer"))
-            }
-        }
-    }
-    bake_buffer = () => {
-        if (this.buffer == undefined || this.buffer.length == 0) {
-            console.error("buffer error.")
-        }
-    
-        if(this.buffer.index <= 0){
-            console.log("buffer is empty!")
-            return
-        }
+    bake_attributes = () => {
+        let buffer = predefine_buffer(this.buffer_size)
     
         let bufferGeometry = new THREE.PlaneBufferGeometry(1, 1, 1) 
         bufferGeometry.castShadow = true
@@ -70,33 +101,33 @@ export class instance_geometry_renderer {
       
         //let translationAttribute = new THREE.InstancedBufferAttribute(new Float32Array(this.buffer.translation), 3)
         let orientationAttribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(this.buffer.orientations), 4)
+            new Float32Array(buffer.orientations), 4)
         let colorAttribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(this.buffer.colors), 4)
+            new Float32Array(buffer.colors), 4)
         let uvOffsetAttribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(this.buffer.uvoffsets), 2)
+            new Float32Array(buffer.uvoffsets), 2)
         let tileSizeAttribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(this.buffer.tile_size), 2)
+            new Float32Array(buffer.tile_size), 2)
         let scaleAttribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(this.buffer.scales), 3)
+            new Float32Array(buffer.scales), 3)
         let animation_startAttribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(this.buffer.animation_start), 1)
+            new Float32Array(buffer.animation_start), 1)
         let animation_endAttribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(this.buffer.animation_end), 1)
+            new Float32Array(buffer.animation_end), 1)
         let animation_timeAttribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(this.buffer.animation_time), 1)
+            new Float32Array(buffer.animation_time), 1)
         let renderTypeAttribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(this.buffer.render_type), 1)
+            new Float32Array(buffer.render_type), 1)
         let fogAttribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(this.buffer.fog), 1)
+            new Float32Array(buffer.fog), 1)
         let m0Attribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(this.buffer.m0), 4)
+            new Float32Array(buffer.m0), 4)
         let m1Attribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(this.buffer.m1), 4)
+            new Float32Array(buffer.m1), 4)
         let m2Attribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(this.buffer.m2), 4)
+            new Float32Array(buffer.m2), 4)
         let m3Attribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(this.buffer.m3), 4)
+            new Float32Array(buffer.m3), 4)
     
         //geometry.setAttribute('translation', translationAttribute)
         geometry.setAttribute('orientation', orientationAttribute)
@@ -131,7 +162,7 @@ export class instance_geometry_renderer {
                 m1Attribute,
                 m2Attribute,
                 m3Attribute,
-            ], this.buffer.index
+            ], this.buffer_size
         )
       
         let texture = new THREE.TextureLoader().load(
@@ -188,7 +219,7 @@ export class instance_geometry_renderer {
         mesh.frustumCulled = false
         mesh.castShadow = true
 
-        console.log("objects baked: ", this.buffer.index)
+        console.log("objects baked: ", this.buffer_size)
 
         this.mesh.add(mesh)
     }

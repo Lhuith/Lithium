@@ -57,7 +57,7 @@ const load_renderers = () => {
             //console.log(JSON.parse(JSON.stringify(inst_renderer)))
         }
 
-        inst_renderer.bake_buffer();
+        inst_renderer.bake_attributes();
     }
 }
 
