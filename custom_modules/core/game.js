@@ -1,4 +1,4 @@
-import { get_meta } from '/core/data/antlion.js'
+import { get_meta, save_game } from '/core/data/antlion.js'
 import * as physics from '/core/math/physics/physics.js'
 import * as keyboard from '/core/input/keyboard.js'
 import { quaternion } from '/core/math/quaternion.js'
@@ -76,6 +76,8 @@ export class game {
             new quaternion(0,0,0,1)
         )
         this.objects.push(box_obj)
+
+        save_game()
     }
 
     update(delta){

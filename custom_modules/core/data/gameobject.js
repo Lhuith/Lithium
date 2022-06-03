@@ -9,7 +9,7 @@ export class gameobject {
     constructor(n, p = new Vector3(), s = new Vector3(1,1,1), r = new quaternion()){
         this.name = n;
 
-        if (r === null) {
+        if (r == null) {
             r = new quaternion(0,0,0,1)
             console.error("quaternion for game object not set")
         }
@@ -25,7 +25,7 @@ export class gameobject {
         // scene.add(this)
     }
     add_child(o){
-        if(o === this){
+        if(o == this){
             console.error("%c Cant Add Self!", 'background: #333; color: #bada55');
         } else {
             this.children.push(o);

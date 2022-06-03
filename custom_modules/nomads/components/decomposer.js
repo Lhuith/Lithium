@@ -5,6 +5,7 @@ import { get_meta, get_renderers } from '/core/data/antlion.js';
 import { misc, col } from '/meta/helpers/utils.js';
 import { quaternion } from '/core/math/quaternion.js';
 import { transform } from '/core/math/transform.js';
+import {math} from '/meta/helpers/utils.js';
 
 export const sprite = (meta, pass_transform) => {
     return new decomposer(meta, SPRITE, pass_transform)
@@ -76,40 +77,40 @@ export class decomposer extends component {
                 new quaternion(0, 0, 0, 1, null, null, null)
             );
         }
-        
-        //this.parent = null; //for gameobject
-        this.buffer_idx = renderer.size;
+
+        // for gameobject
+        this.parent = null;
+        // where in the renderer's mem this decomposer points too
+        this.attribute_memory_index = 0;
         this.animate = renderer.animate;
-    
         this.rendering = false;
     }
     update = () => {
         //if(this.animate)
             //this.attribute_debug();
             if(this.transform != null) {  
-
                 if(this.render_type == 0) {
                     this.matrix = this.inner_transform.get_transformation_noRot().to_three();
                 } else {
                     this.matrix = this.inner_transform.get_transformation().to_three();
                 }
                 // have to tell the buffer/instance_geometry to update aswell
-                this.attributes_reference.set_transform(this.buffer_idx, this.matrix)
-                //this.attributes_reference.set_orientation(this.buffer_idx, new quaternion(0,0,0,1).to_three());
+                this.attributes_reference.set_transform(this.attribute_memory_index, this.matrix)
+                //this.attributes_reference.set_orientation(this.attribute_memory_index, new quaternion(0,0,0,1).to_three());
             }
     }
     update_buffer_animation = (animation) => {
-        //this.buffer.set_animation(this.buffer_idx, animation);
+        //this.buffer.set_animation(this.attribute_memory_index, animation);
     }
     set_animation = (s, e, t) => {
         if(this.attributes_reference != null){
-            this.attributes_reference.set_animation(this.buffer_idx, s, e, t);
+            this.attributes_reference.set_animation(this.attribute_memory_index, s, e, t);
         }
     }
     attribute_debug = () => {
         if(this.attributes_reference != null && this.attributes_reference.length != 0){
             var color_attribute = this.attributes_reference.col;
-            color_attribute.setXYZ(this.buffer_idx, 0,random_range(0, 1),0);
+            color_attribute.setXYZ(this.attribute_memory_index, 0, math.random_range(0, 1),0);
             color_attribute.needsUpdate = true;
         } else {
             console.error("no attributes found!");
@@ -117,12 +118,12 @@ export class decomposer extends component {
     }
     set_color = (hex) => {
         if(this.attributes_reference != null){
-            this.attributes_reference.set_color(this.buffer_idx, hex)
+            this.attributes_reference.set_color(this.attribute_memory_index, hex)
         }
     }
     set_alpha = (alpha) => {
         if(this.attributes_reference != null){
-            this.attributes_reference.set_alpha(this.buffer_idx, alpha)
+            this.attributes_reference.set_alpha(this.attribute_memory_index, alpha)
         }
     }
     set_type = (type) => {
@@ -131,7 +132,7 @@ export class decomposer extends component {
             return
         }
         if(this.attributes_reference != null){
-            this.attributes_reference.set_type(this.buffer_idx, type)
+            this.attributes_reference.set_type(this.attribute_memory_index, type)
         }
     }
     set_transform = (t) => {
@@ -169,7 +170,7 @@ export class decomposer extends component {
     }
     derender = () => {
         if(this.rendering){
-            this.attributes_reference.unset(this.buffer_idx)
+            this.attributes_reference.unset(this.attribute_memory_index)
             this.rendering = false;
         }
     }

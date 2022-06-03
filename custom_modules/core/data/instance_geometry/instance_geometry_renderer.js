@@ -6,6 +6,7 @@ import {meta} from '/core/data/meta.js'
 
 import * as THREE from 'three'
 import {Vector4} from '/build/three.module.js'
+import * as file from '/meta/helpers/ajax.js'
 
 const predefine_buffer = (size = 0) => {
     let translation = []
@@ -82,12 +83,25 @@ export class instance_geometry_renderer {
         this.animate = animate
         this.is3D = is3D
     }
+
     save_attributes = () => {
-        console.log(this.attributes)
+        file.update({
+            id: renderering_meta[this.map_index].name+"_sprite_renderer",
+            attributes: [
+                this.attributes.states,
+            ]
+        }, " ");
     }
-    get_attributes = () => {
-        return this.attributes
+
+     callback_test = (e, n) => {
+        console.log(e)
     }
+
+    load_attributes = (callback) => {
+        let name = renderering_meta[this.map_index].name+"_sprite_renderer"
+        file.get({id: name}, callback, name);
+    }
+
     bake_attributes = () => {
         let buffer = predefine_buffer(this.buffer_size)
     
@@ -220,7 +234,6 @@ export class instance_geometry_renderer {
         mesh.castShadow = true
 
         console.log("objects baked: ", this.buffer_size)
-
         this.mesh.add(mesh)
     }
 }

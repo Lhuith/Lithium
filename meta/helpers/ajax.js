@@ -25,10 +25,10 @@ export const update = (data) => {
         contentType : 'application/json; charset=utf-8',
         data : JSON.stringify(data),
         success: (e) => {
-        //    console.log("%c  -> success : " + e, "color:#05b275")
+            console.log("%c\t" + e + " -> " + data.id , "color:#05b275")
         },
         error :  (e) => {
-        //    console.log("%c  -> error : " + e, "color:#ff4d42")
+            console.log("%c  -> error : " + e, "color:#ff4d42")
         }
     })
 }

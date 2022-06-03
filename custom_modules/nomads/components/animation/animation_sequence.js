@@ -19,7 +19,7 @@ export class animation_sequence {
         // game_time
         this.game_time_stamp = get_time();
  
-        this.frame_offset = math.randomRange(0, this.current_animation.length);
+        this.frame_offset = math.random_range(0, this.current_animation.length);
         this.current_frame = this.frame_offset;
         this.animation_speed = speed;
     }

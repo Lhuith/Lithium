@@ -57,10 +57,10 @@ export const math = {
     EPSILON : 1e-8,
     normalize : (mn, mx, v) => {return (v - mn)/(mx-mn)},
     clamp : (mn, mx, v) => {return Math.min(Math.max(v, mn), mx)},
-    inRange : (mn, mx, v) => {return v >= Math.min(mn, mx) && v <= Math.max(mn,mx)},
+    in_range : (mn, mx, v) => {return v >= Math.min(mn, mx) && v <= Math.max(mn,mx)},
     frac : (f) => {return f % 1},
-    randomRange : (mn, mx) => {return mn + Math.random() * (mx - mn)},
-    roundedRandomRange : (mn, mx) => {return Math.round(math.randomRange(mn,mx))},
+    random_range : (mn, mx) => {return mn + Math.random() * (mx - mn)},
+    rounded_random_range : (mn, mx) => {return Math.round(math.random_range(mn,mx))},
     copy_sign : (a,b) => {return b < 0 ? -Math.abs(a) : Math.abs(a)},
 
     seededRandom : class {

@@ -1,5 +1,6 @@
+const fs = require("fs");
 
- exports.handle_request = (req, res) => {
+exports.handle_request = (req, res) => {
     if (req.body.task == undefined) res.send("task not specified!");
 
     const fs = require("fs");
@@ -14,14 +15,18 @@
             res.send(save(fs, req));
         }
     } else if (req.body.task == "u") {
-        //console.log("%cupdateing entry", "color:#7ab264")
+       console.log("%cupdateing entry", "color:#7ab264")
+       message = ""
         if (exists(fs, req)){
-            if (save(fs, req) != null) {
-                res.send("update succesful");
-            }
-        } else {
-            res.send("file not found")
+            message = "updating"
+       } else {
+            message = "creating"
+       }
+
+        if (save(fs, req) != null) {
+            res.send(message);
         }
+
     } else if (req.body.task == "r") {
         //console.log("%cremoving entry", "color:#7ab264")
         if (exists(fs, req)){
