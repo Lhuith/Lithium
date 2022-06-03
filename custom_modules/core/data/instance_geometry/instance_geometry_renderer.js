@@ -92,16 +92,10 @@ export class instance_geometry_renderer {
             ]
         }, " ");
     }
-
-     callback_test = (e, n) => {
-        console.log(e)
-    }
-
     load_attributes = (callback) => {
         let name = renderering_meta[this.map_index].name+"_sprite_renderer"
         file.get({id: name}, callback, name);
     }
-
     bake_attributes = () => {
         let buffer = predefine_buffer(this.buffer_size)
     

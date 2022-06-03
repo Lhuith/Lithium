@@ -37,7 +37,6 @@ export const init = (bs) => {
 // TODO clean up after everything is confirmed to work
 const load_renderers = () => {
     for(let i = 0; i < renderering_meta.length; i++){
-        // inst_renderer.load_attributes()
         let inst_renderer = new instance_geometry_renderer(
             i,
             renderering_meta[i].container,
