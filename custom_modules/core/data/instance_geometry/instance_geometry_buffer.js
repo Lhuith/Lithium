@@ -1,9 +1,9 @@
 import {Vector4} from '/build/three.module.js';
 
-export class instance_buffer {
+export class instance_geometry_buffer {
     type = "instance_buffer";
     
-    constructor(prefill = false){
+    constructor(prefill = 0){
         this.translation = [];
         this.orientations = [];
         this.vector =  new Vector4();
@@ -21,14 +21,13 @@ export class instance_buffer {
         this.m2 = [];
         this.m3 = [];
         this.index = 0;
-        this.size = 50;
     
-        if(prefill){
-            this.prefill()
+        if(prefill != 0){
+            this.prefill(prefill)
         }
     }
-    prefill = () => {
-        for(var i = 0; i < this.size; i++){
+    prefill = (size) => {
+        for(let i = 0; i < size; i++){
             this.translation.push(0,0,0);
             this.orientations.push(0,0,0,1);
             this.vector =  new Vector4();
@@ -86,13 +85,13 @@ export class instance_buffer {
         this.orientations[this.index + 2] = decomposer.orient.z;
         this.orientations[this.index + 3] = decomposer.orient.w;
     
-        var col = decomposer.colors[randomRangeRound(0, decomposer.colors.length - 1)];
+        let col = decomposer.colors[randomRangeRound(0, decomposer.colors.length - 1)];
         this.colors[this.index] = col.r;
         this.colors[this.index + 1] = col.g;
         this.colors[this.index + 2] = col.b;
         this.colors[this.index + 3] = col.a;
      
-        var uvs = decomposer.ssIndex[randomRangeRound(0, decomposer.ssIndex.length - 1)];
+        let uvs = decomposer.ssIndex[randomRangeRound(0, decomposer.ssIndex.length - 1)];
         this.uvoffsets[this.index] = uvs.x;
         this.uvoffsets[this.index + 1] = uvs.x;
     
@@ -167,10 +166,10 @@ export class instance_buffer {
             decomposer.orient.z, 
             decomposer.orient.w);
     
-        var col = decomposer.colors[randomRangeRound(0, decomposer.colors.length - 1)];
+        let col = decomposer.colors[randomRangeRound(0, decomposer.colors.length - 1)];
         this.colors.push(col.r, col.g, col.b, col.a);
       
-        var uvs = decomposer.ssIndex[randomRangeRound(0, decomposer.ssIndex.length - 1)];
+        let uvs = decomposer.ssIndex[randomRangeRound(0, decomposer.ssIndex.length - 1)];
     
         this.uvoffsets.push(uvs.x, uvs.y);
     
@@ -192,15 +191,12 @@ export class instance_buffer {
         this.m0.push(
             decomposer.matrix.elements[0],  decomposer.matrix.elements[1],  decomposer.matrix.elements[2],  decomposer.matrix.elements[3],
         );
-    
         this.m1.push(
             decomposer.matrix.elements[4],  decomposer.matrix.elements[5],  decomposer.matrix.elements[6],  decomposer.matrix.elements[7],
         );
-    
         this.m2.push(
             decomposer.matrix.elements[8],  decomposer.matrix.elements[9],  decomposer.matrix.elements[10], decomposer.matrix.elements[11],
         );
-    
         this.m3.push(
             decomposer.matrix.elements[12], decomposer.matrix.elements[13], decomposer.matrix.elements[14], decomposer.matrix.elements[15],
         );

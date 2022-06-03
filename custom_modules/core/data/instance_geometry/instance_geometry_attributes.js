@@ -1,13 +1,7 @@
 import { InstancedBufferAttribute, Vector4, Vector2, Vector3, Matrix4} from '/build/three.module.js';
 import { math } from '/meta/helpers/utils.js';
 
-class state {
-    constructor(){
-        this.active = false;
-    }
-}
-
-export class instance_attributes {
+export class instance_geometry_attributes {
     type = "instance_attributes"
     constructor(array, index){
         if(array != undefined) {
@@ -16,6 +10,8 @@ export class instance_attributes {
         }
     }
     populate = (array, index) => {
+        console.log(array)
+
         var states = []
         for(var i = 0; i < index; i++){
             states.push(false)

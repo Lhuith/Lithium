@@ -49,7 +49,14 @@ const load_renderers = () => {
             get_data(renderering_meta[i].shader),
         );
         renderers.set(renderering_meta[i].name, inst_renderer);
-        //scene.add(rendering_meta[i].container)
+
+        // load/save renderers5
+        {
+            inst_renderer.save_buffer()
+            //console.log(inst_renderer)
+            //console.log(JSON.parse(JSON.stringify(inst_renderer)))
+        }
+
         inst_renderer.bake_buffer();
     }
 }
@@ -77,7 +84,7 @@ const fall = (i, data) => {
         map_texture_loader(payload[i].name, payload[i].url, map_index++,
             (i == 0) ? done : fall, i - 1);
     }
-    console.log("%c loading in "+ payload[i].name, 'color: #FA'+i.toString(16)+i.toString(16)+'00');
+    console.log("%c\tloading in "+ payload[i].name, 'color: #FA'+i.toString(16)+i.toString(16)+'00');
 }
 
 const ajax_callback = (e, n) => {
