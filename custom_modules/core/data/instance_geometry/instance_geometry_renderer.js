@@ -98,9 +98,8 @@ export class instance_geometry_renderer {
         file.get({id: name}, callback, name);
     }
 
-    bake_attributes = (loaded) => {
-        let buffer = predefine_buffer(this.buffer_size)
-    
+    bake_attributes = (data) => {
+
         let bufferGeometry = new THREE.PlaneBufferGeometry(1, 1, 1) 
         bufferGeometry.castShadow = true
     
@@ -109,75 +108,61 @@ export class instance_geometry_renderer {
         geometry.attributes.position = bufferGeometry.attributes.position
         geometry.attributes.uv = bufferGeometry.attributes.uv
 
-        if (loaded == undefined) {
-            console.log("load data is empty")
+        let buffer = predefine_buffer(this.buffer_size)
+        if (data != undefined) {
+            console.log("\tloading in attribute data")
+        } else{
+            console.log("\tcreating new attributes")
         }
-        //let translationAttribute = new THREE.InstancedBufferAttribute(new Float32Array(this.buffer.translation), 3)
-        let orientationAttribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(buffer.orientations), 4)
-        let colorAttribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(buffer.colors), 4)
-        let uvOffsetAttribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(buffer.uvoffsets), 2)
-        let tileSizeAttribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(buffer.tile_size), 2)
-        let scaleAttribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(buffer.scales), 3)
-        let animation_startAttribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(buffer.animation_start), 1)
-        let animation_endAttribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(buffer.animation_end), 1)
-        let animation_timeAttribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(buffer.animation_time), 1)
-        let renderTypeAttribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(buffer.render_type), 1)
-        let fogAttribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(buffer.fog), 1)
-        let m0Attribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(buffer.m0), 4)
-        let m1Attribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(buffer.m1), 4)
-        let m2Attribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(buffer.m2), 4)
-        let m3Attribute = new THREE.InstancedBufferAttribute(
-            new Float32Array(buffer.m3), 4)
-    
-        //geometry.setAttribute('translation', translationAttribute)
-        geometry.setAttribute('orientation', orientationAttribute)
-        geometry.setAttribute('col', colorAttribute)
-        geometry.setAttribute('uvoffset', uvOffsetAttribute)
-        geometry.setAttribute('tile_size', tileSizeAttribute)
-        geometry.setAttribute('scale', scaleAttribute)
-        geometry.setAttribute('animation_start', animation_startAttribute)
-        geometry.setAttribute('animation_end', animation_endAttribute)
-        geometry.setAttribute('animation_time', animation_timeAttribute)
-        geometry.setAttribute('type', renderTypeAttribute)
-        geometry.setAttribute('fog', fogAttribute)
-        geometry.setAttribute('m0', m0Attribute)
-        geometry.setAttribute('m1', m1Attribute)
-        geometry.setAttribute('m2', m2Attribute)
-        geometry.setAttribute('m3', m3Attribute)
-
 
         this.save_and_populate_attributes ([
-            //translationAttribute,
-            orientationAttribute,
-            colorAttribute,
-            uvOffsetAttribute,
-            tileSizeAttribute,
-            scaleAttribute,
-            animation_startAttribute,
-            animation_endAttribute,
-            animation_timeAttribute,
-            renderTypeAttribute,
-            fogAttribute,
-            m0Attribute,
-            m1Attribute,
-            m2Attribute,
-            m3Attribute,
+            // translationAttribute,
+            // new THREE.InstancedBufferAttribute(new Float32Array(this.buffer.translation), 3)
+            // orientationAttribute
+            new THREE.InstancedBufferAttribute(new Float32Array(buffer.orientations), 4),
+            // colorAttribute
+            new THREE.InstancedBufferAttribute(new Float32Array(buffer.colors), 4),
+            // uvOffsetAttribute
+            new THREE.InstancedBufferAttribute(new Float32Array(buffer.uvoffsets), 2),
+            // tileSizeAttribute
+            new THREE.InstancedBufferAttribute(new Float32Array(buffer.tile_size), 2),
+            // scaleAttribute
+            new THREE.InstancedBufferAttribute(new Float32Array(buffer.scales), 3),
+            // animation_startAttribute
+            new THREE.InstancedBufferAttribute(new Float32Array(buffer.animation_start), 1),
+            // animation_endAttribute
+            new THREE.InstancedBufferAttribute(new Float32Array(buffer.animation_end), 1),
+            // animation_timeAttribute
+            new THREE.InstancedBufferAttribute(new Float32Array(buffer.animation_time), 1),
+            // renderTypeAttribute
+            new THREE.InstancedBufferAttribute(new Float32Array(buffer.render_type), 1),
+            // fogAttribute
+            new THREE.InstancedBufferAttribute(new Float32Array(buffer.fog), 1),
+            // m0Attribute
+            new THREE.InstancedBufferAttribute(new Float32Array(buffer.m0), 4),
+            // m1Attribute
+            new THREE.InstancedBufferAttribute(new Float32Array(buffer.m1), 4),
+            // m2Attribute
+            new THREE.InstancedBufferAttribute(new Float32Array(buffer.m2), 4),
+            // m3Attribute
+            new THREE.InstancedBufferAttribute(new Float32Array(buffer.m3), 4)
         ], this.buffer_size)
+        //geometry.setAttribute('translation', translationAttribute)
+        geometry.setAttribute('orientation', this.attributes.orientation)
+        geometry.setAttribute('col', this.attributes.col)
+        geometry.setAttribute('uvoffset', this.attributes.uvoffset)
+        geometry.setAttribute('tile_size', this.attributes.tile_size)
+        geometry.setAttribute('scale', this.attributes.scale)
+        geometry.setAttribute('animation_start', this.attributes.animation_start)
+        geometry.setAttribute('animation_end', this.attributes.animation_end)
+        geometry.setAttribute('animation_time', this.attributes.animation_time)
+        geometry.setAttribute('type', this.attributes.render_type)
+        geometry.setAttribute('fog', this.attributes.fog)
+        geometry.setAttribute('m0', this.attributes.m0)
+        geometry.setAttribute('m1', this.attributes.m1)
+        geometry.setAttribute('m2', this.attributes.m2)
+        geometry.setAttribute('m3', this.attributes.m3)
 
-      
         let texture = new THREE.TextureLoader().load('../data/'+render_meta[this.map_index].map)
         texture.magFilter = THREE.NearestFilter
         texture.minFilter = THREE.NearestFilter
@@ -192,7 +177,7 @@ export class instance_geometry_renderer {
             is3DSwitch = 1.0
 
         if(this.shader == undefined){
-            console.error("shader wasn't found, using default.")
+            //console.error("shader wasn't found, using default.")
             this.shader = get_data("instance_shader")
         }
     
@@ -229,7 +214,7 @@ export class instance_geometry_renderer {
         mesh.castShadow = true
 
         console.log(
-            "%c\tbaking renderer("+this.buffer_size.toString()+"] "+render_meta[this.map_index].name, "color:#34d2eb")
+            "%c\tbaking renderer["+this.buffer_size.toString()+"] "+render_meta[this.map_index].name, "color:#34d2eb")
         this.mesh.add(mesh)
     }
 }

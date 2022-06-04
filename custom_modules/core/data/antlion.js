@@ -26,11 +26,12 @@ let bootstrap = null
 export const init = (bs) => {
     console.log("%cAntlion Initialized", "color:#F28022")
     DONE = false
-    
+
+    load_game()
+    load_renderers()
+
     bootstrap = bs
     async_time = Date.now()
-     // grabbing player position
-    load_game()
     fall(image_meta.length - 1, [])
 }
 
@@ -46,8 +47,13 @@ const load_renderers = () => {
         )
         renderers.set(render_meta[i].name, renderer)
         file.get({id: render_meta[i].name}, ajax_callback, render_meta[i].name)
-        renderer.bake_attributes()
     }
+}
+
+const bake_renderers = (completed) => {
+    renderers.forEach(function(values, key){
+        values.bake_attributes(JSON.parse(get_data(key).data))
+    })
 }
 
 const fall = (i, data) => {
@@ -96,9 +102,8 @@ const done = (i, data) => {
     
     elapsed_time = Date.now() - async_time
 
-    // loading renderers here as they need textures/shaders loaded first
-    load_renderers()
-   
+    bake_renderers()
+
     // start up init after data loaded
     console.log("%cAntlion Completed in "+ elapsed_time*0.000001+" seconds", "color:#FF9900")
     bootstrap(completed)
