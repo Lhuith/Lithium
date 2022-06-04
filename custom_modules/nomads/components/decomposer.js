@@ -1,5 +1,5 @@
 import { component } from '/nomads/components/component.js';
-import { Vector3, Vector4, Vector2 } from '/build/three.module.js';
+import { Vector3, Vector4, Vector2 } from "/build/three.module.js";
 import { SPRITE, SOLID, PARTICLE } from '/nomads/globals.js';
 import {get_sprite_meta, get_renderer} from '/core/data/antlion.js';
 import { misc, col } from '/core/meta/helpers/utils.js';
@@ -30,8 +30,6 @@ export class decomposer extends component {
             throw new Error("map Key not defined!");
         }
 
-        console.log(meta.map_key)
-
         let renderer = get_renderer(meta.map_key)
         if(renderer == undefined){
             throw new Error("renderer is required for decomposer!");
@@ -60,8 +58,7 @@ export class decomposer extends component {
         this.orient = new Vector4(0,0,0,1);
         this.scale = new Vector3(1,1,1);
         
-        // transform override refer's to the inner transform
-        // of the sprite, not the game object itself
+        // transform override refers to the inner transform of the sprite, not the game object itself
         if (transform_override != null) {
             this.inner_transform = transform_override;
         } else if (meta.transform != null) {
@@ -97,7 +94,7 @@ export class decomposer extends component {
                 } else {
                     this.matrix = this.inner_transform.get_transformation().to_three();
                 }
-                // have to tell the buffer/instance_geometry to update aswell
+                // have to tell the buffer/instance_geometry to update as-well
                 this.attributes_reference.set_transform(this.attribute_memory_index, this.matrix)
                 //this.attributes_reference.set_orientation(this.attribute_memory_index, new quaternion(0,0,0,1).to_three());
             }

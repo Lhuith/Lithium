@@ -77,7 +77,7 @@ export class game {
         )
         this.objects.push(box_obj)
 
-        save_game()
+        // save_game()
     }
 
     update(delta){

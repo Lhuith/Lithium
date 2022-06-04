@@ -2,7 +2,7 @@
 import {image_meta}  from '/core/data/meta_data/image_meta.js'
 import * as THREE from 'three'
 import {img, is} from '/core/meta/helpers/utils.js'
-import sprite_meta from '/core/data/meta_data/sprite_meta.json' assert { type: "json" };
+import sprite_meta from '/core/data/meta_data/sprite_meta.json' assert { type: "json" }
 import {render_meta} from '/core/data/meta_data/render_meta.js'
 import {instance_geometry_renderer} from '/core/data/instance_geometry/instance_geometry_renderer.js'
 import * as file from '/core/meta/helpers/ajax.js'
@@ -37,24 +37,17 @@ export const init = (bs) => {
 // TODO clean up after everything is confirmed to work
 const load_renderers = () => {
     for(let i = 0; i < render_meta.length; i++){
-
-        let name = render_meta[i].name
-        file.get({id: name}, ajax_callback, name);
-
-        let inst_renderer = new instance_geometry_renderer(
+        let renderer = new instance_geometry_renderer(
             i,
             render_meta[i].container,
             render_meta[i].animate,
             render_meta[i].is3D,
             get_data(render_meta[i].shader),
         )
-        renderers.set(render_meta[i].name, inst_renderer)
-        inst_renderer.bake_attributes()
+        renderers.set(render_meta[i].name, renderer)
+        file.get({id: render_meta[i].name}, ajax_callback, render_meta[i].name)
+        renderer.bake_attributes()
     }
-}
-
-const renderer_loading_test = (e, n) => {
-    console.log("attempting to load " + n)
 }
 
 const fall = (i, data) => {

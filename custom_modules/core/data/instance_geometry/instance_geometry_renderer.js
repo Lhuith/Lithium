@@ -84,19 +84,21 @@ export class instance_geometry_renderer {
         this.is3D = is3D
     }
 
-    save_attributes = () => {
+    save_and_populate_attributes = (array, index) => {
         file.update({
             id: render_meta[this.map_index].name,
-            attributes: [
-                this.attributes.states,
-            ]
+            attributes: array,
+            index:  index
         }, " ");
+        this.attributes.populate(array, index)
     }
+
     load_attributes = (callback) => {
         let name = render_meta[this.map_index].name
         file.get({id: name}, callback, name);
     }
-    bake_attributes = () => {
+
+    bake_attributes = (loaded) => {
         let buffer = predefine_buffer(this.buffer_size)
     
         let bufferGeometry = new THREE.PlaneBufferGeometry(1, 1, 1) 
@@ -106,7 +108,10 @@ export class instance_geometry_renderer {
         geometry.index = bufferGeometry.index
         geometry.attributes.position = bufferGeometry.attributes.position
         geometry.attributes.uv = bufferGeometry.attributes.uv
-      
+
+        if (loaded == undefined) {
+            console.log("load data is empty")
+        }
         //let translationAttribute = new THREE.InstancedBufferAttribute(new Float32Array(this.buffer.translation), 3)
         let orientationAttribute = new THREE.InstancedBufferAttribute(
             new Float32Array(buffer.orientations), 4)
@@ -152,30 +157,28 @@ export class instance_geometry_renderer {
         geometry.setAttribute('m1', m1Attribute)
         geometry.setAttribute('m2', m2Attribute)
         geometry.setAttribute('m3', m3Attribute)
-        
-        this.attributes.populate(
-            [
-                //translationAttribute,
-                orientationAttribute,
-                colorAttribute,
-                uvOffsetAttribute,
-                tileSizeAttribute,
-                scaleAttribute,
-                animation_startAttribute,
-                animation_endAttribute,
-                animation_timeAttribute,
-                renderTypeAttribute,
-                fogAttribute,
-                m0Attribute,
-                m1Attribute,
-                m2Attribute,
-                m3Attribute,
-            ], this.buffer_size
-        )
+
+
+        this.save_and_populate_attributes ([
+            //translationAttribute,
+            orientationAttribute,
+            colorAttribute,
+            uvOffsetAttribute,
+            tileSizeAttribute,
+            scaleAttribute,
+            animation_startAttribute,
+            animation_endAttribute,
+            animation_timeAttribute,
+            renderTypeAttribute,
+            fogAttribute,
+            m0Attribute,
+            m1Attribute,
+            m2Attribute,
+            m3Attribute,
+        ], this.buffer_size)
+
       
-        let texture = new THREE.TextureLoader().load(
-            '../data/'+render_meta[this.map_index].map)
-    
+        let texture = new THREE.TextureLoader().load('../data/'+render_meta[this.map_index].map)
         texture.magFilter = THREE.NearestFilter
         texture.minFilter = THREE.NearestFilter
     
@@ -187,16 +190,7 @@ export class instance_geometry_renderer {
     
         if(this.is3D)
             is3DSwitch = 1.0
-    
-        let instanceUniforms = {
-            map: { value: texture },
-            spriteSheetX: { type: "f", value: sprite_meta.SPRITE_SHEET_SIZE.x },
-            spriteSheetY: { type: "f", value: sprite_meta.SPRITE_SHEET_SIZE.y },
-            animationSwitch: { type: "f", value: animationSwitch },
-            is3D: { type: "f", value: is3DSwitch },
-            time: { type: "f", value: 1.0 },
-        }
-    
+
         if(this.shader == undefined){
             console.error("shader wasn't found, using default.")
             this.shader = get_data("instance_shader")
@@ -207,9 +201,16 @@ export class instance_geometry_renderer {
                 THREE.UniformsUtils.merge([
                     THREE.UniformsLib['lights'],
                     THREE.UniformsLib['fog'],
-                    instanceUniforms
+                    // instance uniforms
+                    {
+                        map: { value: texture },
+                        spriteSheetX: { type: "f", value: sprite_meta.SPRITE_SHEET_SIZE.x },
+                        spriteSheetY: { type: "f", value: sprite_meta.SPRITE_SHEET_SIZE.y },
+                        animationSwitch: { type: "f", value: animationSwitch },
+                        is3D: { type: "f", value: is3DSwitch },
+                        time: { type: "f", value: 1.0 },
+                    }
                 ]),
-    
             vertexShader: this.shader.vert,
             fragmentShader:  this.shader.frag,
             wireframe:  this.shader.extra.wf,
@@ -227,7 +228,8 @@ export class instance_geometry_renderer {
         mesh.frustumCulled = false
         mesh.castShadow = true
 
-        console.log("objects baked: ", this.buffer_size)
+        console.log(
+            "%c\tbaking renderer("+this.buffer_size.toString()+"] "+render_meta[this.map_index].name, "color:#34d2eb")
         this.mesh.add(mesh)
     }
 }
