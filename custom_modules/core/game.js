@@ -1,4 +1,4 @@
-import { get_meta, save_game } from '/core/data/antlion.js'
+import { get_sprite_meta, save_game } from '/core/data/antlion.js'
 import * as physics from '/core/math/physics/physics.js'
 import * as keyboard from '/core/input/keyboard.js'
 import { quaternion } from '/core/math/quaternion.js'
@@ -49,7 +49,7 @@ export class game {
         //! ---------- INIT ----------
 
         let npc = new gameobject("steve", new Vector3(3,0.8,0), new Vector3(1,1,1))
-        npc.add_component(sprite(get_meta().lithy))
+        npc.add_component(sprite(get_sprite_meta().lithy))
         npc.add_component(new look_at(three, three.camera.position))
 
         npc.add_component(new animator([

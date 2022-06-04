@@ -2,7 +2,7 @@
 import {image_meta}  from '/core/data/meta_data/image_meta.js'
 import * as THREE from 'three'
 import {img, is} from '/core/meta/helpers/utils.js'
-import {object_meta} from '/core/data/meta_data/object_meta.js'
+import sprite_meta from '/core/data/meta_data/sprite_meta.json' assert { type: "json" };
 import {render_meta} from '/core/data/meta_data/render_meta.js'
 import {instance_geometry_renderer} from '/core/data/instance_geometry/instance_geometry_renderer.js'
 import * as file from '/core/meta/helpers/ajax.js'
@@ -48,7 +48,6 @@ const load_renderers = () => {
             render_meta[i].is3D,
             get_data(render_meta[i].shader),
         )
-        console.log(render_meta[i].name)
         renderers.set(render_meta[i].name, inst_renderer)
         inst_renderer.bake_attributes()
     }
@@ -195,12 +194,16 @@ export const get_data = (key) => {
     }
 }
 
-export const get_meta = () => {
-    return object_meta
+export const get_sprite_meta = () => {
+    return sprite_meta
 }
 
 export const get_renderers = () => {
     return renderers
+}
+
+export const get_renderer = (key) => {
+    return renderers.get(key + "_render_meta")
 }
 
 export const save_renderers_state = () => {

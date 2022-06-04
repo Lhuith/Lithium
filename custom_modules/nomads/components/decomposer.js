@@ -1,7 +1,7 @@
 import { component } from '/nomads/components/component.js';
 import { Vector3, Vector4, Vector2 } from '/build/three.module.js';
 import { SPRITE, SOLID, PARTICLE } from '/nomads/globals.js';
-import { get_meta, get_renderers } from '/core/data/antlion.js';
+import {get_sprite_meta, get_renderer} from '/core/data/antlion.js';
 import { misc, col } from '/core/meta/helpers/utils.js';
 import { quaternion } from '/core/math/quaternion.js';
 import { transform } from '/core/math/transform.js';
@@ -22,18 +22,25 @@ export class decomposer extends component {
 
     constructor(meta, type, transform_override) {
         super();
+
         if(meta == undefined){ 
-            meta = get_meta().default
+            meta = get_sprite_meta().default
         }
         if(meta.map_key == undefined){ 
             throw new Error("map Key not defined!");
         }
-        console.log(meta.map_key)
-        if(get_renderers().get(meta.map_key+"_render_meta") == undefined){
-            throw new Error("renderer is required for decomposer!");
-        } else {
 
+        console.log(meta.map_key)
+
+        let renderer = get_renderer(meta.map_key)
+        if(renderer == undefined){
+            throw new Error("renderer is required for decomposer!");
         }
+        this.attributes_reference = renderer.attributes;
+        // where in the renderer's mem this decomposer points too
+        this.attribute_memory_index = 0;
+        this.animate = renderer.animate;
+        this.rendering = false;
         this.skip_occlusion = false;
     
         if(meta.skip_occlusion != null){ 
@@ -46,13 +53,10 @@ export class decomposer extends component {
             this.tile_size = new Vector2(meta.tile_size.x, meta.tile_size.y);
         }
     
-        var renderer = get_renderers().get(meta.map_key+"_render_meta");
-    
         this.ssIndex = misc.arrayMapToSS(meta.mapping);
         this.animationFrames = meta.frames;
         this.colors = col.arrayHexToThreeColor(meta.colors);
         this.render_type = type || 0;
-        this.attributes_reference = renderer.attributes;
         this.orient = new Vector4(0,0,0,1);
         this.scale = new Vector3(1,1,1);
         
@@ -83,10 +87,6 @@ export class decomposer extends component {
 
         // for gameobject
         this.parent = null;
-        // where in the renderer's mem this decomposer points too
-        this.attribute_memory_index = 0;
-        this.animate = renderer.animate;
-        this.rendering = false;
     }
     update = () => {
         //if(this.animate)
@@ -112,7 +112,7 @@ export class decomposer extends component {
     }
     attribute_debug = () => {
         if(this.attributes_reference != null && this.attributes_reference.length != 0){
-            var color_attribute = this.attributes_reference.col;
+            let color_attribute = this.attributes_reference.col;
             color_attribute.setXYZ(this.attribute_memory_index, 0, math.random_range(0, 1),0);
             color_attribute.needsUpdate = true;
         } else {

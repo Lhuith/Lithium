@@ -1,8 +1,8 @@
 import { Color, Vector2 } from '/build/three.module.js' 
-import { get_meta } from '/core/data/antlion.js'
+import { get_sprite_meta } from '/core/data/antlion.js'
 
 export const pixel = {
-    map : (p) => {return (p/get_meta().SPRITE_RESOLUTION)}
+    map : (p) => {return (p/get_sprite_meta().SPRITE_RESOLUTION)}
 }
 
 export const col = {
