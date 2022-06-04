@@ -2,7 +2,7 @@ import {instance_geometry_attributes} from '/core/data/instance_geometry/instanc
 import { get_data } from '/core/data/antlion.js'
 
 import {render_meta} from '/core/data/meta_data/render_meta.js'
-import {object_meta} from '/core/data/meta_data/object_meta.js'
+import sprite_meta from '/core/data/meta_data/sprite_meta.json' assert{type:"json"}
 
 import * as THREE from 'three'
 import {Vector4} from '/build/three.module.js'
@@ -190,8 +190,8 @@ export class instance_geometry_renderer {
     
         let instanceUniforms = {
             map: { value: texture },
-            spriteSheetX: { type: "f", value: object_meta.SPRITE_SHEET_SIZE.x },
-            spriteSheetY: { type: "f", value: object_meta.SPRITE_SHEET_SIZE.y },
+            spriteSheetX: { type: "f", value: sprite_meta.SPRITE_SHEET_SIZE.x },
+            spriteSheetY: { type: "f", value: sprite_meta.SPRITE_SHEET_SIZE.y },
             animationSwitch: { type: "f", value: animationSwitch },
             is3D: { type: "f", value: is3DSwitch },
             time: { type: "f", value: 1.0 },
@@ -220,8 +220,8 @@ export class instance_geometry_renderer {
     
         let mesh = new THREE.Mesh(geometry, material)
         material.uniforms.map.value = texture
-        material.uniforms.spriteSheetX.value = object_meta.SPRITE_SHEET_SIZE.x
-        material.uniforms.spriteSheetY.value = object_meta.SPRITE_SHEET_SIZE.y
+        material.uniforms.spriteSheetX.value = sprite_meta.SPRITE_SHEET_SIZE.x
+        material.uniforms.spriteSheetY.value = sprite_meta.SPRITE_SHEET_SIZE.y
     
         material.side = THREE.DoubleSide
         mesh.frustumCulled = false
