@@ -2,10 +2,10 @@ import { component } from '/nomads/components/component.js';
 import { Vector3, Vector4, Vector2 } from '/build/three.module.js';
 import { SPRITE, SOLID, PARTICLE } from '/nomads/globals.js';
 import { get_meta, get_renderers } from '/core/data/antlion.js';
-import { misc, col } from '/meta/helpers/utils.js';
+import { misc, col } from '/core/meta/helpers/utils.js';
 import { quaternion } from '/core/math/quaternion.js';
 import { transform } from '/core/math/transform.js';
-import {math} from '/meta/helpers/utils.js';
+import {math} from '/core/meta/helpers/utils.js';
 
 export const sprite = (meta, pass_transform) => {
     return new decomposer(meta, SPRITE, pass_transform)
@@ -28,8 +28,11 @@ export class decomposer extends component {
         if(meta.map_key == undefined){ 
             throw new Error("map Key not defined!");
         }
-        if(get_renderers().get(meta.map_key) == undefined){ 
+        console.log(meta.map_key)
+        if(get_renderers().get(meta.map_key+"_render_meta") == undefined){
             throw new Error("renderer is required for decomposer!");
+        } else {
+
         }
         this.skip_occlusion = false;
     
@@ -43,7 +46,7 @@ export class decomposer extends component {
             this.tile_size = new Vector2(meta.tile_size.x, meta.tile_size.y);
         }
     
-        var renderer = get_renderers().get(meta.map_key);
+        var renderer = get_renderers().get(meta.map_key+"_render_meta");
     
         this.ssIndex = misc.arrayMapToSS(meta.mapping);
         this.animationFrames = meta.frames;

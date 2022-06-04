@@ -1,4 +1,4 @@
-import { to, math, pixel} from '/meta/helpers/utils.js'
+import { to, math, pixel} from '/core/meta/helpers/utils.js'
 import * as THREE from '/build/three.module.js'
 
 const map_rgba = (index, height) => {

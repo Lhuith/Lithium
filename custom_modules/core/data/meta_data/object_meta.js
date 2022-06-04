@@ -1,14 +1,4 @@
-
-//! transform class override for sprites
-/*
-"transform" : {
-    "position" : {"x":0, "y":0, "z":0},
-    "orient" : {"x":0, "y":0, "z":0, "w":1},
-    "scale" : {"x":1, "y":1, "z":1}
-    },
-*/
-
-export const meta = {
+export const object_meta = {
     // 256/32 = 8 
     "SPRITE_SHEET_SIZE" : {"x":8, "y":8},
     // 32 = size of individual sprite block

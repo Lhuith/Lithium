@@ -3,7 +3,7 @@ import {OrbitControls} from '/jsm/controls/OrbitControls.js'
 import Stats from '/jsm/libs/stats.module.js'
 import * as antlion from '/core/data/antlion.js'
 import * as game from '/nomads/nomads.js'
-import * as ajax from '/meta/helpers/ajax.js'
+import * as ajax from '/core/meta/helpers/ajax.js'
 import {PointerLockControls} from '/jsm/controls/PointerLockControls.js'
 
 var scene, camera, stats, clock, renderer, renderers, game_time

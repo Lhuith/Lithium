@@ -4,7 +4,7 @@ import { quaternion } from '/core/math/quaternion.js'
 import { sprite, solid, particle } from '/nomads/components/decomposer.js'
 import { get_meta } from '/core/data/antlion.js'
 import { transform } from '/core/math/transform.js'
-import { to, math } from '/meta/helpers/utils.js'
+import { to, math } from '/core/meta/helpers/utils.js'
 
 export const box = (pos, scale, rotation) => {
     var box_obj = new gameobject("box", 

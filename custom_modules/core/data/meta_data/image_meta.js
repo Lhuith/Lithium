@@ -1,6 +1,6 @@
-import * as datatype from '/core/data/datatypes.js';
+import * as datatype from '/core/data/meta_data/datatypes.js';
 
-export const payload = [
+export const image_meta = [
     new datatype.shader_resource(
         "instance_shader", 
         "s",

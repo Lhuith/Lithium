@@ -1,12 +1,12 @@
 import {instance_geometry_attributes} from '/core/data/instance_geometry/instance_geometry_attributes.js'
 import { get_data } from '/core/data/antlion.js'
 
-import {renderering_meta} from '/core/data/renderering_meta.js'
-import {meta} from '/core/data/meta.js'
+import {render_meta} from '/core/data/meta_data/render_meta.js'
+import {object_meta} from '/core/data/meta_data/object_meta.js'
 
 import * as THREE from 'three'
 import {Vector4} from '/build/three.module.js'
-import * as file from '/meta/helpers/ajax.js'
+import * as file from '/core/meta/helpers/ajax.js'
 
 const predefine_buffer = (size = 0) => {
     let translation = []
@@ -86,14 +86,14 @@ export class instance_geometry_renderer {
 
     save_attributes = () => {
         file.update({
-            id: renderering_meta[this.map_index].name+"_sprite_renderer",
+            id: render_meta[this.map_index].name,
             attributes: [
                 this.attributes.states,
             ]
         }, " ");
     }
     load_attributes = (callback) => {
-        let name = renderering_meta[this.map_index].name+"_sprite_renderer"
+        let name = render_meta[this.map_index].name
         file.get({id: name}, callback, name);
     }
     bake_attributes = () => {
@@ -174,7 +174,7 @@ export class instance_geometry_renderer {
         )
       
         let texture = new THREE.TextureLoader().load(
-            '../data/'+renderering_meta[this.map_index].map)
+            '../data/'+render_meta[this.map_index].map)
     
         texture.magFilter = THREE.NearestFilter
         texture.minFilter = THREE.NearestFilter
@@ -190,8 +190,8 @@ export class instance_geometry_renderer {
     
         let instanceUniforms = {
             map: { value: texture },
-            spriteSheetX: { type: "f", value: meta.SPRITE_SHEET_SIZE.x },
-            spriteSheetY: { type: "f", value: meta.SPRITE_SHEET_SIZE.y },
+            spriteSheetX: { type: "f", value: object_meta.SPRITE_SHEET_SIZE.x },
+            spriteSheetY: { type: "f", value: object_meta.SPRITE_SHEET_SIZE.y },
             animationSwitch: { type: "f", value: animationSwitch },
             is3D: { type: "f", value: is3DSwitch },
             time: { type: "f", value: 1.0 },
@@ -220,8 +220,8 @@ export class instance_geometry_renderer {
     
         let mesh = new THREE.Mesh(geometry, material)
         material.uniforms.map.value = texture
-        material.uniforms.spriteSheetX.value = meta.SPRITE_SHEET_SIZE.x
-        material.uniforms.spriteSheetY.value = meta.SPRITE_SHEET_SIZE.y
+        material.uniforms.spriteSheetX.value = object_meta.SPRITE_SHEET_SIZE.x
+        material.uniforms.spriteSheetY.value = object_meta.SPRITE_SHEET_SIZE.y
     
         material.side = THREE.DoubleSide
         mesh.frustumCulled = false

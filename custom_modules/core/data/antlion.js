@@ -1,11 +1,11 @@
 // data after being processed
-import {payload}  from '/core/data/image_payload.js'
+import {image_meta}  from '/core/data/meta_data/image_meta.js'
 import * as THREE from 'three'
-import {img, is} from '/meta/helpers/utils.js'
-import {meta} from '/core/data/meta.js'
-import {renderering_meta} from '/core/data/renderering_meta.js'
+import {img, is} from '/core/meta/helpers/utils.js'
+import {object_meta} from '/core/data/meta_data/object_meta.js'
+import {render_meta} from '/core/data/meta_data/render_meta.js'
 import {instance_geometry_renderer} from '/core/data/instance_geometry/instance_geometry_renderer.js'
-import * as file from '/meta/helpers/ajax.js'
+import * as file from '/core/meta/helpers/ajax.js'
 
 let compiled = []
 
@@ -31,26 +31,31 @@ export const init = (bs) => {
     async_time = Date.now()
      // grabbing player position
     load_game()
-    fall(payload.length - 1, []) 
+    fall(image_meta.length - 1, [])
 }
 
 // TODO clean up after everything is confirmed to work
 const load_renderers = () => {
-    for(let i = 0; i < renderering_meta.length; i++){
+    for(let i = 0; i < render_meta.length; i++){
+
+        let name = render_meta[i].name
+        file.get({id: name}, ajax_callback, name);
+
         let inst_renderer = new instance_geometry_renderer(
             i,
-            renderering_meta[i].container,
-            renderering_meta[i].animate,
-            renderering_meta[i].is3D,
-            get_data(renderering_meta[i].shader),
+            render_meta[i].container,
+            render_meta[i].animate,
+            render_meta[i].is3D,
+            get_data(render_meta[i].shader),
         )
-
-        renderers.set(renderering_meta[i].name, inst_renderer)
+        console.log(render_meta[i].name)
+        renderers.set(render_meta[i].name, inst_renderer)
         inst_renderer.bake_attributes()
     }
-    {
-        load_renderers_state(ajax_callback)
-    }
+}
+
+const renderer_loading_test = (e, n) => {
+    console.log("attempting to load " + n)
 }
 
 const fall = (i, data) => {
@@ -60,17 +65,17 @@ const fall = (i, data) => {
     // catch data dropping in from previse call, except the first init
     if(data.length !== 0) {completed.push(data)}
     // Keep falling baby
-    if(payload[i].type == "s"){
-        shader_loader(payload[i].name, payload[i].vert, payload[i].frag, payload[i].extra,
+    if(image_meta[i].type == "s"){
+        shader_loader(image_meta[i].name, image_meta[i].vert, image_meta[i].frag, image_meta[i].extra,
             (i == 0) ? done : fall, i - 1)
-    } else if(payload[i].type == "t"){
-        texture_loader(payload[i].name, payload[i].color, payload[i].height, payload[i].detail,
+    } else if(image_meta[i].type == "t"){
+        texture_loader(image_meta[i].name, image_meta[i].color, image_meta[i].height, image_meta[i].detail,
             (i == 0) ? done : fall, i - 1)
-    } else if(payload[i].type == "m"){
-        map_texture_loader(payload[i].name, payload[i].url, map_index++,
+    } else if(image_meta[i].type == "m"){
+        map_texture_loader(image_meta[i].name, image_meta[i].url, map_index++,
             (i == 0) ? done : fall, i - 1)
     }
-    load_in_message(payload[i].name, i)
+    load_in_message(image_meta[i].name, i)
 }
 
 const load_in_message = (name, i) => {
@@ -88,7 +93,7 @@ export const save_game = () => {
 }
 
 const ajax_callback = (e, n) => {
-    load_in_message(e, 5)
+    load_in_message(n + " data", 5)
     completed.push({name:n, data: e})
 }
 
@@ -98,6 +103,7 @@ const done = (i, data) => {
     completed.push(data)
     
     elapsed_time = Date.now() - async_time
+
     // loading renderers here as they need textures/shaders loaded first
     load_renderers()
    
@@ -190,7 +196,7 @@ export const get_data = (key) => {
 }
 
 export const get_meta = () => {
-    return meta
+    return object_meta
 }
 
 export const get_renderers = () => {

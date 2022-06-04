@@ -5,7 +5,7 @@ import * as keyboard from '/core/input/keyboard.js';
 import { quaternion } from '/core/math/quaternion.js'
 import { get_data } from '/core/data/antlion.js'
 
-import * as file from '/meta/helpers/ajax.js'
+import * as file from '/core/meta/helpers/ajax.js'
 
 export class controller extends component {
     type = "controller"

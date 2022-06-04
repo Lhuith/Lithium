@@ -1,5 +1,5 @@
 import { InstancedBufferAttribute, Vector4, Vector2, Vector3, Matrix4} from '/build/three.module.js'
-import { math } from '/meta/helpers/utils.js'
+import { math } from '/core/meta/helpers/utils.js'
 
 export class instance_geometry_attributes {
     type = "instance_attributes"

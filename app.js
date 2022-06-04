@@ -27,7 +27,7 @@ app.use(function (req, res, next) {
 
 app.use(bodyParser.json());
 
-require('./meta/IO/routes/data.routes.js')(app)
+require('./custom_modules/core/meta/IO/routes/data.routes.js')(app)
 
 app.use(express.static(__dirname+ '/public'))
 app.use('/build', express.static(path.join(__dirname, 'node_modules/three/build')))

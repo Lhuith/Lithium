@@ -1,4 +1,4 @@
-import * as utils from "/meta/helpers/utils.js";
+import * as utils from "/core/meta/helpers/utils.js";
 
 let dx = 0, dy = 0, start_dx = 0, start_dy = 0
 let map_context, map_context_element;

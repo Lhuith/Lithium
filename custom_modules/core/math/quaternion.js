@@ -1,4 +1,4 @@
-import { to, math } from '/meta/helpers/utils.js';
+import { to, math } from '/core/meta/helpers/utils.js';
 import {Vector3, Quaternion} from '/build/three.module.js';
 import { matrix } from '/core/math/matrix.js'
 
