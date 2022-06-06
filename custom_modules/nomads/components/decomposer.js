@@ -36,7 +36,9 @@ export class decomposer extends component {
         }
         this.attributes_reference = renderer.attributes;
         // where in the renderer's mem this decomposer points too
+
         this.attribute_memory_index = 0;
+
         this.animate = renderer.animate;
         this.rendering = false;
         this.tile_size = new Vector3(1,1);
@@ -89,7 +91,8 @@ export class decomposer extends component {
                     this.matrix = this.inner_transform.get_transformation().to_three();
                 }
                 // have to tell the buffer/instance_geometry to update as-well
-                this.attributes_reference.set_transform(this.attribute_memory_index, this.matrix)
+                // TODO: Fix this!
+                //this.attributes_reference.set_transform(this.attribute_memory_index, this.matrix)
                 //this.attributes_reference.set_orientation(this.attribute_memory_index, new quaternion(0,0,0,1).to_three());
             }
     }
@@ -129,6 +132,7 @@ export class decomposer extends component {
             this.attributes_reference.set_type(this.attribute_memory_index, type)
         }
     }
+
     set_transform_attribute = (t) => {
         if(this.transform == null) {
             this.transform = t;
@@ -141,11 +145,13 @@ export class decomposer extends component {
                 this.matrix = this.inner_transform.get_transformation().to_three();
             }
             this.attributes_reference.set_attributes(this);
+        } else {
+            console.error("no transform")
         }
-
     }
+
     render = (type) => {
-        if(!this.rendering){
+        if(this.rendering){
             if(type != undefined){
                 this.set_type(type);
             }

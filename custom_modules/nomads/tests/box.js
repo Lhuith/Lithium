@@ -14,40 +14,43 @@ export const box = (pos, scale, rotation) => {
     )
     var size = 0.25
     var position = 0.25
+
     box_obj.add_component(solid(get_sprite_meta().box,
     new transform (
         new Vector3(0, position, size),
-        new Vector3(1,1,1), 
+        new Vector3(1,1,1),
         new quaternion(0,0,0,1)
     )))
+
     box_obj.add_component(solid(get_sprite_meta().box,
     new transform (
         new Vector3(0, position, -size),
-        new Vector3(1,1,1), 
+        new Vector3(1,1,1),
         new quaternion(0,0,0,1)
     )))
+
     box_obj.add_component(solid(get_sprite_meta().box,
     new transform (
-        new Vector3(size,position,0), 
-        new Vector3(1,1,1), 
+        new Vector3(size,position,0),
+        new Vector3(1,1,1),
         new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 90, 0)))
     ))
     box_obj.add_component(solid(get_sprite_meta().box,
     new transform (
-        new Vector3(-size,position,0), 
-        new Vector3(1,1,1), 
+        new Vector3(-size,position,0),
+        new Vector3(1,1,1),
         new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 90, 0)))
     ))
     box_obj.add_component(solid(get_sprite_meta().box,
     new transform (
-        new Vector3(0,position + size,0), 
-        new Vector3(1,1,1), 
+        new Vector3(0,position + size,0),
+        new Vector3(1,1,1),
         new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(90, 0, 0)))
     ))
     box_obj.add_component(solid(get_sprite_meta().box,
     new transform (
-        new Vector3(0,position-size,0), 
-        new Vector3(1,1,1), 
+        new Vector3(0,position-size,0),
+        new Vector3(1,1,1),
         new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(90, 0, 0)))
     ))
 

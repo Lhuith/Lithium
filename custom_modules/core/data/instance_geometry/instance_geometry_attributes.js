@@ -45,9 +45,11 @@ export class instance_geometry_attributes {
     }
     set_attributes = (decomposer) => {
         let index = 0
-    
+
         // grab the first empty slot in the buffer
-        while (this.states.getX(index) != 0 && index < this.max){ index++ }
+        while (this.states.getX(index) != 0 && index != this.max){
+            index++
+        }
         
         this.states.setX(index, true)
 
