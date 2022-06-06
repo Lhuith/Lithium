@@ -2,7 +2,7 @@ import { component } from '/nomads/components/component.js';
 import { Vector3, Vector4, Vector2 } from "/build/three.module.js";
 import { SPRITE, SOLID, PARTICLE } from '/nomads/globals.js';
 import {get_sprite_meta, get_renderer} from '/core/data/antlion.js';
-import { misc, col } from '/core/meta/helpers/utils.js';
+import { map, col } from '/core/meta/helpers/utils.js';
 import { quaternion } from '/core/math/quaternion.js';
 import { transform } from '/core/math/transform.js';
 import {math} from '/core/meta/helpers/utils.js';
@@ -51,8 +51,8 @@ export class decomposer extends component {
             this.tile_size = new Vector2(meta.tile_size.x, meta.tile_size.y);
         }
     
-        this.ssIndex = misc.arrayMapToSS(meta.mapping);
-        this.animationFrames = meta.frames;
+        this.ss_index = map.arrayMapToSS(meta.mapping);
+        this.animation_frames = meta.frames;
         this.colors = col.arrayHexToThreeColor(meta.colors);
         this.render_type = type || 0;
         this.orient = new Vector4(0,0,0,1);
@@ -102,7 +102,7 @@ export class decomposer extends component {
     update_buffer_animation = (animation) => {
         //this.buffer.set_animation(this.attribute_memory_index, animation);
     }
-    set_animation = (s, e, t) => {
+    set_animation_attribute = (s, e, t) => {
         if(this.attributes_reference != null){
             this.attributes_reference.set_animation(this.attribute_memory_index, s, e, t);
         }
@@ -116,17 +116,17 @@ export class decomposer extends component {
             console.error("no attributes found!");
         }
     }
-    set_color = (hex) => {
+    set_color_attribute = (hex) => {
         if(this.attributes_reference != null){
             this.attributes_reference.set_color(this.attribute_memory_index, hex)
         }
     }
-    set_alpha = (alpha) => {
+    set_alpha_attribute = (alpha) => {
         if(this.attributes_reference != null){
             this.attributes_reference.set_alpha(this.attribute_memory_index, alpha)
         }
     }
-    set_type = (type) => {
+    set_type_attribute = (type) => {
         if(type < 0 || type > 3){
             console.error("type must be in range 0 - 3");
             return
@@ -135,7 +135,7 @@ export class decomposer extends component {
             this.attributes_reference.set_type(this.attribute_memory_index, type)
         }
     }
-    set_transform = (t) => {
+    set_transform_attribute = (t) => {
         if(this.transform == null) {
             this.transform = t;
             this.inner_transform.parent = t;
@@ -155,7 +155,7 @@ export class decomposer extends component {
             } else {
                
             }
-            this.attributes_reference.set(this);
+            this.attributes_reference.set_attributes(this);
         }
 
     }
@@ -164,13 +164,13 @@ export class decomposer extends component {
             if(type != undefined){
                 this.set_type(type);
             }
-            this.attributes_reference.set(this)
+            this.attributes_reference.set_attributes(this)
             this.rendering = true;
         }
     }
     derender = () => {
         if(this.rendering){
-            this.attributes_reference.unset(this.attribute_memory_index)
+            this.attributes_reference.unset_attributes(this.attribute_memory_index)
             this.rendering = false;
         }
     }
@@ -179,7 +179,7 @@ export class decomposer extends component {
     }
     set_requirement(r){
         if(r.type == "transform"){
-            this.set_transform(r);
+            this.set_transform_attribute(r);
         }
     }
     //TODO TO JSON??

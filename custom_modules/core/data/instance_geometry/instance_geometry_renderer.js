@@ -120,7 +120,6 @@ export class instance_geometry_renderer {
                 )
             }
         } else {
-            isLoaded = false
             console.log("\tcreating new attributes")
             let buffer = predefine_buffer(this.buffer_size)
             attributes_array = [

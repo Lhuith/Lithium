@@ -77,16 +77,16 @@ export class controller extends component {
             this.controls.getObject().position.y - 0.25, 
             this.controls.getObject().position.z - 1)
             
-        //file.update({id: "player",
-        //    position:{
-        //    x:this.controls.getObject().position.x,
-        //    y:this.controls.getObject().position.y,
-        //    z:this.controls.getObject().position.z},
-        //    rotation_euler:{
-        //        x:this.controls.getObject().rotation.x,
-        //        y:this.controls.getObject().rotation.y,
-        //        z:this.controls.getObject().rotation.z
-        //    }});
+        file.update({id: "player",
+            position:{
+            x:this.controls.getObject().position.x,
+            y:this.controls.getObject().position.y,
+            z:this.controls.getObject().position.z},
+            rotation_euler:{
+                x:this.controls.getObject().rotation.x,
+                y:this.controls.getObject().rotation.y,
+                z:this.controls.getObject().rotation.z
+            }});
     }
 
     set_transform(t){

@@ -7,17 +7,17 @@ export const pixel = {
 
 export const col = {
     shade_RGB_color : (color, percent) => {
-        var t = percent < 0 ? 0 : 255
-        var p = percent < 0 ? percent * -1 : percent
+        let t = percent < 0 ? 0 : 255
+        let p = percent < 0 ? percent * -1 : percent
 
-        var R = color.r
-        var G = color.g
-        var B = color.b
+        let R = color.r
+        let G = color.g
+        let B = color.b
 
         return new Color( (Math.round((t-R)*p)+R), (Math.round((t-G)*p)+G), (Math.round((t-B)*p)+B), 255)
     },
     shade_hex_color : (color, percent) => {   
-        var f = parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF
+        let f = parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF
         return "0x"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1)
     },
     shade: (color, percent) => {
@@ -26,8 +26,8 @@ export const col = {
         else return shadeHEXColor(color,percent)
     },
     arrayHexToThreeColor : (a) => {
-        var colors = []
-        for(var i = 0; i < a.length; i++){
+        let colors = []
+        for(let i = 0; i < a.length; i++){
             colors.push(new Color(Number(a[i])))
         }
         return colors
@@ -35,10 +35,10 @@ export const col = {
 }
 export const img = {
     get_image_data : (image) => {
-        var canvas = document.createElement( 'canvas' )
+        let canvas = document.createElement( 'canvas' )
         canvas.width = image.width || image.naturalWidth
         canvas.height =  image.height || image.naturalHeight
-        var context = canvas.getContext( '2d' )
+        let context = canvas.getContext( '2d' )
         context.drawImage( image, 0, 0 )
         return context.getImageData( 0, 0, image.width || image.naturalWidth, image.height || image.naturalHeight )
     }
@@ -107,18 +107,20 @@ export const math = {
         easeInOutQuint: function (t) { return t < .5 ? 16 * t * t * t * t * t : 1 + 16 * (--t) * t * t * t * t }
     }
 }
-export const misc = {
-    //2 ^ 8 = 256 
+export const map = {
+    //2 ^ 8 = 256
     mapToSS : (x, y) => {
         return new Vector2((1/8)*x, (1/8)*y)
     },
     arrayMapToSS : (a) => {
-        var ss = []
-        for(var i = 0; i < a.length; i++){
-            ss.push(misc.mapToSS(a[i].x, a[i].y))
+        let ss = []
+        for(let i = 0; i < a.length; i++){
+            ss.push(map.mapToSS(a[i].x, a[i].y))
         }
         return ss
     },
+}
+export const misc = {
     Swap : (a) => {return [a[1], a[0]]},
     // traversal with function call for convenance ಠ_ಠ
     Traverse : (l, ...f) => {

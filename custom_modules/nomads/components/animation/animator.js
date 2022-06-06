@@ -42,7 +42,7 @@ export class animator extends component {
     update(delta){
         this.current_sequence.update(delta);
         this.current_animation = this.current_sequence.current_animation;
-        this.decomposer.set_animation(
+        this.decomposer.set_animation_attribute(
             this.current_animation.start, 
             this.current_animation.length, 
             this.current_sequence.current_frame);

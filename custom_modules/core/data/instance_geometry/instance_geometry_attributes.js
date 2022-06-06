@@ -10,8 +10,8 @@ export class instance_geometry_attributes {
         }
     }
     populate = (array, index) => {
-        var states = []
-        for(var i = 0; i < index; i++){
+        let states = []
+        for(let i = 0; i < index; i++){
             states.push(false)
         }
         this.states =  new InstancedBufferAttribute(new Float32Array(states), 1)
@@ -43,26 +43,26 @@ export class instance_geometry_attributes {
         this.index = 0
         this.max = index
     }
-    set = (decomposer) => {
-        var index = 0
+    set_attributes = (decomposer) => {
+        let index = 0
     
         // grab the first empty slot in the buffer
         while (this.states.getX(index) != 0 && index < this.max){ index++ }
         
         this.states.setX(index, true)
 
-        var uvs = decomposer.ssIndex[math.rounded_random_range(0, decomposer.ssIndex.length - 1)]
+        let uvs = decomposer.ss_index[math.rounded_random_range(0, decomposer.ss_index.length - 1)]
         this.set_uvoffset(index, uvs)
 
         this.set_tile_size(index, decomposer.tile_size)
 
-        //var vector = new THREE.Vector4(
+        //let vector = new THREE.Vector4(
         //    decomposer.position.x, 
         //    decomposer.position.y, 
         //    decomposer.position.z, 0).normalize()
         //
         //
-        //var translation = new THREE.Vector3(
+        //let translation = new THREE.Vector3(
         //    decomposer.position.x + vector.x, 
         //    decomposer.position.y + vector.y, 
         //    decomposer.position.z + vector.z
@@ -74,15 +74,15 @@ export class instance_geometry_attributes {
         this.set_type(index, decomposer.render_type)
         this.set_fog(index, decomposer.fog)
 
-        var col = decomposer.colors[math.rounded_random_range(0, decomposer.colors.length - 1)]
-        var col_vector = new Vector4(col.r, col.g, col.b, 1.0)
+        let col = decomposer.colors[math.rounded_random_range(0, decomposer.colors.length - 1)]
+        let col_vector = new Vector4(col.r, col.g, col.b, 1.0)
 
         this.set_color(index, col_vector)
 
         this.set_transform(index, decomposer.matrix)
         decomposer.buffer_idx = index
     }
-    unset = (index) => {
+    unset_attributes = (index) => {
         //console.log("attributes being reset?", index)
         this.set_uvoffset(index, new Vector2(0,0))
         this.set_tile_size(index, new Vector2(0,0))
@@ -91,7 +91,7 @@ export class instance_geometry_attributes {
         this.set_scale(index, new Vector3(1,1,1))
         this.set_type(index, 0)
         this.set_fog(index, 0)
-        var col_vector = new Vector3(0, 0, 0)
+        let col_vector = new Vector3(0, 0, 0)
         this.set_color(index, col_vector)
     
         //this.set_animation(index, )

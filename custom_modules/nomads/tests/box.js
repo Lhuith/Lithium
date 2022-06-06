@@ -16,13 +16,13 @@ export const box = (pos, scale, rotation) => {
     var position = 0.25
     box_obj.add_component(solid(get_sprite_meta().box,
     new transform (
-        new Vector3(0, position, size), 
+        new Vector3(0, position, size),
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1)
     )))
     box_obj.add_component(solid(get_sprite_meta().box,
     new transform (
-        new Vector3(0, position, -size), 
+        new Vector3(0, position, -size),
         new Vector3(1,1,1), 
         new quaternion(0,0,0,1)
     )))
