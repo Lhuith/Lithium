@@ -39,12 +39,6 @@ export class decomposer extends component {
         this.attribute_memory_index = 0;
         this.animate = renderer.animate;
         this.rendering = false;
-        this.skip_occlusion = false;
-    
-        if(meta.skip_occlusion != null){ 
-            this.skip_occlusion = meta.skip_occlusion;
-        } 
-    
         this.tile_size = new Vector3(1,1);
     
         if(meta.tile_size != null){
@@ -145,15 +139,6 @@ export class decomposer extends component {
                 this.matrix = this.inner_transform.get_transformation_noRot().to_three();
             } else {
                 this.matrix = this.inner_transform.get_transformation().to_three();
-            }
-            // append to the buffer after all fields are set
-            if(!this.skip_occlusion) {
-                //TestQuadTree.insert(new qt_point(
-                //    this.parent.transform.get_transformed_position(), 
-                //    this.parent.id
-                //    ))
-            } else {
-               
             }
             this.attributes_reference.set_attributes(this);
         }
