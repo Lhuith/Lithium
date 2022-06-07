@@ -47,10 +47,9 @@ export class instance_geometry_attributes {
         let index = 0
 
         // grab the first empty slot in the buffer
-        while (this.states.getX(index) != 0 && index != this.max){
+        while (this.states.getX(index) != 0 && index < this.max){
             index++
         }
-        
         this.states.setX(index, true)
 
         let uvs = decomposer.ss_index[math.rounded_random_range(0, decomposer.ss_index.length - 1)]
@@ -82,7 +81,7 @@ export class instance_geometry_attributes {
         this.set_color(index, col_vector)
 
         this.set_transform(index, decomposer.matrix)
-        decomposer.buffer_idx = index
+        decomposer.attribute_memory_index = index
     }
     unset_attributes = (index) => {
         //console.log("attributes being reset?", index)
@@ -148,32 +147,16 @@ export class instance_geometry_attributes {
 
     set_transform = (index, matrix) => {
         this.m0.setXYZW(
-            index,  
-            matrix.elements[0],
-            matrix.elements[1],
-            matrix.elements[2],
-            matrix.elements[3]
+            index, matrix.elements[0], matrix.elements[1], matrix.elements[2], matrix.elements[3]
         )
         this.m1.setXYZW(
-            index,  
-            matrix.elements[4],
-            matrix.elements[5],
-            matrix.elements[6],
-            matrix.elements[7]
+            index, matrix.elements[4], matrix.elements[5], matrix.elements[6], matrix.elements[7]
         )
         this.m2.setXYZW(
-            index,  
-            matrix.elements[8],
-            matrix.elements[9],
-            matrix.elements[10],
-            matrix.elements[11]
+            index, matrix.elements[8], matrix.elements[9], matrix.elements[10], matrix.elements[11]
         )
         this.m3.setXYZW(
-            index,  
-            matrix.elements[12],
-            matrix.elements[13],
-            matrix.elements[14],
-            matrix.elements[15]
+            index, matrix.elements[12], matrix.elements[13], matrix.elements[14], matrix.elements[15]
         )
         this.m0.needsUpdate = true
         this.m1.needsUpdate = true

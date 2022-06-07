@@ -7,14 +7,14 @@ import { quaternion } from '/core/math/quaternion.js';
 import { transform } from '/core/math/transform.js';
 import {math} from '/core/meta/helpers/utils.js';
 
-export const sprite = (meta, pass_transform) => {
-    return new decomposer(meta, SPRITE, pass_transform)
+export const sprite = (meta, transform_override) => {
+    return new decomposer(meta, SPRITE, transform_override)
 }
-export const solid = (meta, pass_transform) => {
-    return new decomposer(meta, SOLID, pass_transform)
+export const solid = (meta, transform_override) => {
+    return new decomposer(meta, SOLID, transform_override)
 }
-export const particle = (meta, pass_transform) => {
-    return new decomposer(meta, PARTICLE, pass_transform)
+export const particle = (meta, transform_override) => {
+    return new decomposer(meta, PARTICLE, transform_override)
 } 
 export class decomposer extends component {
     type = "decomposer"
@@ -23,11 +23,10 @@ export class decomposer extends component {
     constructor(meta, type, transform_override) {
         super();
 
-        if(meta == undefined){ 
+        if(meta == undefined) {
             meta = get_sprite_meta().default
-        }
-        if(meta.map_key == undefined){ 
-            throw new Error("map Key not defined!");
+        } else if(meta.map_key == undefined) {
+            throw new Error("map key not defined!");
         }
 
         let renderer = get_renderer(meta.map_key)
@@ -38,11 +37,9 @@ export class decomposer extends component {
         // where in the renderer's mem this decomposer points too
 
         this.attribute_memory_index = 0;
-
         this.animate = renderer.animate;
-        this.rendering = false;
+
         this.tile_size = new Vector3(1,1);
-    
         if(meta.tile_size != null){
             this.tile_size = new Vector2(meta.tile_size.x, meta.tile_size.y);
         }
@@ -59,14 +56,8 @@ export class decomposer extends component {
             this.inner_transform = transform_override;
         } else if (meta.transform != null) {
             this.inner_transform = new transform (
-                new Vector3(
-                    meta.transform.position.x, 
-                    meta.transform.position.y, 
-                    meta.transform.position.z), 
-                new Vector3(
-                    meta.transform.scale.x, 
-                    meta.transform.scale.y,
-                    meta.transform.scale.z), 
+                new Vector3(meta.transform.position.x, meta.transform.position.y, meta.transform.position.z),
+                new Vector3(meta.transform.scale.x, meta.transform.scale.y, meta.transform.scale.z),
                 new quaternion(meta.transform.orient.x, meta.transform.orient.y, 
                     meta.transform.orient.z, meta.transform.orient.w, null, null, null)
             );
@@ -77,28 +68,22 @@ export class decomposer extends component {
                 new quaternion(0, 0, 0, 1, null, null, null)
             );
         }
+    }
 
-        // for gameobject
-        this.parent = null;
+    update = (delta) => {
+       // this.attribute_debug();
+        if(this.transform != null) {
+            this.set_matrix()
+            // have to tell the buffer/instance_geometry to update as-well
+            this.attributes_reference.set_transform(this.attribute_memory_index, this.matrix)
+            this.attributes_reference.set_orientation(this.attribute_memory_index, new quaternion(0,0,0,1).to_three());
+        }
     }
-    update = () => {
-        //if(this.animate)
-            //this.attribute_debug();
-            if(this.transform != null) {  
-                if(this.render_type == 0) {
-                    this.matrix = this.inner_transform.get_transformation_noRot().to_three();
-                } else {
-                    this.matrix = this.inner_transform.get_transformation().to_three();
-                }
-                // have to tell the buffer/instance_geometry to update as-well
-                // TODO: Fix this!
-                //this.attributes_reference.set_transform(this.attribute_memory_index, this.matrix)
-                //this.attributes_reference.set_orientation(this.attribute_memory_index, new quaternion(0,0,0,1).to_three());
-            }
-    }
+
     update_buffer_animation = (animation) => {
         //this.buffer.set_animation(this.attribute_memory_index, animation);
     }
+
     set_animation_attribute = (s, e, t) => {
         if(this.attributes_reference != null){
             this.attributes_reference.set_animation(this.attribute_memory_index, s, e, t);
@@ -113,16 +98,19 @@ export class decomposer extends component {
             console.error("no attributes found!");
         }
     }
+
     set_color_attribute = (hex) => {
         if(this.attributes_reference != null){
             this.attributes_reference.set_color(this.attribute_memory_index, hex)
         }
     }
+
     set_alpha_attribute = (alpha) => {
         if(this.attributes_reference != null){
             this.attributes_reference.set_alpha(this.attribute_memory_index, alpha)
         }
     }
+
     set_type_attribute = (type) => {
         if(type < 0 || type > 3){
             console.error("type must be in range 0 - 3");
@@ -139,32 +127,32 @@ export class decomposer extends component {
             this.inner_transform.parent = t;
             // this is why we need to split up the instance shader :|
             //this.scale = this.transform.scale;
-            if(this.render_type == 0) {
-                this.matrix = this.inner_transform.get_transformation_noRot().to_three();
-            } else {
-                this.matrix = this.inner_transform.get_transformation().to_three();
-            }
+            this.set_matrix()
             this.attributes_reference.set_attributes(this);
         } else {
             console.error("no transform")
         }
     }
 
+    set_matrix() {
+        if(this.render_type == 0) {
+            this.matrix = this.inner_transform.get_transformation_noRot().to_three();
+        } else {
+            this.matrix = this.inner_transform.get_transformation().to_three();
+        }
+    }
+
     render = (type) => {
-        if(this.rendering){
-            if(type != undefined){
-                this.set_type(type);
-            }
-            this.attributes_reference.set_attributes(this)
-            this.rendering = true;
+        if(type != undefined){
+            this.set_type(type);
         }
+        this.attributes_reference.set_attributes(this)
     }
+
     derender = () => {
-        if(this.rendering){
-            this.attributes_reference.unset_attributes(this.attribute_memory_index)
-            this.rendering = false;
-        }
+        this.attributes_reference.unset_attributes(this.attribute_memory_index)
     }
+
     set_usefog = (b) => {s
         this.usefog = b;
     }
