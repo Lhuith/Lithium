@@ -29,7 +29,9 @@ export class controller extends component {
         this.direction = new Vector3()
 
         let saved_player_information = JSON.parse(get_data("player").data)
-        
+        this.old_check = saved_player_information.position.x + saved_player_information.position.y + saved_player_information.position.z
+
+
         this.controls.getObject().position.x = saved_player_information.position.x
         this.controls.getObject().position.y = saved_player_information.position.y
         this.controls.getObject().position.z = saved_player_information.position.z
@@ -71,24 +73,35 @@ export class controller extends component {
            // canJump = true
         }
 
-        this.parent.transform.position = 
-        new Vector3(
-            this.controls.getObject().position.x, 
-            this.controls.getObject().position.y - 0.25, 
-            this.controls.getObject().position.z - 1
-        )
-            
-        file.update({id: "player",
-            position:{
-                x:this.controls.getObject().position.x,
-                y:this.controls.getObject().position.y,
-                z:this.controls.getObject().position.z
-            },
-            rotation_euler:{
-                x:this.controls.getObject().rotation.x,
-                y:this.controls.getObject().rotation.y,
-                z:this.controls.getObject().rotation.z
-            }})
+        let checkSum = this.controls.getObject().position.x + this.controls.getObject().position.y +
+            this.controls.getObject().position.z
+
+        if (checkSum != this.old_check) {
+            file.update({id: "player",
+                position:{
+                    x:this.controls.getObject().position.x,
+                    y:this.controls.getObject().position.y,
+                    z:this.controls.getObject().position.z
+                },
+                rotation_euler:{
+                    x:this.controls.getObject().rotation.x,
+                    y:this.controls.getObject().rotation.y,
+                    z:this.controls.getObject().rotation.z
+                }})
+        }
+
+        this.parent.transform.position =
+            new Vector3(
+                this.controls.getObject().position.x,
+                this.controls.getObject().position.y - 0.25,
+                this.controls.getObject().position.z - 1
+            )
+
+        this.old_check =
+            this.controls.getObject().position.x +
+            this.controls.getObject().position.y +
+            this.controls.getObject().position.z
+
     }
 
     set_transform(t){
