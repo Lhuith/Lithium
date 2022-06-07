@@ -53,16 +53,16 @@ export class decomposer extends component {
         
         // transform override refers to the inner transform of the sprite, not the game object itself
         if (transform_override != null) {
-            this.inner_transform = transform_override;
+            this.local_transform = transform_override;
         } else if (meta.transform != null) {
-            this.inner_transform = new transform (
+            this.local_transform = new transform (
                 new Vector3(meta.transform.position.x, meta.transform.position.y, meta.transform.position.z),
                 new Vector3(meta.transform.scale.x, meta.transform.scale.y, meta.transform.scale.z),
                 new quaternion(meta.transform.orient.x, meta.transform.orient.y, 
                     meta.transform.orient.z, meta.transform.orient.w, null, null, null)
             );
         } else {
-            this.inner_transform = new transform (
+            this.local_transform = new transform (
                 new Vector3(0,0,0), 
                 new Vector3(1,1,1), 
                 new quaternion(0, 0, 0, 1, null, null, null)
@@ -124,7 +124,7 @@ export class decomposer extends component {
     set_transform_attribute = (t) => {
         if(this.transform == null) {
             this.transform = t;
-            this.inner_transform.parent = t;
+            this.local_transform.parent = t;
             // this is why we need to split up the instance shader :|
             //this.scale = this.transform.scale;
             this.set_matrix()
@@ -136,9 +136,9 @@ export class decomposer extends component {
 
     set_matrix() {
         if(this.render_type == 0) {
-            this.matrix = this.inner_transform.get_transformation_noRot().to_three();
+            this.matrix = this.local_transform.get_transformation_noRot().to_three();
         } else {
-            this.matrix = this.inner_transform.get_transformation().to_three();
+            this.matrix = this.local_transform.get_transformation().to_three();
         }
     }
 
