@@ -29,6 +29,8 @@ export const image_meta = [
         '/data/shaders/water/water.fs.glsl',
         {wf:false, trans:true, anim:true}  
     ),
+
+
     new datatype.tile_resource(
         "crab_isle",
         't', 
@@ -57,6 +59,8 @@ export const image_meta = [
         '/data/img/tile/world/world_height.png',
         '/data/img/tile/world/world.png',
     ),
+
+
     new datatype.map_resource("critters", 'm', '/data/img/sprite_sheets/critters.png'),
     new datatype.map_resource("trees", 'm','/data/img/sprite_sheets/trees.png'),
     new datatype.map_resource("sky", 'm','/data/img/sprite_sheets/sky.png'),
