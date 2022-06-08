@@ -1,5 +1,3 @@
-import { Object3D } from '/build/three.module.js'; 
-
 export const render_meta = [
     {
         name: "critters_render_meta",

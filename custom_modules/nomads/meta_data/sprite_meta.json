@@ -35,8 +35,7 @@
                 "orient" : {"x":0, "y":0, "z":0, "w":1},
                 "scale" : {"x":2, "y":2, "z":2}
             },
-            "map_key" : "trees",
-            "skip_occlusion" : true
+            "map_key" : "trees"
         },
         "root" : {
             "mapping" : [{"x":0, "y":0}],
@@ -47,9 +46,7 @@
                 "orient" : {"x":0, "y":0, "z":0, "w":1},
                 "scale" : {"x":1, "y":1, "z":1}
             },
-            "map_key" : "trees",
-            "skip_occlusion" : true
-
+            "map_key" : "trees"
         },
         "trunk" : {
             "mapping" : [{"x":1, "y":0}],
@@ -60,9 +57,7 @@
                 "orient" : {"x":0, "y":0, "z":0, "w":1},
                 "scale" : {"x":1, "y":1, "z":1}
             },
-            "map_key" : "trees",
-            "skip_occlusion" : true
-
+            "map_key" : "trees"
         },
         "branch" : {
             "mapping" : [{"x":2, "y":0}],
@@ -73,9 +68,7 @@
                 "orient" : {"x":0, "y":0, "z":0, "w":1},
                 "scale" : {"x":1, "y":1, "z":1}
             },
-            "map_key" : "trees",
-            "skip_occlusion" : true
-
+            "map_key" : "trees"
         }
     },
     "circle" : {
@@ -95,24 +88,21 @@
         "frames" :  {"x":1, "y":1},
         "colors" : ["0xFFD27D"],
         "map_key" : "sky",
-        "tile_size" : {"x":1, "y":1},
-        "skip_occlusion" : true
+        "tile_size" : {"x":1, "y":1}
     },
     "moon" : {
         "mapping" : [{"x":0, "y":2}],
         "frames" :  {"x":1, "y":1},
         "colors" : ["0xFFFFFF"],
         "map_key" : "sky",
-        "tile_size" : {"x":1, "y":1},
-        "skip_occlusion" : true
+        "tile_size" : {"x":1, "y":1}
     },
     "star" : {
         "mapping" : [{"x":0, "y":0}],
         "frames" :  {"x":1, "y":1},
         "colors" : ["0xFFFFFF", "0xFFEDB4", "0xFFB8EA", "0xB9CEFB", "0xDFAEFF"],
         "map_key" : "sky",
-        "tile_size" : {"x":1, "y":1},
-        "skip_occlusion" : true
+        "tile_size" : {"x":1, "y":1}
     },
     "point" : {
         "mapping" : [{"x":1, "y":1}],

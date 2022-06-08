@@ -71,8 +71,10 @@ export class instance_geometry_renderer {
         this.attributes = new instance_geometry_attributes()
         this.mesh = new Object3D()
         this.map_index = map_index
+
         //TODO fix shaders: get_data(render_meta[i].shader)
         this.shader = get_data("instance_shader")
+
         this.animate = animate
         this.is3D = is3D
     }
@@ -94,8 +96,7 @@ export class instance_geometry_renderer {
     }
 
     bake_attributes = (data) => {
-
-        let bufferGeometry = new THREE.PlaneBufferGeometry(1, 1, 1) 
+        let bufferGeometry = new THREE.PlaneBufferGeometry(1, 1, 1)
         bufferGeometry.castShadow = true
     
         let geometry = new THREE.InstancedBufferGeometry()
