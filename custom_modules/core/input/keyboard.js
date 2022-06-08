@@ -1,4 +1,6 @@
 // input struct holding all current keyboard button states
+import {day_event} from "../../nomads/systems/time.js";
+
 export const input = {
     a: false,
     d: false,
@@ -43,6 +45,7 @@ const onKeyDown = (e) => {
             break
         case 80: // p
             input.p = true
+            dispatchEvent(day_event.NewDay)
             break
         case 81: // p
             input.q = true

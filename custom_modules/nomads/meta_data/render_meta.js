@@ -3,10 +3,10 @@ import { Object3D } from '/build/three.module.js';
 export const render_meta = [
     {
         name: "critters_render_meta",
-        map:'img/sprite_sheets/critters.png', 
-        animate:true, 
-        is3D:false, 
-        container : new Object3D(), 
+        map:'img/sprite_sheets/critters.png',
+        animate:true,
+        is3D:false,
+        container : new Object3D(),
         shader: ""
     },
     {

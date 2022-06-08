@@ -90,7 +90,6 @@ export const color_and_mesh_from_height = (height_map, detial_map, lod) => {
             let map_data = map_rgba(index, height_map.data)
             color_from_height(color_map, map_data.r, index)
 
-
             //easeInQuad
             let height = math.easingFunctions.easeInQuad(math.normalize(0, 255, map_data.r)) * 35
 

@@ -1,9 +1,9 @@
 // data after being processed
-import {image_meta}  from '/core/data/meta_data/image_meta.js'
+import {image_meta}  from '/nomads/meta_data/image_meta.js'
 import * as THREE from 'three'
 import {img, is} from '/core/meta/helpers/utils.js'
-import sprite_meta from '/core/data/meta_data/sprite_meta.json' assert { type: "json" }
-import {render_meta} from '/core/data/meta_data/render_meta.js'
+import sprite_meta from '/nomads/meta_data/sprite_meta.json' assert { type: "json" }
+import {render_meta} from '/nomads/meta_data/render_meta.js'
 import {instance_geometry_renderer} from '/core/data/instance_geometry/instance_geometry_renderer.js'
 import * as file from '/core/meta/helpers/ajax.js'
 
