@@ -5,7 +5,7 @@ import {render_meta} from '/nomads/meta_data/render_meta.js'
 import sprite_meta from '/nomads/meta_data/sprite_meta.json' assert{type:"json"}
 
 import * as THREE from 'three'
-import {Vector4} from '/build/three.module.js'
+import {Vector4, Object3D} from '/build/three.module.js'
 import * as file from '/core/meta/helpers/ajax.js'
 
 const predefine_buffer = (size = 0) => {
@@ -66,20 +66,13 @@ const predefine_buffer = (size = 0) => {
 export class instance_geometry_renderer {
     type = "instance_geometry_renderer"
 
-    constructor(map_index, mesh, animate, is3D = false, shader){
+    constructor(map_index, animate, is3D = false){
         this.buffer_size = 50
         this.attributes = new instance_geometry_attributes()
-        this.mesh = mesh
+        this.mesh = new Object3D()
         this.map_index = map_index
-        this.shader = null
-    
-        if(shader == undefined){
-            //console.warn("shader not found, using defualt!")
-            this.shader = get_data("instance_shader")
-        } else {
-            this.shader = shader
-        }
-    
+        //TODO fix shaders: get_data(render_meta[i].shader)
+        this.shader = get_data("instance_shader")
         this.animate = animate
         this.is3D = is3D
     }
@@ -174,7 +167,9 @@ export class instance_geometry_renderer {
         geometry.setAttribute('m2', this.attributes.m2)
         geometry.setAttribute('m3', this.attributes.m3)
 
-        let texture = new THREE.TextureLoader().load('../data/'+render_meta[this.map_index].map)
+        let texture = new THREE.TextureLoader().load(
+            '../data/'+render_meta[this.map_index].map)
+
         texture.magFilter = THREE.NearestFilter
         texture.minFilter = THREE.NearestFilter
     

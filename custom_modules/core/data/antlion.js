@@ -40,10 +40,8 @@ const load_renderers = () => {
     for(let i = 0; i < render_meta.length; i++){
         let renderer = new instance_geometry_renderer(
             i,
-            render_meta[i].container,
             render_meta[i].animate,
             render_meta[i].is3D,
-            get_data(render_meta[i].shader),
         )
         renderers.set(render_meta[i].name, renderer)
         file.get({id: render_meta[i].name}, ajax_callback, render_meta[i].name)
