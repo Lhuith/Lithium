@@ -16,3 +16,7 @@ export const sprite_entry = (name, coords, colors, frames, map_key) => {
         map_key: map_key
     }
 }
+
+export const new_sprite = () => {
+
+}

@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const app = express()
 const path = require('path')
 const livereload = require("livereload")
+const fs = require("fs")
 const connectLiveReload = require("connect-livereload")
 
 
@@ -38,7 +39,7 @@ app.use('/public/', express.static(path.join(__dirname, 'public/')))
 app.use('/meta/', express.static(path.join(__dirname, 'meta')))
 app.use('/core/', express.static(path.join(__dirname, 'custom_modules/core')))
 app.use('/nomads/', express.static(path.join(__dirname, 'custom_modules/nomads')))
-app.use('/nomads/components', express.static(path.join(__dirname, 'custom_modules/nomads/components'))) 
+app.use('/nomads/components', express.static(path.join(__dirname, 'custom_modules/nomads/components')))
 app.use('/core/physics/', express.static(path.join(__dirname, 'custom_modules/core/physics')))
 app.use('/core/input/', express.static(path.join(__dirname, 'custom_modules/core/input')))
 app.use('/core/math/', express.static(path.join(__dirname, 'custom_modules/core/math')))
@@ -49,7 +50,7 @@ app.use('/core/data/instance_geometry', express.static(path.join(__dirname, 'cus
 
 const directory = path.join(__dirname)
 const publicDirectory = path.join(__dirname+ '/public')
-var liveReloadServer = livereload.createServer()
+let liveReloadServer = livereload.createServer()
 
 liveReloadServer.watch(directory)
 liveReloadServer.watch(publicDirectory)
@@ -61,5 +62,15 @@ liveReloadServer.server.once("connection", () => {
 })
 
 app.listen(3000, function() {
+    try {
+        if (fs.existsSync("./custom_modules")) {
+            console.log("Directory exists.")
+        } else {
+            console.log("Directory does not exist.")
+        }
+    } catch(e) {
+        console.log("An error occurred.", e)
+    }
+
     console.log('Visit http://localhost:3000')
 })

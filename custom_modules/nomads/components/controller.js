@@ -44,9 +44,9 @@ export class controller extends component {
         this.movement(delta)
     }
     movement(delta){
-        this.direction.z = Number( keyboard.input.w ) - Number( keyboard.input.s)
-        this.direction.x = (Number( keyboard.input.a ) - Number( keyboard.input.d)) * -1
-        this.direction.y = Number( keyboard.input.q ) - Number( keyboard.input.e)
+        this.direction.z = Number( keyboard.input.W ) - Number( keyboard.input.S)
+        this.direction.x = (Number( keyboard.input.A ) - Number( keyboard.input.D)) * -1
+        this.direction.y = Number( keyboard.input.Q ) - Number( keyboard.input.E)
 
         this.direction.normalize() 
 
@@ -56,13 +56,13 @@ export class controller extends component {
             this.speed_mult = 1
         }
 
-        if ((keyboard.input.q || keyboard.input.e)){
+        if ((keyboard.input.Q || keyboard.input.E)){
            this.controls.getObject().position.y +=  (this.direction.y * (this.speed * this.speed_mult) * delta)
         } 
-        if ((keyboard.input.w || keyboard.input.s)){
+        if ((keyboard.input.W || keyboard.input.S)){
             this.controls.moveForward(this.direction.z * (this.speed * this.speed_mult) * delta)
         } 
-        if ((keyboard.input.a || keyboard.input.d)){
+        if ((keyboard.input.A || keyboard.input.D)){
             this.controls.moveRight(this.direction.x * (this.speed * this.speed_mult) * delta)
         }
 

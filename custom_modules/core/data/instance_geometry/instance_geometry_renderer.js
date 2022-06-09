@@ -1,8 +1,8 @@
 import {instance_geometry_attributes} from '/core/data/instance_geometry/instance_geometry_attributes.js'
 import { get_data } from '/core/data/antlion.js'
 
-import {render_meta} from '/nomads/meta_data/render_meta.js'
-import sprite_meta from '/nomads/meta_data/sprite_meta.json' assert{type:"json"}
+import {render_meta} from '/nomads/meta/render_meta.js'
+import sprite_meta from '/nomads/meta/sprite_meta.json' assert{type:"json"}
 
 import * as THREE from 'three'
 import {Vector4, Object3D} from '/build/three.module.js'
