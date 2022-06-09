@@ -1,8 +1,8 @@
 {
   "pause": {
-    "hot-key" : "p"
+    "hot-key" : "P"
   },
   "edit": {
-    "hot-key" : "l-shift+e"
+    "hot-key" : "Shift+E"
   }
 }
