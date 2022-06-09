@@ -16,6 +16,7 @@ import { box } from '/nomads/tests/box.js'
 import * as sky from '/nomads/systems/sky.js'
 import * as world from '/nomads/systems/world.js'
 import * as time from '/nomads/systems/time.js'
+import * as menu from '/nomads/systems/menu.js'
 
 import { look_at } from '/nomads/components/look_at.js'
 
@@ -46,6 +47,7 @@ export class game {
             physics.init()
             sky.init(three.renderer)
             world.init(three)
+            menu.init(three)
         //! ---------- INIT ----------
 
         let npc = new gameobject("steve", new Vector3(3,0.8,0), new Vector3(1,1,1))
