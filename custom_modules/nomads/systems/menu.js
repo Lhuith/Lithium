@@ -7,6 +7,9 @@ export const init = (r) => {
 
     subscribe_to_input_event(
         get_input_meta().pause, pause_event)
+
+    subscribe_to_input_event(
+        get_input_meta().edit, edit_event)
 }
 
 export const update = () => {
@@ -15,7 +18,31 @@ export const update = () => {
 const pause_event = (e,n) => {
     if (get_game().get_game_pause_state()) {
         console.log("⏸ game un-paused ⏸")
+        closeNav()
     } else {
         console.log("⏸ game pause ⏸")
+        openNav("PAUSED")
     }
+}
+
+const edit_event = (e,n) => {
+    if (get_game().get_game_pause_state()) {
+        console.log("game normal mode")
+        closeNav()
+    } else {
+        console.log("game edit mode")
+        openNav("EDIT")
+    }
+}
+
+/* Open */
+function openNav(text) {
+    document.getElementById("myNav").style.display = "block";
+    document.getElementById("pauseText").innerHTML = text
+}
+
+/* Close */
+function closeNav() {
+    document.getElementById("myNav").style.display = "none";
+    document.getElementById("pauseText").innerHTML = ""
 }
