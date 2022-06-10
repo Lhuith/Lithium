@@ -53,7 +53,9 @@ const onKeyDown = (e) => {
     } else {
         if (e.shiftKey) {
             if (keyCodeToChar[e.keyCode] != "Shift") {
-                dispatchEvent(input_events.get("Shift "+ keyCodeToChar[e.keyCode]))
+                if(input_events.get("Shift "+ keyCodeToChar[e.keyCode]) != undefined) {
+                    dispatchEvent(input_events.get("Shift "+ keyCodeToChar[e.keyCode]))
+                }
             }
         } else {
             if (input_events.get(keyCodeToChar[e.keyCode]) != undefined) {
