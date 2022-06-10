@@ -100,7 +100,6 @@ export class decomposer extends component {
     }
 
     set_color_attribute = (hex) => {
-        console.log(this.parent.name)
         if(this.attributes_reference != null){
             this.attributes_reference.set_color(this.attribute_memory_index, new Color(hex))
         }

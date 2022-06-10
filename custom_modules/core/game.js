@@ -12,6 +12,8 @@ import { controller } from '/nomads/components/controller.js'
 
 
 import { box } from '/nomads/tests/box.js'
+import {arrow_widget} from "/nomads/tests/arrow_widget.js";
+import {arrow} from "/nomads/tests/arrow.js"
 
 import * as sky from '/nomads/systems/sky.js'
 import * as world from '/nomads/systems/world.js'
@@ -20,6 +22,7 @@ import * as menu from '/nomads/systems/menu.js'
 
 import { look_at } from '/nomads/components/look_at.js'
 import {subscribe_to_input_event} from "/core/input/keyboard.js";
+
 
 
 let player
@@ -72,20 +75,22 @@ export class game {
                 new animation_sequence("wave",
                     [new animation("wave", 4, 2)], 8, true)]))
 
-        let arrow_container = new gameobject("arrow_guide", new Vector3(5,2,0), new Vector3(1,1,1))
-        arrow_container.add_component(new look_at(three, npc.transform.position))
+        let arrow_container = arrow_widget (
+            new Vector3(-2,1,0),
+            new Vector3(1,1,1),
+            new quaternion(0,0,0,1)
+        )
 
-        let arrow_z = new gameobject("arrow_z", new Vector3(0,0,0), new Vector3(1,1,1),
-            new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(90, 0, 90)))
-        arrow_z.add_component(solid(get_sprite_meta().arrow))
-        arrow_z.get_component("decomposer").set_color_attribute("#0000FF")
-        arrow_container.add_child(arrow_z)
+        let arrow_obj_container = new gameobject("arrow_obj_test", new Vector3(-4,1,0),
+            new Vector3(1,1,1), new quaternion(0,0,0,1))
 
-        let arrow_y = new gameobject("arrow_y", new Vector3(0,0,0), new Vector3(1,1,1),
-            new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 90, 90)))
-        arrow_y.add_component(solid(get_sprite_meta().arrow))
-        arrow_y.get_component("decomposer").set_color_attribute("#00FF00")
-        arrow_container.add_child(arrow_z)
+        let arrow_obj = arrow (
+            new Vector3(0,0,0),
+            new Vector3(1,1,1),
+            new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(90, 0, 0))
+        )
+        arrow_obj_container.add_child(arrow_obj)
+        arrow_obj_container.add_component(new look_at(three, three.camera.position))
 
         player = new gameobject(
             "Player",
@@ -94,9 +99,11 @@ export class game {
             new quaternion(0,0,0,1, null, null, null)
         )
         player.add_component(new controller(three))
+        arrow_container.add_component(new look_at(three, npc.transform.position))
 
         this.objects.push(player)
         this.objects.push(npc)
+        this.objects.push(arrow_obj_container)
         this.objects.push(arrow_container)
 
         this.objects[1].transform.look_at(new Vector3(0, 0, 0), new Vector3(0, 1, 0))
