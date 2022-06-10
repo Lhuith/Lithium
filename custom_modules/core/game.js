@@ -75,12 +75,17 @@ export class game {
         let arrow_container = new gameobject("arrow_guide", new Vector3(5,2,0), new Vector3(1,1,1))
         arrow_container.add_component(new look_at(three, npc.transform.position))
 
-        let arrow_n = new gameobject("arrow_n", new Vector3(0,0,0), new Vector3(1,1,1),
+        let arrow_z = new gameobject("arrow_z", new Vector3(0,0,0), new Vector3(1,1,1),
             new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(90, 0, 90)))
-        arrow_n.add_component(solid(get_sprite_meta().arrow))
-        arrow_n.get_component("decomposer").set_color_attribute("#FF00FF")
+        arrow_z.add_component(solid(get_sprite_meta().arrow))
+        arrow_z.get_component("decomposer").set_color_attribute("#0000FF")
+        arrow_container.add_child(arrow_z)
 
-        arrow_container.add_child(arrow_n)
+        let arrow_y = new gameobject("arrow_y", new Vector3(0,0,0), new Vector3(1,1,1),
+            new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 90, 90)))
+        arrow_y.add_component(solid(get_sprite_meta().arrow))
+        arrow_y.get_component("decomposer").set_color_attribute("#00FF00")
+        arrow_container.add_child(arrow_z)
 
         player = new gameobject(
             "Player",

@@ -1,53 +1,55 @@
-import { transform } from '/core/math/transform.js';
-import {is} from '/core/meta/helpers/utils.js';
+import { transform } from '/core/math/transform.js'
+import {is} from '/core/meta/helpers/utils.js'
 import { quaternion } from '/core/math/quaternion.js'
 import { Vector3 } from '/build/three.module.js'
 
 export class gameobject {
-    type = "gameobject";
+    type = "gameobject"
 
     constructor(n, p = new Vector3(), s = new Vector3(1,1,1), r = new quaternion()){
-        this.name = n;
+        this.name = n
 
         if (r == null) {
             r = new quaternion(0,0,0,1)
             console.error("quaternion for game object not set")
         }
-        this.transform = new transform(p, s, r);
+        this.transform = new transform(p, s, r)
         
-        this.active = true;
-        this.id = 1;
-        this.children = [];
-        this.components = [];
-        this.parent = null;
+        this.active = true
+        this.id = 1
+        this.children = []
+        this.components = []
+        this.parent = null
 
         // TODO handle scene data structure 
         // scene.add(this)
     }
     add_child(o){
-        if(o == this){
-            console.error("%c Cant Add Self!", 'background: #333; color: #bada55');
+        if(o == this) {
+            console.error("%c Cant Add Self!", 'background: #333 color: #bada55')
+        } else if(this.children.includes(o)) {
+            console.error(o.name + " object is already a child!")
         } else {
-            this.children.push(o);
-            o.set_parent(this);
-            o.transform.set_parent(this.transform);
-            o.update();
+            this.children.push(o)
+            o.set_parent(this)
+            o.transform.set_parent(this.transform)
+            o.update()
         }
     }
     add_component(c){
         if(c == null){
-            console.error(this.name + ": no component was given!");
+            console.error(this.name + ": no component was given!")
         } else {
-            c.set_parent(this);
-            this.components.push(c);
+            c.set_parent(this)
+            this.components.push(c)
 
             //! add check before adding components for requirements!
-            this.set_required(c);
+            this.set_required(c)
         }
     }
     //add_requirements
     get_component(n){
-        let components = [];
+        let components = []
 
         if(!is.alpha(n)){
             console.error("\"n\" must be of type string.")
@@ -58,12 +60,12 @@ export class gameobject {
                 }
             }
             if (components.length == 1){
-                return components[0];
+                return components[0]
             } else {
-                return components;
+                return components
             }
         }
-        return null;
+        return null
     }
     // set required components/objects such as transforms
     set_required(c){
@@ -86,27 +88,27 @@ export class gameobject {
                 }
             }
         }
-        return false;
+        return false
     }
     set_parent(p){
-        this.parent = p;
+        this.parent = p
     }
     update(delta){
         if(this.components != undefined){
             for(let c of this.components){
-                c.update(delta);
+                c.update(delta)
             }
         }
         if(this.children != undefined){
             for(let c of this.children){
-                c.update(delta);
+                c.update(delta)
             }
         }
-        this.transform.update(delta);
+        this.transform.update(delta)
     }
     information(){
-        console.log(this);
-        console.log(this.transform);
+        console.log(this)
+        console.log(this.transform)
     }
     // to JSON ADD
 }
