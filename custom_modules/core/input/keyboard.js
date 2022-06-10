@@ -2,11 +2,6 @@
 import {get_input_meta} from "../data/antlion.js";
 import {keyCodeToChar} from "./keyCodes.js"
 
-let isCombo = false
-const combo_keys = [
-    "Shift", "Ctrl", "Alt"
-]
-
 export const input = {
     "A": false,
     "D": false,

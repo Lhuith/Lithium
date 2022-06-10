@@ -24,7 +24,8 @@ import {subscribe_to_input_event} from "/core/input/keyboard.js";
 
 let player
 let game_state = {
-    paused:false
+    paused:false,
+    edit:false
 }
 
 export class game {
@@ -58,7 +59,7 @@ export class game {
             get_input_meta().pause, this.toggle_pause_state)
 
         subscribe_to_input_event(
-            get_input_meta().edit, this.toggle_pause_state)
+            get_input_meta().edit, this.toggle_edit_state)
 
         let npc = new gameobject("steve", new Vector3(3,0.8,0), new Vector3(1,1,1))
         npc.add_component(sprite(get_sprite_meta().lithy))
@@ -94,24 +95,32 @@ export class game {
         if (game_state.paused) {
             return
         }
-            this.time += delta
 
-            for (let o of this.objects){
-                o.update(delta)
-            }
-            time.update(delta)
-            sky.update(delta)
+        this.time += delta
+        for (let o of this.objects){
+            o.update(delta)
+        }
+        time.update(delta)
+        sky.update(delta)
     }
 
     get_time(){
         return this.time
     }
 
-    toggle_pause_state(e, n){
-        game_state.paused = !game_state.paused
-    }
-
     get_game_pause_state() {
         return game_state.paused
+    }
+    get_game_edit_state() {
+        return game_state.edit
+    }
+    toggle_pause_state(e, n){
+        game_state.edit  = false
+        game_state.paused = !game_state.paused
+    }
+    toggle_edit_state(e, n){
+        if (!game_state.paused) {
+            game_state.edit = !game_state.edit
+        }
     }
 }

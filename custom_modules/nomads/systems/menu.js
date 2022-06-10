@@ -26,12 +26,14 @@ const pause_event = (e,n) => {
 }
 
 const edit_event = (e,n) => {
-    if (get_game().get_game_pause_state()) {
-        console.log("game normal mode")
-        closeNav()
-    } else {
-        console.log("game edit mode")
-        openNav("EDIT")
+    if (!get_game().get_game_pause_state()) {
+        if (get_game().get_game_edit_state()) {
+            console.log("game normal mode")
+            closeNav()
+        } else {
+            console.log("game edit mode")
+            openNav("EDIT")
+        }
     }
 }
 
