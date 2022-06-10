@@ -18,10 +18,10 @@ export const update = () => {
 const pause_event = (e,n) => {
     if (get_game().get_game_pause_state()) {
         console.log("⏸ game un-paused ⏸")
-        closeNav()
+        closeNav("pauseMenu", "pauseText")
     } else {
         console.log("⏸ game pause ⏸")
-        openNav("PAUSED")
+        openNav("pauseMenu", "pauseText", "PAUSED")
     }
 }
 
@@ -29,22 +29,20 @@ const edit_event = (e,n) => {
     if (!get_game().get_game_pause_state()) {
         if (get_game().get_game_edit_state()) {
             console.log("game normal mode")
-            closeNav()
+            closeNav("editMenu", "editText")
         } else {
             console.log("game edit mode")
-            openNav("EDIT")
+            openNav("editMenu", "editText", "EDIT")
         }
     }
 }
 
-/* Open */
-function openNav(text) {
-    document.getElementById("myNav").style.display = "block";
-    document.getElementById("pauseText").innerHTML = text
+function openNav(menu_name, text_name, text) {
+    document.getElementById(menu_name).style.display = "block";
+    document.getElementById(text_name).innerHTML = text
 }
 
-/* Close */
-function closeNav() {
-    document.getElementById("myNav").style.display = "none";
-    document.getElementById("pauseText").innerHTML = ""
+function closeNav(menu_name, text_name) {
+    document.getElementById(menu_name).style.display = "none";
+    document.getElementById(text_name).innerHTML = ""
 }
