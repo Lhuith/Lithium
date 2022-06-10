@@ -1,4 +1,4 @@
-import { InstancedBufferAttribute, Vector4, Vector2, Vector3, Matrix4} from '/build/three.module.js'
+import { InstancedBufferAttribute, Vector4, Vector2, Vector3, Matrix4, Color} from '/build/three.module.js'
 import { math } from '/core/meta/helpers/utils.js'
 
 export class instance_geometry_attributes {
@@ -75,8 +75,7 @@ export class instance_geometry_attributes {
         this.set_fog(index, decomposer.fog)
 
         let col = decomposer.colors[math.rounded_random_range(0, decomposer.colors.length - 1)]
-        let col_vector = new Vector4(col.r, col.g, col.b, 1.0)
-        console.log(col_vector)
+        let col_vector = new Color(col.r, col.g, col.b, 1.0)
         this.set_color(index, col_vector)
 
         this.set_transform(index, decomposer.matrix)
