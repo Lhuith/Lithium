@@ -23,13 +23,8 @@ const init = (data) => {
     
     document.body.appendChild(renderer.domElement)
 
-    const geometry = new THREE.BoxGeometry()
-    const material = new THREE.MeshBasicMaterial({
-        color: 0x0000ff,
-    })
-
-    const cube = new THREE.Mesh(geometry, material)
-    scene.add(cube);
+    const directionalLight = new THREE.DirectionalLight( 0xffffff, .8);
+    scene.add( directionalLight );
 
     const gridHelper = new THREE.GridHelper( 10, 10 )
     scene.add( gridHelper )
@@ -61,12 +56,6 @@ const init = (data) => {
     for(let r of renderers){
         scene.add(r[1].mesh)
     }
-
-    // file.get({playerName: "poopoo", position:{x:1, y:1, z:1}});
-    // file.update({playerName: "poopoo", position:{x:1, y:52, z:1}});
-    // file.update({playerName: "poopoo", position:{x:1, y:123, z:1}});
-    // file.get({playerName: "poopoo", position:{x:1, y:52, z:1}});
-    // file.remove({playerName: "poopoo", position:{x:1, y:1, z:1}});
 } 
 
 const animate = () => {
@@ -80,10 +69,6 @@ const animate = () => {
 
 const render = () => { 
     renderer.render(scene, camera)
-}
-
-const get_renderer = () => {
-    return renderer
 }
 
 antlion.init(init)

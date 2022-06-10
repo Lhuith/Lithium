@@ -42,11 +42,11 @@ uniform vec3 SunLightPosition;
 		{
 
 		
-			//vec3 sumDirLights = (clamp(dot(normalize(directionalLights[0].direction), 
+			//vec3 sumDirLights = (clamp(dot(normalize(directionalLights[0].direction),
 			//vecNormal), 0.0, 0.65) * directionalLights[0].color) * 1.1;
 			//
 //
-			//float shadowValue = getShadow(directionalShadowMap[ 0 ], directionalLights[0].shadowMapSize, 
+			//float shadowValue = getShadow(directionalShadowMap[ 0 ], directionalLights[0].shadowMapSize,
 			//directionalLights[0].shadowBias, directionalLights[0].shadowRadius, vDirectionalShadowCoord[0] );
 //
 			//vec3 shadowVal = vec3(shadowValue,shadowValue,shadowValue);

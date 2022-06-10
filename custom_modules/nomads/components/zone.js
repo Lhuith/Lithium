@@ -36,7 +36,7 @@ export class zone extends component {
         //this.color.repeat.x = - 1;
         this.color.flipX = true;
 
-        return new THREE.Mesh( newTile.geo, new THREE.MeshBasicMaterial({
+        return new THREE.Mesh( newTile.geo, new THREE.MeshLambertMaterial({
             map: this.color
         }))
     }
