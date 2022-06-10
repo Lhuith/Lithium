@@ -86,8 +86,12 @@
 
 			if (tex.a < 1.0) 
 			discard;
-			
-			gl_FragColor = (tex * vec4(colorPass.xyz, 1));
+
+			vec4 colorFinal = tex;
+			if (length(vec4(colorPass.xyz, 1)) < 1.0){
+				colorFinal *= vec4(colorPass.xyz, 1);
+			}
+			gl_FragColor = colorFinal;
 
 			if(fog_pass == 1.0)
 			{

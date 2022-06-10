@@ -151,6 +151,7 @@ export class quaternion  {
 
         return this.scale_mul(src_factor).add(corrected_dest).scale_mul(dest_factor).normalize();
     }
+
     normalize() {
         var length = this.length();
 
@@ -161,6 +162,7 @@ export class quaternion  {
             this.w/length
         );
     }
+
     // http://bediyap.com/programming/convert-quaternion-to-euler-rotations/
     three_axis_rot(r11, r12, r21, r31, r32){
         return new Vector3(
@@ -168,6 +170,7 @@ export class quaternion  {
             to.dag(Math.atan2( r11, r12)),
             to.dag(Math.atan2( r31, r32 )))
     }
+
     // https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
     to_euler(debug){
         if(debug) {console.log(this,  to.dag(this.x))}

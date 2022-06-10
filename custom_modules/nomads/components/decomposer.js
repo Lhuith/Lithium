@@ -1,5 +1,5 @@
 import { component } from '/nomads/components/component.js';
-import { Vector3, Vector4, Vector2 } from "/build/three.module.js";
+import { Vector3, Vector4, Vector2, Color} from "/build/three.module.js";
 import { SPRITE, SOLID, PARTICLE } from '/nomads/globals.js';
 import {get_sprite_meta, get_renderer} from '/core/data/antlion.js';
 import { map, col } from '/core/meta/helpers/utils.js';
@@ -100,8 +100,9 @@ export class decomposer extends component {
     }
 
     set_color_attribute = (hex) => {
+        console.log(this.parent.name)
         if(this.attributes_reference != null){
-            this.attributes_reference.set_color(this.attribute_memory_index, hex)
+            this.attributes_reference.set_color(this.attribute_memory_index, new Color(hex))
         }
     }
 

@@ -64,12 +64,23 @@ export class game {
         let npc = new gameobject("steve", new Vector3(3,0.8,0), new Vector3(1,1,1))
         npc.add_component(sprite(get_sprite_meta().lithy))
         npc.add_component(new look_at(three, three.camera.position))
+        npc.transform.rotate(new Vector3(1, 0, 0), 180)
 
         npc.add_component(new animator([
                 new animation_sequence("idle",
                     [new animation("idle", 0, 4)], 8, true),
                 new animation_sequence("wave",
                     [new animation("wave", 4, 2)], 8, true)]))
+
+        let arrow_container = new gameobject("arrow_guide", new Vector3(5,2,0), new Vector3(1,1,1))
+        arrow_container.add_component(new look_at(three, npc.transform.position))
+
+        let arrow_n = new gameobject("arrow_n", new Vector3(0,0,0), new Vector3(1,1,1),
+            new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(90, 0, 90)))
+        arrow_n.add_component(solid(get_sprite_meta().arrow))
+        arrow_n.get_component("decomposer").set_color_attribute("#FF00FF")
+
+        arrow_container.add_child(arrow_n)
 
         player = new gameobject(
             "Player",
@@ -81,8 +92,10 @@ export class game {
 
         this.objects.push(player)
         this.objects.push(npc)
+        this.objects.push(arrow_container)
+
         this.objects[1].transform.look_at(new Vector3(0, 0, 0), new Vector3(0, 1, 0))
-        
+
         let box_obj = box (
             new Vector3(-2,0.31,0),
             new Vector3(1,1,1),

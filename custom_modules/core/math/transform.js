@@ -97,8 +97,8 @@ export class transform  {
     }
     rotate(ax, an){
         var q = new quaternion({axis : ax, angle : an});
-        q.q_mul(this.rotation);
-        q.normalized();
+        q.quat_mul(this.rotation);
+        q.normalize();
     
         this.rotation = q;
     }

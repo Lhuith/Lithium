@@ -21,7 +21,6 @@ export class instance_geometry_attributes {
 
         // color
         this.col = array[1] // ✓
-
         this.uvoffset = array[2] // ✓
         this.tile_size = array[3] // ✓
         this.scale = array[4] // ✓
@@ -77,7 +76,7 @@ export class instance_geometry_attributes {
 
         let col = decomposer.colors[math.rounded_random_range(0, decomposer.colors.length - 1)]
         let col_vector = new Vector4(col.r, col.g, col.b, 1.0)
-
+        console.log(col_vector)
         this.set_color(index, col_vector)
 
         this.set_transform(index, decomposer.matrix)
@@ -128,7 +127,7 @@ export class instance_geometry_attributes {
         this.fog.needsUpdate = true
     }
     set_color = (index, col) => {
-        this.col.setXYZW(index, col.x, col.y, col.z, col.w)
+        this.col.setXYZW(index, col.r, col.g, col.b, 1)
         this.col.needsUpdate = true
     }
     set_alpha = (index, alpha) => {

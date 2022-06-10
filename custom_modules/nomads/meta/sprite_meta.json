@@ -13,6 +13,12 @@
         "colors" : ["0xFFFFFF"],
         "map_key" : "debug"
     },
+    "arrow" : {
+        "mapping" : [{"x":0, "y":2}],
+        "frames" : [],
+        "colors" : ["0xFFFFFF"],
+        "map_key" : "debug"
+    },
     "crab" : {
         "mapping" : [{"x":0, "y":0}],
         "colors" : ["0xF8665E"],
