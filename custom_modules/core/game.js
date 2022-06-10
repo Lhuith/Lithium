@@ -57,6 +57,9 @@ export class game {
         subscribe_to_input_event(
             get_input_meta().pause, this.toggle_pause_state)
 
+        subscribe_to_input_event(
+            get_input_meta().edit, this.toggle_pause_state)
+
         let npc = new gameobject("steve", new Vector3(3,0.8,0), new Vector3(1,1,1))
         npc.add_component(sprite(get_sprite_meta().lithy))
         npc.add_component(new look_at(three, three.camera.position))

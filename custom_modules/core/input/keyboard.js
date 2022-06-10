@@ -2,6 +2,11 @@
 import {get_input_meta} from "../data/antlion.js";
 import {keyCodeToChar} from "./keyCodes.js"
 
+let isCombo = false
+const combo_keys = [
+    "Shift", "Ctrl", "Alt"
+]
+
 export const input = {
     "A": false,
     "D": false,
@@ -37,8 +42,6 @@ export const subscribe_to_input_event = (input_meta_key, callback) => {
         console.error("\tinput meta key not defined")
         return
     }
-
-
     let input_event = input_events.get(input_meta_key[hot_key_field_name])
     if (input_event != undefined) {
         addEventListener(input_event.type, callback, false)
@@ -48,16 +51,22 @@ export const subscribe_to_input_event = (input_meta_key, callback) => {
 }
 
 const onKeyDown = (e) => {
-    let input_key= input[keyCodeToChar[e.keyCode]]
+    let input_key = input[keyCodeToChar[e.keyCode]]
+
     if (input_key == undefined) {
         //console.log(keyCodeToChar[e.keyCode] + " - not mapped!")
     } else {
-        if (input_events.get(keyCodeToChar[e.keyCode]) != undefined) {
-            dispatchEvent(input_events.get(keyCodeToChar[e.keyCode]))
+        if (e.shiftKey) {
+            if (keyCodeToChar[e.keyCode] != "Shift") {
+                dispatchEvent(input_events.get("Shift "+ keyCodeToChar[e.keyCode]))
+            }
+        } else {
+            if (input_events.get(keyCodeToChar[e.keyCode]) != undefined) {
+                dispatchEvent(input_events.get(keyCodeToChar[e.keyCode]))
+            }
+            //console.log(keyCodeToChar[e.keyCode] + " - Down")
+            input[keyCodeToChar[e.keyCode]] = true
         }
-
-        //console.log(keyCodeToChar[e.keyCode] + " - Down")
-        input[keyCodeToChar[e.keyCode]] = true
     }
 }
 
