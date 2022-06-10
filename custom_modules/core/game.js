@@ -64,7 +64,7 @@ export class game {
         subscribe_to_input_event(
             get_input_meta().edit, this.toggle_edit_state)
 
-        let npc = new gameobject("steve", new Vector3(3,0.8,0), new Vector3(1,1,1))
+        let npc = new gameobject("steve", new Vector3(3,0.5,0), new Vector3(1,1,1))
         npc.add_component(sprite(get_sprite_meta().lithy))
         npc.add_component(new look_at(three, three.camera.position))
         npc.transform.rotate(new Vector3(1, 0, 0), 180)
@@ -74,6 +74,12 @@ export class game {
                     [new animation("idle", 0, 4)], 8, true),
                 new animation_sequence("wave",
                     [new animation("wave", 4, 2)], 8, true)]))
+
+        let crab = new gameobject("crabbo", new Vector3(4,.5,0), new Vector3(1,1,1))
+        crab.add_component(sprite(get_sprite_meta().crab))
+        crab.add_component(new animator([
+            new animation_sequence("idle",
+                [new animation("idle", 0, 3)], 7, true)]))
 
         let arrow_container = arrow_widget (
             new Vector3(-2,1,0),
@@ -103,6 +109,7 @@ export class game {
 
         this.objects.push(player)
         this.objects.push(npc)
+        this.objects.push(crab)
         this.objects.push(arrow_obj_container)
         this.objects.push(arrow_container)
 

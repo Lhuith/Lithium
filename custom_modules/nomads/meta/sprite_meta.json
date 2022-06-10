@@ -22,7 +22,7 @@
     "crab" : {
         "mapping" : [{"x":0, "y":0}],
         "colors" : ["0xF8665E"],
-        "frames" : [],
+        "frames" : {"x":0, "y":0},
         "map_key" : "critters"
     },
     "lithy" : {
