@@ -1,4 +1,4 @@
-import { get_sprite_meta, save_game } from '/core/data/antlion.js'
+import {get_input_meta, get_sprite_meta, save_game} from '/core/data/antlion.js'
 import * as physics from '/core/math/physics/physics.js'
 import * as keyboard from '/core/input/keyboard.js'
 import { quaternion } from '/core/math/quaternion.js'
@@ -19,9 +19,13 @@ import * as time from '/nomads/systems/time.js'
 import * as menu from '/nomads/systems/menu.js'
 
 import { look_at } from '/nomads/components/look_at.js'
+import {subscribe_to_input_event} from "/core/input/keyboard.js";
 
 
 let player
+let game_state = {
+    paused:false
+}
 
 export class game {
     constructor(n){
@@ -31,7 +35,7 @@ export class game {
     init(data, three){
         this.three = three
         console.log("%c"+this.name+" Initialized", "color:#FFE532")
-    
+
         this.show_data = false
         this.time = 0
 
@@ -49,6 +53,9 @@ export class game {
             world.init(three)
             menu.init(three)
         //! ---------- INIT ----------
+
+        subscribe_to_input_event(
+            get_input_meta().pause, this.toggle_pause_state)
 
         let npc = new gameobject("steve", new Vector3(3,0.8,0), new Vector3(1,1,1))
         npc.add_component(sprite(get_sprite_meta().lithy))
@@ -78,21 +85,30 @@ export class game {
             new quaternion(0,0,0,1)
         )
         this.objects.push(box_obj)
-        console.log(box_obj)
-        // save_game()
     }
 
-    update(delta){
-        this.time += delta
-
-        for (let o of this.objects){    
-            o.update(delta)
+    update(delta) {
+        if (game_state.paused) {
+            return
         }
-        time.update(delta)
-        sky.update(delta)
+            this.time += delta
+
+            for (let o of this.objects){
+                o.update(delta)
+            }
+            time.update(delta)
+            sky.update(delta)
     }
 
     get_time(){
         return this.time
+    }
+
+    toggle_pause_state(e, n){
+        game_state.paused = !game_state.paused
+    }
+
+    get_game_pause_state() {
+        return game_state.paused
     }
 }
