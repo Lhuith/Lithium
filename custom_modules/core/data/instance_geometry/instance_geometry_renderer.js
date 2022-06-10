@@ -106,7 +106,7 @@ export class instance_geometry_renderer {
 
         let attributes_array = []
         let isLoaded = false
-        if (data != undefined) {
+        if (data != undefined && data.attributes != undefined) {
             isLoaded = true
             for(let attribute of data.attributes){
                 attributes_array.push(

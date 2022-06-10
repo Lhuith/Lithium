@@ -29,16 +29,19 @@ export class controller extends component {
         this.direction = new Vector3()
 
         let saved_player_information = JSON.parse(get_data("player").data)
-        this.old_check = saved_player_information.position.x + saved_player_information.position.y + saved_player_information.position.z
 
+        if (saved_player_information != undefined && saved_player_information.position != undefined)  {
+            this.old_check = saved_player_information.position.x +
+                saved_player_information.position.y + saved_player_information.position.z
 
-        this.controls.getObject().position.x = saved_player_information.position.x
-        this.controls.getObject().position.y = saved_player_information.position.y
-        this.controls.getObject().position.z = saved_player_information.position.z
+            this.controls.getObject().position.x = saved_player_information.position.x
+            this.controls.getObject().position.y = saved_player_information.position.y
+            this.controls.getObject().position.z = saved_player_information.position.z
 
-        this.controls.getObject().rotation.x = saved_player_information.rotation_euler.x
-        this.controls.getObject().rotation.y = saved_player_information.rotation_euler.y
-        this.controls.getObject().rotation.z = saved_player_information.rotation_euler.z
+            this.controls.getObject().rotation.x = saved_player_information.rotation_euler.x
+            this.controls.getObject().rotation.y = saved_player_information.rotation_euler.y
+            this.controls.getObject().rotation.z = saved_player_information.rotation_euler.z
+        }
     }
     update(delta){
         this.movement(delta)

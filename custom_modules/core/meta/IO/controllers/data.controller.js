@@ -53,11 +53,10 @@ const save = (fs, req) =>{
         // only used to separate post operations
         
         delete req.body.task;
-        var new_json = JSON.stringify(req.body)
+        var new_json = JSON.stringify(req.body, null, 2)
 
         fs.writeFileSync(
-            './public/data/saved/' + req.body.id +'.json',
-            new_json)
+            './public/data/saved/' + req.body.id +'.json', new_json)
         return new_json
     } catch (err){
         console.error(err)
