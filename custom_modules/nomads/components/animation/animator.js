@@ -1,4 +1,4 @@
-import { component} from '/nomads/components/component.js';
+import { component} from '/core/data/component.js';
 
 export class animator extends component {
     type = "animator"

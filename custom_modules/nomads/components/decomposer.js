@@ -1,4 +1,4 @@
-import { component } from '/nomads/components/component.js';
+import { component } from '/core/data/component.js';
 import { Vector3, Vector4, Vector2, Color} from "/build/three.module.js";
 import { SPRITE, SOLID, PARTICLE } from '/nomads/globals.js';
 import {get_sprite_meta, get_renderer} from '/core/data/antlion.js';

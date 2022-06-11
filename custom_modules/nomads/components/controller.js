@@ -1,4 +1,4 @@
-import { component } from '/nomads/components/component.js'
+import { component } from '/core/data/component.js'
 import {Vector3, Euler} from '/build/three.module.js'
 import {PointerLockControls} from '/jsm/controls/PointerLockControls.js'
 import * as keyboard from '/core/input/keyboard.js'
@@ -19,11 +19,13 @@ export class controller extends component {
         console.log("%cController Initialized", "color:#7d57c1")
 
         let controller = new PointerLockControls(three.camera, document.body)
+
+        // turn off right click menu from showing
         document.addEventListener("contextmenu", function (e){
             e.preventDefault();
         }, false);
 
-        //click in add event listener to your document.body
+        // click in add event listener to your document.body
         document.body.addEventListener( 'click', function (e) {
             //lock mouse on screen
             if(get_game().get_game_pause_state() || get_game().get_game_edit_state()) {
@@ -47,7 +49,7 @@ export class controller extends component {
             }
         }, false )
 
-        // has to be part of the controller in order to reference the controller 
+        // has to be part of the controller in order to reference the controller
         controller.input_event_handle = (e, n) => {
             if(get_game().get_game_edit_state() || get_game().get_game_pause_state()) {
                 controller.unlock()
@@ -55,6 +57,7 @@ export class controller extends component {
                 controller.lock()
             }
         }
+
         subscribe_to_input_event(
             get_input_meta().pause, controller.input_event_handle)
 

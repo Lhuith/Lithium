@@ -140,7 +140,6 @@ export class game {
     get_time(){
         return this.time
     }
-
     get_game_pause_state() {
         return game_state.paused
     }
