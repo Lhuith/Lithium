@@ -49,6 +49,7 @@ export class game {
                 console.log("%c -"+page.name, "color:#1C8D43")
             }
         }
+
         //! ---------- INIT ----------
             time.init()
             keyboard.init()

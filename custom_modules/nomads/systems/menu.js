@@ -13,26 +13,25 @@ export const init = (r) => {
 }
 
 export const update = () => {
+
 }
 
 const pause_event = (e,n) => {
     if (get_game().get_game_pause_state()) {
-        console.log("⏸ game un-paused ⏸")
+        //console.log("⏸ game un-paused ⏸")
         closeNav("pauseMenu", "pauseText")
     } else {
-        console.log("⏸ game pause ⏸")
-        openNav("pauseMenu", "pauseText", "PAUSED")
+        //console.log("⏸ game pause ⏸")
+        openNav("pauseMenu", "pauseText", " ⏸ GAME PAUSED ⏸ ")
     }
 }
 
 const edit_event = (e,n) => {
     if (!get_game().get_game_pause_state()) {
         if (get_game().get_game_edit_state()) {
-            console.log("game normal mode")
             closeNav("editMenu", "editText")
         } else {
-            console.log("game edit mode")
-            openNav("editMenu", "editText", "EDIT")
+            openNav("editMenu", "editText", " 🔨 EDIT MODE 🔨")
         }
     }
 }

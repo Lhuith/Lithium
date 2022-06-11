@@ -2,8 +2,10 @@ import { component } from '/nomads/components/component.js'
 import {Vector3, Euler} from '/build/three.module.js'
 import {PointerLockControls} from '/jsm/controls/PointerLockControls.js'
 import * as keyboard from '/core/input/keyboard.js'
-import { quaternion } from '/core/math/quaternion.js'
 import { get_data } from '/core/data/antlion.js'
+import {subscribe_to_input_event} from "/core/input/keyboard.js"
+import { get_input_meta } from "/core/data/antlion.js";
+import {get_game} from "/nomads/nomads.js"
 
 import * as file from '/core/meta/helpers/ajax.js'
 
@@ -15,15 +17,51 @@ export class controller extends component {
         super()
     
         console.log("%cController Initialized", "color:#7d57c1")
-        
-        let controller = new PointerLockControls(three.camera, document.body)
-        //add event listener to your document.body
-        document.body.addEventListener( 'click', function () {
-            //lock mouse on screen
-            controller.lock()
-        }, false ) 
-        this.controls = controller
 
+        let controller = new PointerLockControls(three.camera, document.body)
+        document.addEventListener("contextmenu", function (e){
+            e.preventDefault();
+        }, false);
+
+        //click in add event listener to your document.body
+        document.body.addEventListener( 'click', function (e) {
+            //lock mouse on screen
+            if(get_game().get_game_pause_state() || get_game().get_game_edit_state()) {
+                e.preventDefault()
+            } else {
+                controller.lock()
+            }
+        }, false )
+
+        document.body.addEventListener( 'mousedown', function (e) {
+            //lock mouse on screen
+            if(get_game().get_game_edit_state() && e.buttons == 2) {
+                controller.lock()
+            }
+        }, false )
+
+        document.body.addEventListener( 'mouseup', function (e) {
+            //lock mouse on screen
+            if(get_game().get_game_edit_state()) {
+                controller.unlock()
+            }
+        }, false )
+
+        // has to be part of the controller in order to reference the controller 
+        controller.input_event_handle = (e, n) => {
+            if(get_game().get_game_edit_state() || get_game().get_game_pause_state()) {
+                controller.unlock()
+            } else {
+                controller.lock()
+            }
+        }
+        subscribe_to_input_event(
+            get_input_meta().pause, controller.input_event_handle)
+
+        subscribe_to_input_event(
+            get_input_meta().edit, controller.input_event_handle)
+
+        this.controls = controller
         this.speed = 10.25
         this.speed_mult = 4.5
         this.direction = new Vector3()
@@ -46,6 +84,7 @@ export class controller extends component {
     update(delta){
         this.movement(delta)
     }
+
     movement(delta){
         this.direction.z = Number( keyboard.input.W ) - Number( keyboard.input.S)
         this.direction.x = (Number( keyboard.input.A ) - Number( keyboard.input.D)) * -1
