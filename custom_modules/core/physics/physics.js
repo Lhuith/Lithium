@@ -1,4 +1,4 @@
-var physics_worker;
+let physics_worker;
 
 export const init = () => {
     console.log("%cPhysics Initialized", "color:#FF5AC3")
@@ -6,7 +6,7 @@ export const init = () => {
 }
 
 const start_physics = () => {
-    physics_worker = new Worker("../core/math/physics/physics_work.js");
+    physics_worker = new Worker("/core/physics/physics_work.js");
 
     // physics update's happen here
     physics_worker.onmessage = function(event){
@@ -21,5 +21,6 @@ const unpack_worker_data = (data) => {
 }
 
 export const post_to_worker = (data) => {
+    console.log("\twork posted?")
     physics_worker.postMessage(data);
 }

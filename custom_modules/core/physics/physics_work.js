@@ -20,15 +20,20 @@ const fixed_update = () => {
 }
 
 const add_body = (p) => {
+    if (p == undefined || p.type != "rigidbody") {
+        console.error("component must be a rigid body!")
+    }
     console.log("\tADDING NEW BODY!", p)
     physics_bodies.push(p)
 }
 // TODO: setup proper physics object! 
 const apply_gravity = (body) => {
-    if (body[1].y - GRAVITY > BOUNDARY){
-        body[1].y -= GRAVITY
-    } else {
-        body[1].y = BOUNDARY
+    if (body.parent != undefined && body.transform != undefined) {
+        if (body.transform.position.y - GRAVITY > BOUNDARY){
+            body.transform.position.y -= GRAVITY
+        } else {
+            body.transform.position.y = BOUNDARY
+        }
     }
 }
 

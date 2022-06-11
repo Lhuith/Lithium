@@ -1,5 +1,5 @@
 import {get_input_meta, get_sprite_meta, save_game} from '/core/data/antlion.js'
-import * as physics from '/core/math/physics/physics.js'
+import * as physics from '/core/physics/physics.js'
 import * as keyboard from '/core/input/keyboard.js'
 import { quaternion } from '/core/math/quaternion.js'
 import { Vector3 } from '/build/three.module.js'
@@ -22,8 +22,7 @@ import * as menu from '/nomads/systems/menu.js'
 
 import { look_at } from '/nomads/components/look_at.js'
 import {subscribe_to_input_event} from "/core/input/keyboard.js";
-
-
+import {rigidbody} from "./physics/rigidbody.js";
 
 let player
 let game_state = {
@@ -81,6 +80,8 @@ export class game {
         crab.add_component(new animator([
             new animation_sequence("idle",
                 [new animation("idle", 0, 3)], 7, true)]))
+        crab.add_component(new rigidbody(three))
+
 
         let arrow_container = arrow_widget (
             new Vector3(-2,1,0),
