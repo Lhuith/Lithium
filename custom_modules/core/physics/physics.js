@@ -23,7 +23,7 @@ export const post_to_worker = (data) => {
 }
 
 const unpack_worker_data = (data) => {
-    //console.log(data)
+    console.log(data)
     if (data[0] != undefined && data[0].transform != undefined) {
         work_reference[0].transform = data[0].transform
         work_reference[0].fixed_update()

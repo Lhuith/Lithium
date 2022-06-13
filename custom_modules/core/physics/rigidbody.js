@@ -31,8 +31,10 @@ export class rigidbody extends component {
         this.colliders.push(c)
     }
     fixed_update(){
+        console.log("fixed")
         if (this.parent != undefined) {
             this.parent.transform.position = this.transform.position
         }
+        //post_to_worker(this)
     }
 }

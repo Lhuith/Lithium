@@ -1,5 +1,5 @@
 const GRAVITY = 0.15
-const INTERVAL = 0.1
+const INTERVAL = 2
 const BOUNDARY = -10
 
 let i = 0
@@ -10,13 +10,17 @@ const physics_init = () => {
 }
 
 const fixed_update = () => {
-    // updating any active physics bodies here
-    for(let i = 0; i < physics_bodies.length; i++){
-        apply_gravity(physics_bodies[i])
+    if (physics_bodies.length != 0) {
+        // updating any active physics bodies here
+        for(let i = 0; i < physics_bodies.length; i++){
+            apply_gravity(physics_bodies[i])
+        }
+
+        // post work done by physics' worker thread
+        postMessage(physics_bodies)
+        physics_bodies = []
     }
 
-    // post work done by physics' worker thread
-    postMessage(physics_bodies)
     setTimeout("fixed_update()", INTERVAL)
 }
 
