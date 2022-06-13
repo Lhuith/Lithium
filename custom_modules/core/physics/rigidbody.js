@@ -11,7 +11,7 @@ export class rigidbody extends component {
         this.init()
     }
     init() {
-        //post_to_worker(this)
+
     }
     update(delta){
     }
@@ -19,8 +19,18 @@ export class rigidbody extends component {
         if(r.type === "transform"){
             this.set_transform(r)
         }
+        var parent_temp = this.parent
+        this.parent = null
+        post_to_worker(this)
+        this.parent = parent_temp
+        //console.log(JSON.stringify(this))
     }
     set_transform(t) {
         this.transform = t
+    }
+    fixed_update(){
+        if (this.parent != undefined) {
+            this.parent.transform.position = this.transform.position
+        }
     }
 }

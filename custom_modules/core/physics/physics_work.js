@@ -1,4 +1,5 @@
-const GRAVITY = 3.4 
+const GRAVITY = 0.4
+const INTERVAL = 0.1
 const BOUNDARY = -10
 
 let i = 0
@@ -16,7 +17,7 @@ const fixed_update = () => {
 
     // post work done by physics' worker thread
     postMessage(physics_bodies)
-    setTimeout("fixed_update()", 250)
+    setTimeout("fixed_update()", INTERVAL)
 }
 
 const add_body = (p) => {
@@ -28,15 +29,14 @@ const add_body = (p) => {
 }
 // TODO: setup proper physics object! 
 const apply_gravity = (body) => {
-    if (body.parent != undefined && body.transform != undefined) {
+    if (body.transform != undefined) {
         if (body.transform.position.y - GRAVITY > BOUNDARY){
-            body.transform.position.y -= GRAVITY
+            body.transform.position.y -= GRAVITY * INTERVAL
         } else {
             body.transform.position.y = BOUNDARY
         }
     }
 }
-
 self.onmessage = function(msg) {
     console.log("POSTED TO WORKER!", msg.data)
     add_body(msg.data)
