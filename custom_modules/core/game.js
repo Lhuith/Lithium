@@ -23,6 +23,7 @@ import * as menu from '/nomads/systems/menu.js'
 import { look_at } from '/nomads/components/look_at.js'
 import {subscribe_to_input_event} from "/core/input/keyboard.js";
 import {rigidbody} from "./physics/rigidbody.js";
+import {planecollider} from "./physics/colliders/planecollider.js";
 
 let player
 let game_state = {
@@ -81,7 +82,7 @@ export class game {
             new animation_sequence("idle",
                 [new animation("idle", 0, 3)], 7, true)]))
         crab.add_component(new rigidbody(three))
-
+        crab.add_component(new planecollider(three))
 
         let arrow_container = arrow_widget (
             new Vector3(-2,1,0),

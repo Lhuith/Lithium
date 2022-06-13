@@ -1,4 +1,4 @@
-const GRAVITY = 0.4
+const GRAVITY = 0.15
 const INTERVAL = 0.1
 const BOUNDARY = -10
 
@@ -20,13 +20,6 @@ const fixed_update = () => {
     setTimeout("fixed_update()", INTERVAL)
 }
 
-const add_body = (p) => {
-    if (p == undefined || p.type != "rigidbody") {
-        console.error("component must be a rigid body!")
-    }
-    console.log("\tADDING NEW BODY!", p)
-    physics_bodies.push(p)
-}
 // TODO: setup proper physics object! 
 const apply_gravity = (body) => {
     if (body.transform != undefined) {
@@ -37,6 +30,15 @@ const apply_gravity = (body) => {
         }
     }
 }
+
+const add_body = (p) => {
+    if (p == undefined || p.type != "rigidbody") {
+        console.error("component must be a rigid body!")
+    }
+    console.log("\tADDING NEW BODY!", p)
+    physics_bodies.push(p)
+}
+
 self.onmessage = function(msg) {
     console.log("POSTED TO WORKER!", msg.data)
     add_body(msg.data)

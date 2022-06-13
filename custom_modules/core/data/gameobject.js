@@ -2,6 +2,7 @@ import { transform } from '/core/math/transform.js'
 import {is} from '/core/meta/helpers/utils.js'
 import { quaternion } from '/core/math/quaternion.js'
 import { Vector3 } from '/build/three.module.js'
+import {get_input_meta} from "./antlion.js";
 
 export class gameobject {
     type = "gameobject"
@@ -50,18 +51,17 @@ export class gameobject {
     //add_requirements
     get_component(n){
         let components = []
-
         if(!is.alpha(n)){
             console.error("\"n\" must be of type string.")
         } else {
-            for(let c of this.components){
+            for(let c of this.components) {
                 if(c.type == n){
                     components.push(c)
                 }
             }
-            if (components.length == 1){
+            if (components.length == 1) {
                 return components[0]
-            } else {
+            } else if (components.length != 0) {
                 return components
             }
         }
@@ -76,6 +76,29 @@ export class gameobject {
             if (decomp != null) {
                 c.set_requirement(decomp)
             }
+        } else {
+            for (let key in c.required) {
+                console.log(key)
+                let maybeComponent = this.get_component(key)
+                if (maybeComponent != null) {
+                    // key : set_requirement(defined requirement)
+                    if (typeof c.required[key] == 'function') {
+                        c.required[key](maybeComponent)
+                    } else {
+                        console.error(key+ " component set function not defined for "+ c.type)
+                    }
+                } else {
+                    console.error(c.type + " requires component "+key)
+                }
+            }
+
+
+            //if (c.required == "rigidbody") {
+            //    let rigidbody = this.get_component("rigidbody")
+            //    if (rigidbody != null) {
+            //        c.set_requirement(rigidbody)
+            //    }
+            //}
         }
     }
     has_component(n){

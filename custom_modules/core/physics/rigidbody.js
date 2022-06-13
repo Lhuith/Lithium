@@ -1,6 +1,4 @@
 import { component } from '/core/data/component.js';
-import { get_data } from '/core/data/antlion.js'
-import * as THREE from '/build/three.module.js'
 import {post_to_worker} from "./physics.js";
 
 export class rigidbody extends component {
@@ -11,7 +9,7 @@ export class rigidbody extends component {
         this.init()
     }
     init() {
-
+        this.colliders = []
     }
     update(delta){
     }
@@ -19,7 +17,8 @@ export class rigidbody extends component {
         if(r.type === "transform"){
             this.set_transform(r)
         }
-        var parent_temp = this.parent
+
+        let parent_temp = this.parent
         this.parent = null
         post_to_worker(this)
         this.parent = parent_temp
@@ -27,6 +26,9 @@ export class rigidbody extends component {
     }
     set_transform(t) {
         this.transform = t
+    }
+    set_colliders(c) {
+        this.colliders.push(c)
     }
     fixed_update(){
         if (this.parent != undefined) {
