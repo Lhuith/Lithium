@@ -10,6 +10,8 @@ import { animation_sequence } from '/nomads/components/animation/animation_seque
 import { animation } from '/nomads/components/animation/animation.js'
 import { controller } from '/nomads/components/controller.js'
 
+import {scene} from '/core/engine/scene.js'
+
 
 import { box } from '/nomads/tests/box.js'
 import {arrow_widget} from "/nomads/tests/arrow_widget.js";
@@ -51,6 +53,7 @@ export class game {
         }
 
         //! ---------- INIT ----------
+            let gameScene = new scene()
             time.init()
             keyboard.init()
             physics.init()

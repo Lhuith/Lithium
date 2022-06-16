@@ -6,7 +6,6 @@ const livereload = require("livereload")
 const fs = require("fs")
 const connectLiveReload = require("connect-livereload")
 
-
 app.use(connectLiveReload())
 
 // crud data loaders
@@ -33,7 +32,7 @@ require('./custom_modules/core/meta/IO/routes/data.routes.js')(app)
 app.use(express.static(__dirname+ '/public'))
 app.use('/build', express.static(path.join(__dirname, 'node_modules/three/build')))
 app.use('/jsm/', express.static(path.join(__dirname, 'node_modules/three/examples/jsm')))
-
+app.use('/sjcl', express.static(path.join(__dirname, 'node_modules/sjcl')))
 //!---------------------- custom modules ----------------------!//
 app.use('/public/', express.static(path.join(__dirname, 'public/')))
 app.use('/meta/', express.static(path.join(__dirname, 'meta')))

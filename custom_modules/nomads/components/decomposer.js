@@ -74,9 +74,11 @@ export class decomposer extends component {
        // this.attribute_debug();
         if(this.transform != null) {
             this.set_matrix()
-            // have to tell the buffer/instance_geometry to update as-well
-            this.attributes_reference.set_transform(this.attribute_memory_index, this.matrix)
-            this.attributes_reference.set_orientation(this.attribute_memory_index, new quaternion(0,0,0,1).to_three());
+            if (this.transform.hasChanged()) {
+                // have to tell the buffer/instance_geometry to update as-well
+                this.attributes_reference.set_transform(this.attribute_memory_index, this.matrix)
+                this.attributes_reference.set_orientation(this.attribute_memory_index, new quaternion(0,0,0,1).to_three());
+            }
         }
     }
 
