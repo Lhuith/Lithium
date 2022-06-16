@@ -1,4 +1,4 @@
-import { component } from '/core/data/component.js'
+import { component } from '/core/engine/component.js'
 
 import {ArrowHelper, Vector3} from '/build/three.module.js'
 

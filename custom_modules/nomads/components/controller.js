@@ -1,4 +1,4 @@
-import { component } from '/core/data/component.js'
+import { component } from '/core/engine/component.js'
 import {Vector3, Euler} from '/build/three.module.js'
 import {PointerLockControls} from '/jsm/controls/PointerLockControls.js'
 import * as keyboard from '/core/input/keyboard.js'

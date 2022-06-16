@@ -1,4 +1,4 @@
-import { component } from '/core/data/component.js';
+import { component } from '/core/engine/component.js';
 import { get_data} from '/core/data/antlion.js'
 
 import * as THREE from '/build/three.module.js'

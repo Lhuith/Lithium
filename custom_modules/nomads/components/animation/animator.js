@@ -1,4 +1,4 @@
-import { component} from '/core/data/component.js';
+import { component} from '/core/engine/component.js';
 
 export class animator extends component {
     type = "animator"
@@ -47,10 +47,13 @@ export class animator extends component {
             this.current_animation.length, 
             this.current_sequence.current_frame);
      }
+     set_decomposer(d) {
+         this.decomposer = d;
+         this.decomposer.update_buffer_animation(this);
+     }
      set_requirement(r){
         if(r.type == "decomposer"){
             this.decomposer = r;
-            this.decomposer.update_buffer_animation(this);
         }
     }
 }

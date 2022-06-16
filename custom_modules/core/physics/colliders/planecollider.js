@@ -1,16 +1,14 @@
-import { component } from '/core/data/component.js';
+import { component } from '/core/engine/component.js';
 
 // Screen space collider, usually used for GUI operations
 export class planecollider extends component {
     type = "planecollider"
-    required = {
-        "rigidbody" : this.set_rigidbody
-    };
+    required = ["rigidbody"]
     constructor(three){
         super("planecollider")
-        this.init()
     }
     init() {
+        this.rigidbody = null
     }
     update(delta){
     }

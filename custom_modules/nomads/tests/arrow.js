@@ -1,5 +1,5 @@
 import { Vector3, Euler } from '/build/three.module.js'
-import { gameobject } from '/core/data/gameobject.js'
+import { gameobject } from '/core/engine/gameobject.js'
 import { quaternion } from '/core/math/quaternion.js'
 import { sprite, solid, particle } from '/nomads/components/decomposer.js'
 import { get_sprite_meta } from '/core/data/antlion.js'

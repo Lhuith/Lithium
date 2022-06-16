@@ -1,4 +1,4 @@
-import { component } from '/core/data/component.js';
+import { component } from '/core/engine/component.js';
 import {post_to_worker} from "./physics.js";
 
 export class rigidbody extends component {
@@ -7,6 +7,7 @@ export class rigidbody extends component {
     constructor(three){
         super("rigidbody")
         this.init()
+        this.predefine_requirement_setters()
     }
     init() {
         this.colliders = []
@@ -22,10 +23,7 @@ export class rigidbody extends component {
         this.parent = null
         post_to_worker(this)
         this.parent = parent_temp
-        //console.log(JSON.stringify(this))
-    }
-    set_transform(t) {
-        this.transform = t
+        //console.log(JSON.stringify(this))23113
     }
     set_colliders(c) {
         this.colliders.push(c)

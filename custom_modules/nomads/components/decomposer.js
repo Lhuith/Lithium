@@ -1,4 +1,4 @@
-import { component } from '/core/data/component.js';
+import { component } from '/core/engine/component.js';
 import { Vector3, Vector4, Vector2, Color} from "/build/three.module.js";
 import { SPRITE, SOLID, PARTICLE } from '/nomads/globals.js';
 import {get_sprite_meta, get_renderer} from '/core/data/antlion.js';
@@ -121,7 +121,7 @@ export class decomposer extends component {
         }
     }
 
-    set_transform_attribute = (t) => {
+    set_transform = (t) => {
         if(this.transform == null) {
             this.transform = t;
             this.local_transform.parent = t;
@@ -156,10 +156,10 @@ export class decomposer extends component {
     set_usefog = (b) => {s
         this.usefog = b;
     }
-    set_requirement(r){
-        if(r.type == "transform"){
-            this.set_transform_attribute(r);
-        }
-    }
+    //set_requirement(r){
+    //    if(r.type == "transform"){
+    //        this.set_transform_attribute(r);
+    //    }
+    //}
     //TODO TO JSON??
 }
