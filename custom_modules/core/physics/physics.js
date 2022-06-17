@@ -27,10 +27,9 @@ export const register_body = (body) => {
 }
 
 const fixed_update = (work) => {
-    //console.log("\tphysics tick", work)
     for(let i = 0; i < bodies.length; i++) {
         if (work[i] != undefined){
-            console.log("working?")
+            //console.log("working?")
             bodies[i].transform = work[i].transform
         }
         bodies[i].fixed_update()

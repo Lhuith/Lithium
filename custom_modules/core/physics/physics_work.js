@@ -1,4 +1,4 @@
-const GRAVITY = 3.15
+const GRAVITY = .00015
 const INTERVAL = 1000
 const BOUNDARY = -10
 
@@ -27,7 +27,7 @@ const fixed_update = () => {
 const apply_gravity = (body) => {
     if (body.transform != undefined) {
         if (body.transform.position.y - GRAVITY > BOUNDARY){
-            body.transform.position.y -= GRAVITY/INTERVAL
+            body.transform.position.y -= GRAVITY * INTERVAL
         } else {
             body.transform.position.y = BOUNDARY
         }
