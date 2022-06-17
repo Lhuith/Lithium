@@ -1,26 +1,25 @@
-const GRAVITY = 0.15
-const INTERVAL = 2
+const GRAVITY = 3.15
+const INTERVAL = 1000
 const BOUNDARY = -10
 
-let i = 0
-let physics_bodies = []
 
-const physics_init = () => { 
+let i = 0
+let work = []
+
+const physics_init = () => {
     fixed_update()
 }
 
 const fixed_update = () => {
-    if (physics_bodies.length != 0) {
+    if (work.length != 0) {
         // updating any active physics bodies here
-        for(let i = 0; i < physics_bodies.length; i++){
-            apply_gravity(physics_bodies[i])
+        for(let i = 0; i < work.length; i++){
+            apply_gravity(work[i])
         }
-
-        // post work done by physics' worker thread
-        postMessage(physics_bodies)
-        physics_bodies = []
     }
-
+    postMessage(work)
+    // clear work buffer
+    work = []
     setTimeout("fixed_update()", INTERVAL)
 }
 
@@ -28,24 +27,23 @@ const fixed_update = () => {
 const apply_gravity = (body) => {
     if (body.transform != undefined) {
         if (body.transform.position.y - GRAVITY > BOUNDARY){
-            body.transform.position.y -= GRAVITY * INTERVAL
+            body.transform.position.y -= GRAVITY/INTERVAL
         } else {
             body.transform.position.y = BOUNDARY
         }
     }
 }
 
-const add_body = (p) => {
+const register_body = (p) => {
     if (p == undefined || p.type != "rigidbody") {
         console.error("component must be a rigid body!")
     }
-    console.log("\tADDING NEW BODY!", p)
-    physics_bodies.push(p)
+    //console.log("\tADDING NEW BODY!", p)
+    work.push(p)
 }
 
 self.onmessage = function(msg) {
-    console.log("POSTED TO WORKER!", msg.data)
-    add_body(msg.data)
+    register_body(msg.data)
 }
 
 physics_init()

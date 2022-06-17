@@ -125,7 +125,7 @@ export class transform  {
         }
         return parentRotation.q_mul(this.rotation);
     }
-    set_parent(t){
+    set_parent_transform(t){
         if(t.type == "transform"){
             this.parent = t;
             this.parent_matrix = t.get_transformation();
@@ -147,7 +147,7 @@ export class transform  {
             this.rotation.clone(),
         );
         
-        if(this.parent != null) new_transform.set_parent(this.parent);
+        if(this.parent != null) new_transform.set_parent_transform(this.parent);
     
         return new_transform;
     }

@@ -2,13 +2,15 @@ import { transform } from '/core/math/transform.js'
 import {is} from '/core/meta/helpers/utils.js'
 import { quaternion } from '/core/math/quaternion.js'
 import { Vector3 } from '/build/three.module.js'
-import {get_input_meta} from "../data/antlion.js";
+import {get_game} from "/nomads/nomads.js"
 
 export class gameobject {
     type = "gameobject"
 
     constructor(n, p = new Vector3(), s = new Vector3(1,1,1), r = new quaternion()){
         this.name = n
+        // register itself to the scene object manifest (for now)
+        this.id = get_game().current_scene.register_object(this)
 
         if (r == null) {
             r = new quaternion(0,0,0,1)
@@ -17,10 +19,9 @@ export class gameobject {
         this.transform = new transform(p, s, r)
         
         this.active = true
-        this.id = 1
+
         this.children = []
         this.components = []
-        this.parent = null
 
         // TODO handle scene data structure 
         // scene.add(this)
@@ -32,8 +33,8 @@ export class gameobject {
             console.error(o.name + " object is already a child!")
         } else {
             this.children.push(o)
-            o.set_parent(this)
-            o.transform.set_parent(this.transform)
+            o.set_parent_reference(this)
+            o.transform.set_parent_transform(this.transform)
             o.update()
         }
     }
@@ -41,7 +42,7 @@ export class gameobject {
         if(c == null){
             console.error(this.name + ": no component was given!")
         } else {
-            c.set_parent(this)
+            c.set_parent_reference(this.id)
             this.components.push(c)
 
             //! add check before adding components for requirements!
@@ -57,7 +58,6 @@ export class gameobject {
             if (n == "transform") {
                 return this.transform
             }
-
             for(let c of this.components) {
                 if(c.type == n){
                     components.push(c)
@@ -71,6 +71,7 @@ export class gameobject {
         }
         return null
     }
+
     // set required components/objects such as transforms
     set_required(c) {
         for (let i = 0; i < c.required.length; i++) {
@@ -103,8 +104,8 @@ export class gameobject {
         }
         return false
     }
-    set_parent(p){
-        this.parent = p
+    set_parent_reference(i){
+        this.set_parent_reference = i
     }
     update(delta){
         if(this.components != undefined){
@@ -118,6 +119,9 @@ export class gameobject {
             }
         }
         this.transform.update(delta)
+    }
+    set_id(i){
+        this.id = i
     }
     information(){
         console.log(this)

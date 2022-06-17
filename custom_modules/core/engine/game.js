@@ -24,8 +24,8 @@ import * as menu from '/nomads/systems/menu.js'
 
 import { look_at } from '/nomads/components/look_at.js'
 import {subscribe_to_input_event} from "/core/input/keyboard.js";
-import {rigidbody} from "./physics/rigidbody.js";
-import {planecollider} from "./physics/colliders/planecollider.js";
+import {rigidbody} from "../physics/rigidbody.js";
+import {planecollider} from "../physics/colliders/planecollider.js";
 
 let player
 let game_state = {
@@ -37,6 +37,8 @@ export class game {
     constructor(n){
         this.name = n
         this.objects = []
+        this.scenes = []
+        this.current_scene = null
     }
     init(data, three){
         this.three = three
@@ -53,7 +55,9 @@ export class game {
         }
 
         //! ---------- INIT ----------
-            let gameScene = new scene()
+            // TODO cleanup scene->game, who does what
+            this.current_scene = new scene()
+
             time.init()
             keyboard.init()
             physics.init()
@@ -127,6 +131,7 @@ export class game {
             new quaternion(0,0,0,1)
         )
         this.objects.push(box_obj)
+        console.log(this.current_scene)
     }
 
     update(delta) {
@@ -144,6 +149,9 @@ export class game {
 
     get_time(){
         return this.time
+    }
+    get_current_scene(){
+        return this.current_scene
     }
     get_game_pause_state() {
         return game_state.paused

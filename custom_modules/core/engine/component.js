@@ -1,18 +1,21 @@
+import {get_game} from "/nomads/nomads.js"
+
 export class component {
     type = "component"
     required = [];
-    
     constructor(n){
         this.name = n;
-        this.parent = null;
     }
     init(){
     }
     update(){
         console.warn("default component update.")
     }
-    set_parent(p){
-        this.parent = p;
+    set_parent_reference(i){
+        this.parent_reference_index = i;
+    }
+    get_parent(){
+        return  get_game().current_scene.get_object(this.parent_reference_index)
     }
     set_requirement(r){
         console.warn("default component requirement set.")

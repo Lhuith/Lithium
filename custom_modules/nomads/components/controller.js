@@ -135,7 +135,7 @@ export class controller extends component {
                 }})
         }
 
-        this.parent.transform.position =
+        this.get_parent().transform.position =
             new Vector3(
                 this.controls.getObject().position.x,
                 this.controls.getObject().position.y - 0.25,
@@ -151,8 +151,7 @@ export class controller extends component {
 
     set_transform(t){
         this.transform = t
- 
-        this.parent.transform.position = 
+        this.get_parent().transform.position =
         new Vector3(
             this.controls.getObject().position.x, 
             this.controls.getObject().position.y - 0.25, 

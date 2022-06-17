@@ -43,10 +43,4 @@ export class zone extends component {
     update(){
         //console.warn("default component update.")
     }
-    set_parent(p){
-        this.parent = p;
-    }
-    set_requirement(r){
-        //console.warn("default component requirment set.")
-    }
 }

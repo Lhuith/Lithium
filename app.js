@@ -4,6 +4,7 @@ const app = express()
 const path = require('path')
 const livereload = require("livereload")
 const fs = require("fs")
+const crypto = require('crypto');
 const connectLiveReload = require("connect-livereload")
 
 app.use(connectLiveReload())

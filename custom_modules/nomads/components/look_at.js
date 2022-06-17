@@ -14,12 +14,12 @@ export class look_at extends component {
         three.scene.add(this.arrow_helper)
     }
     update(delta){
-        this.arrow_helper.setDirection(this.parent.transform.rotation.get_forward())
-        this.arrow_helper.position.copy(this.parent.transform.position)
+        this.arrow_helper.setDirection(this.get_parent().transform.rotation.get_forward())
+        this.arrow_helper.position.copy(this.get_parent().transform.position)
 
         // look at function 
-        this.parent.transform.rotation = this.parent.transform.rotation.slerp(
-            this.parent.transform.get_look_direction(
+        this.get_parent().transform.rotation = this.get_parent().transform.rotation.slerp(
+            this.get_parent().transform.get_look_direction(
                 this.target, new Vector3(0,1,0)), delta * 2, true)
     }
     set_look(t){

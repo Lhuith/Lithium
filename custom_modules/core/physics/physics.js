@@ -1,5 +1,5 @@
 let physics_worker
-let work_reference = []
+let bodies = []
 
 export const init = () => {
     console.log("%cPhysics Initialized", "color:#FF5AC3")
@@ -11,29 +11,46 @@ const start_physics = () => {
 
     // physics update's happen here
     physics_worker.onmessage = function(event){
-       unpack_worker_data(event.data)
+        fixed_update(event.data)
     }
 }
 
-export const post_to_worker = (data) => {
-    work_reference.push(data)
-    work_reference[0].fixed_update()
-    //console.log(data)
-    physics_worker.postMessage(data)
+export const register_body = (body) => {
+    if (bodies.includes(body)) {
+        physics_worker.postMessage(body)
+        return
+    }
+    if (body.parent != null)
+        console.log("\t " + body.parent.name + " registered")
+
+    bodies.push(body)
 }
 
-const unpack_worker_data = (data) => {
-    console.log(data)
-    if (data[0] != undefined && data[0].transform != undefined) {
-        work_reference[0].transform = data[0].transform
-        work_reference[0].fixed_update()
-        //console.log(data[0].transform)
+const fixed_update = (work) => {
+    //console.log("\tphysics tick", work)
+    for(let i = 0; i < bodies.length; i++) {
+        if (work[i] != undefined){
+            console.log("working?")
+            bodies[i].transform = work[i].transform
+        }
+        bodies[i].fixed_update()
+        register_body(bodies[i])
     }
-    //for(let page of data) {
-    //
-    //    if (work_reference.includes(page)){
-    //        console.log(page)
-    //    }
-    //    //
-    //}
 }
+
+
+//const unpack_worker_data = (data) => {
+//    console.log(data)
+//  // if (data[0] != undefined && data[0].transform != undefined) {
+//  //     work_reference[0].transform = data[0].transform
+//  //     work_reference[0].fixed_update()
+//  //     //console.log(data[0].transform)
+//  // }
+//  // //for(let page of data) {
+//  // //
+//  // //    if (work_reference.includes(page)){
+//  // //        console.log(page)
+//  // //    }
+//  // //    //
+//  // //}
+//}

@@ -1,4 +1,4 @@
-import {game} from '/core/game.js'
+import {game} from '/core/engine/game.js'
 
 var NOMADS = new game("Nomads")
 

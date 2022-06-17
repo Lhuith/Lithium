@@ -4,6 +4,7 @@ import { component } from '/core/engine/component.js';
 export class planecollider extends component {
     type = "planecollider"
     required = ["rigidbody"]
+
     constructor(three){
         super("planecollider")
     }
@@ -17,8 +18,5 @@ export class planecollider extends component {
         r.set_colliders(this)
     }
     fixed_update(){
-    }
-    set_parent(p) {
-        this.parent = null
     }
 }
