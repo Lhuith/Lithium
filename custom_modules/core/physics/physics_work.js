@@ -14,7 +14,8 @@ const fixed_update = () => {
     if (work.length != 0) {
         // updating any active physics bodies here
         for(let i = 0; i < work.length; i++){
-            collision_check(work[i])
+            environment_collision_check(work[i])
+            body_collision_check(work[i])
             apply_gravity(work[i])
         }
     }
@@ -35,11 +36,25 @@ const apply_gravity = (body) => {
     }
 }
 
-// time for shenanigans
-const collision_check = (body) => {
+// body on body collision, the fun stuff
+const body_collision_check = (body) => {
     if (body.colliders != undefined && body.colliders.length != 0) {
         for(let index in body.colliders){
-            body.colliders[index].colliding = true
+            body.colliders[index].colliding = false
+
+            for (let index in work) {
+                // get all work[i] colliders
+                // do checks until true
+            }
+        }
+    }
+}
+
+// time for shenanigans
+const environment_collision_check = (body) => {
+    if (body.colliders != undefined && body.colliders.length != 0) {
+        for(let index in body.colliders){
+            body.colliders[index].colliding = false
         }
     }
 }

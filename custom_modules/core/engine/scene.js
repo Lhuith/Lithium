@@ -12,7 +12,8 @@ export class scene {
     register_object(o) {
         let id = crypto.randomUUID()
         this.objects.set(id, o)
-        //
+
+        // returned to registering object
         return id
     }
     get_object(id){
