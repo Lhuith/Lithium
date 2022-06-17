@@ -23,17 +23,21 @@ export class rigidbody extends component {
         this.colliders.push(c)
     }
     fixed_update(){
+        let colliding = false
         for(let index in this.colliders){
             if(this.colliders[index].colliding) {
-                console.log("yep")
+                colliding = true
+                break
             }
         }
 
-
-        if (this.get_parent() != undefined) {
-            this.get_parent().transform.position.set(
-                this.transform.position.x, this.transform.position.y, this.transform.position.z)
+        if (!colliding) {
+            if (this.get_parent() != undefined) {
+                this.get_parent().transform.position.set(
+                    this.transform.position.x, this.transform.position.y, this.transform.position.z)
+            }
         }
+
         //console.log("fixed", this.transform.position)
     }
 }

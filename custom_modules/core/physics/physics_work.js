@@ -14,8 +14,8 @@ const fixed_update = () => {
     if (work.length != 0) {
         // updating any active physics bodies here
         for(let i = 0; i < work.length; i++){
-            apply_gravity(work[i])
             collision_check(work[i])
+            apply_gravity(work[i])
         }
     }
     postMessage(work)
@@ -35,6 +35,7 @@ const apply_gravity = (body) => {
     }
 }
 
+// time for shenanigans
 const collision_check = (body) => {
     if (body.colliders != undefined && body.colliders.length != 0) {
         for(let index in body.colliders){
