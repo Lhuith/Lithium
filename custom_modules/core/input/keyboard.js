@@ -1,6 +1,6 @@
 // input struct holding all current keyboard button states
 import {get_input_meta} from "../data/antlion.js";
-import {keyCodeToChar} from "./keyCodes.js"
+import {code_to_char} from "./key_codes.js"
 
 export const input = {
     "A": false,
@@ -48,33 +48,33 @@ export const subscribe_to_input_event = (input_meta_key, callback) => {
 }
 
 const onKeyDown = (e) => {
-    let input_key = input[keyCodeToChar[e.keyCode]]
+    let input_key = input[code_to_char[e.keyCode]]
 
     if (input_key == undefined) {
         //console.log(keyCodeToChar[e.keyCode] + " - not mapped!")
     } else {
         if (e.shiftKey) {
-            if (keyCodeToChar[e.keyCode] != "Shift") {
-                if(input_events.get("Shift "+ keyCodeToChar[e.keyCode]) != undefined) {
-                    dispatchEvent(input_events.get("Shift "+ keyCodeToChar[e.keyCode]))
+            if (code_to_char[e.keyCode] != "Shift") {
+                if(input_events.get("Shift "+ code_to_char[e.keyCode]) != undefined) {
+                    dispatchEvent(input_events.get("Shift "+ code_to_char[e.keyCode]))
                 }
             }
         } else {
-            if (input_events.get(keyCodeToChar[e.keyCode]) != undefined) {
-                dispatchEvent(input_events.get(keyCodeToChar[e.keyCode]))
+            if (input_events.get(code_to_char[e.keyCode]) != undefined) {
+                dispatchEvent(input_events.get(code_to_char[e.keyCode]))
             }
             //console.log(keyCodeToChar[e.keyCode] + " - Down")
-            input[keyCodeToChar[e.keyCode]] = true
+            input[code_to_char[e.keyCode]] = true
         }
     }
 }
 
 const onKeyUp = (e) => {
-    let input_key= input[keyCodeToChar[e.keyCode]]
+    let input_key= input[code_to_char[e.keyCode]]
     if (input_key == undefined) {
         //console.log(keyCodeToChar[e.keyCode] + " - not mapped!")
     } else {
         //console.log(keyCodeToChar[e.keyCode]  + " - Up")
-        input[keyCodeToChar[e.keyCode]] = false
+        input[code_to_char[e.keyCode]] = false
     }
 }

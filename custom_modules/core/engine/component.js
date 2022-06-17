@@ -15,7 +15,7 @@ export class component {
         this.parent_reference_index = i;
     }
     get_parent(){
-        return  get_game().current_scene.get_object(this.parent_reference_index)
+        return get_game().current_scene.get_object(this.parent_reference_index)
     }
     set_requirement(r){
         console.warn("default component requirement set.")

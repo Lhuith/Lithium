@@ -33,7 +33,7 @@ export class gameobject {
             console.error(o.name + " object is already a child!")
         } else {
             this.children.push(o)
-            o.set_parent_reference(this)
+            o.set_parent_reference(this.id)
             o.transform.set_parent_transform(this.transform)
             o.update()
         }
@@ -104,8 +104,11 @@ export class gameobject {
         }
         return false
     }
-    set_parent_reference(i){
-        this.set_parent_reference = i
+    set_parent_reference(i) {
+        this.parent_reference_index = i
+    }
+    get_parent(){
+        return get_game().current_scene.get_object(this.parent_reference_index)
     }
     update(delta){
         if(this.components != undefined){

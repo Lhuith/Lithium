@@ -1,6 +1,6 @@
 // ttps://gist.github.com/whitewhidow/6319198
 // thank you for doing the lords work
-export const keyCodeToChar = {
+export const code_to_char = {
     8:"Backspace",
     9:"Tab",
     13:"Enter",
