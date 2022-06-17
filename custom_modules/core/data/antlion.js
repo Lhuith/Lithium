@@ -26,7 +26,8 @@ let bootstrap = null
 // used to grab all outside resources for the game since all resources
 // are async and require some to be compiled
 export const init = (bs) => {
-    console.log("%cAntlion Initialized", "color:#F28022")
+    console.groupCollapsed("%cAntlion Initialized", "color:#F28022")
+    //console.log()
     DONE = false
 
     load_game()
@@ -75,7 +76,7 @@ const fall = (i, data) => {
 }
 
 const load_in_message = (name, i) => {
-    console.log("%c\tloading in "+ name, 'color: #FA'+i.toString(16)+i.toString(16)+'00')
+    console.log("%cloading in "+ name, 'color: #FA'+i.toString(16)+i.toString(16)+'00')
 }
 
 const load_game = () => {
@@ -104,6 +105,7 @@ const done = (i, data) => {
 
     // start up init after data loaded
     console.log("%cAntlion Completed in "+ elapsed_time*0.000001+" seconds", "color:#FF9900")
+    console.groupEnd()
     bootstrap(completed)
 }
 

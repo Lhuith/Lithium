@@ -12,10 +12,15 @@ export class scene {
     register_object(o) {
         let id = crypto.randomUUID()
         this.objects.set(id, o)
-        console.table("%c\tadded to scene: "+o.name, "color:#C87BEC")
+        //
         return id
     }
     get_object(id){
         return this.objects.get(id)
+    }
+    information() {
+        console.groupCollapsed("%c\Scene Objects", "color:#C87BEC")
+        console.table(Object.fromEntries([...this.objects]))
+        console.groupEnd()
     }
 }

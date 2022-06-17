@@ -16,12 +16,14 @@ export const day_event = {
 }
 
 export const init = () => {
-    console.log("%cTime Initialized -", "color:#eb33b5")
-    console.log(`%c\tWorld Day: ${world_day_length} seconds`, "color:#eb33b5")
+    console.groupCollapsed("%cTime Initialized -", "color:#eb33b5")
+    console.log(`%cWorld Day: ${world_day_length} seconds`, "color:#eb33b5")
 
     for (const event in day_event) {
-        console.log(`%c\tTime Event Added: ${event}`, "color:#eb33b5");
+        console.log(`%cTime Event Added: ${event}`, "color:#eb33b5");
     }
+
+    console.groupEnd()
 }
 
 export const update = (delta) => {

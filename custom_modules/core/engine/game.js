@@ -131,6 +131,7 @@ export class game {
             new quaternion(0,0,0,1)
         )
         this.objects.push(box_obj)
+        this.current_scene.information()
     }
 
     update(delta) {

@@ -22,14 +22,16 @@ let hot_key_field_name = "hot-key"
 
 // init keyboard by creating event listeners
 export const init = () => {
-    console.log("%cKeyboard Initialized -", "color:#61AFEF")
+    console.groupCollapsed("%cKeyboard Initialized -", "color:#61AFEF")
     document.addEventListener( 'keydown', onKeyDown, false )
     document.addEventListener( 'keyup', onKeyUp, false )
 
     for (let key in get_input_meta()) {
         input_events.set(get_input_meta()[key][hot_key_field_name], new Event(key))
-        console.log("%c\thot-key "+key+"\t: "+get_input_meta()[key][hot_key_field_name], "color:#61AFEF")
+        console.log("%c\thot-key "+key+": "+get_input_meta()[key][hot_key_field_name], "color:#61AFEF")
     }
+
+    console.groupEnd()
 }
 
 export const subscribe_to_input_event = (input_meta_key, callback) => {
