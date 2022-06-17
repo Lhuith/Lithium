@@ -1,5 +1,5 @@
-const GRAVITY = .00015
-const INTERVAL = 1000
+const GRAVITY = .005
+const INTERVAL = 1
 const BOUNDARY = -10
 
 
@@ -15,6 +15,7 @@ const fixed_update = () => {
         // updating any active physics bodies here
         for(let i = 0; i < work.length; i++){
             apply_gravity(work[i])
+            collision_check(work[i])
         }
     }
     postMessage(work)
@@ -30,6 +31,14 @@ const apply_gravity = (body) => {
             body.transform.position.y -= GRAVITY * INTERVAL
         } else {
             body.transform.position.y = BOUNDARY
+        }
+    }
+}
+
+const collision_check = (body) => {
+    if (body.colliders != undefined && body.colliders.length != 0) {
+        for(let index in body.colliders){
+            body.colliders[index].colliding = true
         }
     }
 }

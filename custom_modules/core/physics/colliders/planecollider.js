@@ -7,6 +7,7 @@ export class planecollider extends component {
 
     constructor(three){
         super("planecollider")
+        this.colliding = false
     }
     init() {
         this.rigidbody = null

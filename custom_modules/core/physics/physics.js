@@ -29,8 +29,11 @@ export const register_body = (body) => {
 const fixed_update = (work) => {
     for(let i = 0; i < bodies.length; i++) {
         if (work[i] != undefined){
-            //console.log("working?")
             bodies[i].transform = work[i].transform
+
+            for (let collider_index in work[i].colliders) {
+                bodies[i].colliders[collider_index].colliding = work[i].colliders[collider_index].colliding
+            }
         }
         bodies[i].fixed_update()
         register_body(bodies[i])
