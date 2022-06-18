@@ -26,6 +26,7 @@ import { look_at } from '/nomads/components/look_at.js'
 import {subscribe_to_input_event} from "/core/input/keyboard.js";
 import {rigidbody} from "../physics/rigidbody.js";
 import {plane_collider} from "../physics/colliders/plane_collider.js";
+import {set_time_by_second} from "/nomads/systems/time.js";
 
 let player
 let game_state = {
@@ -131,6 +132,8 @@ export class game {
         box_obj.transform.position = new Vector3(0, 5, 0)
         this.objects.push(box_obj)
         this.current_scene.information()
+
+        time.set_time_by_second(50)
     }
 
     update(delta) {
@@ -142,7 +145,7 @@ export class game {
             o.update(delta)
         }
 
-        time.update(delta)
+        //time.update(delta)
         sky.update(delta)
     }
 

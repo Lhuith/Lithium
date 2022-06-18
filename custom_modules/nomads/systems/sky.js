@@ -58,10 +58,8 @@ export const init = () => {
         moon.transform.get_transformed_position().x,
         moon.transform.get_transformed_position().y,
         moon.transform.get_transformed_position().z)
-    //.position.set(
-    //         sun.transform.position.x, sun.transform.position.y, sun.transform.position.z)
+
     get_game().get_three().scene.add(sunThreeObj)
-    console.log(sunThreeObj)
     get_game().get_three().light.target = sunThreeObj
 }
 

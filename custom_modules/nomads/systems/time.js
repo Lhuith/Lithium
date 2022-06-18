@@ -41,6 +41,10 @@ addEventListener(day_event.NewDay.type, function (e) {
     console.log("%c☼ New Day ☼", "color:#EEB768")
 }, false)
 
+export const set_time_by_second = (time) => {
+    actual_second = time % world_day_length
+}
+
 // get_time_of_day_normalized, returns 0-1 value of a day, 0.5 being 12 hours or halfway in :3
 export const get_time_of_day_normalized = () => {
     return actual_second/world_day_length
