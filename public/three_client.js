@@ -48,7 +48,8 @@ const init = (data) => {
         {
             renderer: renderer, 
             camera: camera, 
-            scene:scene, 
+            scene:scene,
+            light:directionalLight,
         })
     //!------------------- nomads -------------------//
     renderers = antlion.get_renderers()

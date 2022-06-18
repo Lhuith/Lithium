@@ -7,8 +7,10 @@ import {decomposer, particle, solid, sprite} from "../components/decomposer.js";
 import {get_sprite_meta} from "../../core/data/antlion.js";
 import {to} from "../../core/meta/helpers/utils.js";
 import {transform} from "../../core/math/transform.js";
+import {game} from "../../core/engine/game.js";
+import {Object3D} from "three";
 
-let sky, sun, moon
+let sky, sun, moon, sunThreeObj
 
 let sky_colors = [
     new Color(0xEDA479), //Prime Morning
@@ -50,6 +52,17 @@ export const init = () => {
     sun.add_component(particle(get_sprite_meta().sun))
     moon.add_component(particle(get_sprite_meta().moon))
     console.log(sky)
+
+    sunThreeObj = new Object3D()
+    sunThreeObj.position.set(
+        moon.transform.get_transformed_position().x,
+        moon.transform.get_transformed_position().y,
+        moon.transform.get_transformed_position().z)
+    //.position.set(
+    //         sun.transform.position.x, sun.transform.position.y, sun.transform.position.z)
+    get_game().get_three().scene.add(sunThreeObj)
+    console.log(sunThreeObj)
+    get_game().get_three().light.target = sunThreeObj
 }
 
 export const update = (delta) => {
@@ -61,6 +74,8 @@ export const update = (delta) => {
     sky.transform.rotate(new Vector3(1, 0, 0), to.rad(time.get_time_of_day_normalized() * 360))
     sky.update(delta)
 
+    sunThreeObj.position.set(
+        moon.transform.get_transformed_position().x, moon.transform.get_transformed_position().y, moon.transform.get_transformed_position().z)
     // create a new color that is A now -> B coming lerp/blended, i.e morning orange blends to afternoon blue
     get_game().get_renderer().setClearColor(
         new Color().lerpColors(
