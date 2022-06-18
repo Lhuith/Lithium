@@ -1,7 +1,10 @@
 import {get_game} from "/nomads/nomads.js"
+import {crypt} from "../meta/helpers/utils.js";
 
 export class component {
     type = this.constructor.name
+    id = crypt.newId()
+
     required = [];
     constructor(n){
         this.name = n;

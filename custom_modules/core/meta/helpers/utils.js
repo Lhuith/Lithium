@@ -1,6 +1,10 @@
 import { Color, Vector2 } from '/build/three.module.js' 
 import { get_sprite_meta } from '/core/data/antlion.js'
 
+export const crypt = {
+    newId : () => { return crypto.randomUUID()}
+}
+
 export const pixel = {
     map : (p) => {return (p/get_sprite_meta().SPRITE_RESOLUTION)}
 }

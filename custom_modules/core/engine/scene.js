@@ -1,5 +1,8 @@
+import {crypt} from "../meta/helpers/utils.js";
+
 export class scene {
-    type = "scene"
+    type = this.constructor.name
+
     objects = new Map()
     constructor() {
         this.init()
@@ -10,7 +13,7 @@ export class scene {
     update(delta) {
     }
     register_object(o) {
-        let id = crypto.randomUUID()
+        let id = crypt.newId()
         this.objects.set(id, o)
 
         // returned to registering object

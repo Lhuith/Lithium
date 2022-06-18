@@ -4,7 +4,7 @@ import { quaternion } from '/core/math/quaternion.js'
 import {get_game} from "/nomads/nomads.js"
 
 export class gameobject {
-    type = "gameobject"
+    type = this.constructor.name
 
     constructor(n, p, s, r){
         this.id = get_game().current_scene.register_object(this) // register itself to the scene object manifest (for now)

@@ -5,8 +5,7 @@ export class plane_collider extends collider {
     required = ["rigidbody"]
 
     constructor(){
-        super("plane_collider")
-        console.log(this.type)
+        super()
         this.colliding = false
     }
 
