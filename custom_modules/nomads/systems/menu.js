@@ -2,7 +2,7 @@ import {subscribe_to_input_event} from "/core/input/keyboard.js"
 import {get_input_meta} from "/core/data/antlion.js";
 import {get_game} from "../nomads.js"
 
-export const init = (r) => {
+export const init = () => {
     console.log("%cMenu Initialized", "color:#FBFF86")
 
     subscribe_to_input_event(

@@ -1,17 +1,17 @@
 import { component } from '/core/engine/component.js'
 
 import {ArrowHelper, Vector3} from '/build/three.module.js'
+import {get_game} from "../nomads.js";
 
 export class look_at extends component {
     type = "look_at"
     required = ["transform"]
     
-    //!add error checks 
-    constructor(three, t){
+    constructor(t){
         super()
         this.target = t
         this.arrow_helper = new ArrowHelper()
-        three.scene.add(this.arrow_helper)
+        get_game().get_three().scene.add(this.arrow_helper)
     }
     update(delta){
         this.arrow_helper.setDirection(this.get_parent().transform.rotation.get_forward())
@@ -27,10 +27,5 @@ export class look_at extends component {
     }
     set_transform(t){
         this.transform = t
-    }
-    set_requirement(r) {
-        if(r.type == "transform"){
-            this.set_transform(r)
-        }
     }
 }

@@ -22,7 +22,7 @@ let hot_key_field_name = "hot-key"
 
 // init keyboard by creating event listeners
 export const init = () => {
-    console.groupCollapsed("%cKeyboard Initialized -", "color:#61AFEF")
+    console.groupCollapsed("%cKeyboard Initialized", "color:#61AFEF")
     document.addEventListener( 'keydown', onKeyDown, false )
     document.addEventListener( 'keyup', onKeyUp, false )
 

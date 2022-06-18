@@ -13,12 +13,12 @@ export class controller extends component {
     type = "controller"
     required = ["transform"]
     
-    constructor(three){
+    constructor(){
         super()
     
         console.log("%cController Initialized", "color:#7d57c1")
 
-        let controller = new PointerLockControls(three.camera, document.body)
+        let controller = new PointerLockControls(get_game().three.camera, document.body)
 
         // turn off right click menu from showing
         document.addEventListener("contextmenu", function (e){

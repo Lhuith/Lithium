@@ -1,12 +1,13 @@
 import { zone } from '/nomads/components/zone.js'
 import * as map from "./map.js";
 import * as player from "../../core/math/transform.js";
+import {get_game} from "../nomads.js";
 
-export const init = (three, data) => {
+export const init = () => {
     console.log("%cWorld Initialized", "color:#1ED35F")
 
-    let world = new zone("world", 1, true, three)
-    three.scene.add(world.tile)
+    let world = new zone("world", 1, true)
+    get_game().get_three().scene.add(world.tile)
 
     map.init(world.color)
 

@@ -16,7 +16,7 @@ export const day_event = {
 }
 
 export const init = () => {
-    console.groupCollapsed("%cTime Initialized -", "color:#eb33b5")
+    console.groupCollapsed("%cTime Initialized", "color:#eb33b5")
     console.log(`%cWorld Day: ${world_day_length} seconds`, "color:#eb33b5")
 
     for (const event in day_event) {

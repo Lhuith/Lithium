@@ -41,9 +41,9 @@ export class game {
         this.current_scene = null
     }
     init(data, three){
-        this.three = three
         console.log("%c"+this.name+" Initialized", "color:#FFE532")
 
+        this.three = three
         this.show_data = false
         this.time = 0
 
@@ -61,9 +61,9 @@ export class game {
             time.init()
             keyboard.init()
             physics.init()
-            sky.init(three.renderer)
-            world.init(three)
-            menu.init(three)
+            sky.init()
+            world.init()
+            menu.init()
         //! ---------- INIT ----------
 
         subscribe_to_input_event(
@@ -74,7 +74,7 @@ export class game {
 
         let npc = new gameobject("steve", new Vector3(3,0.5,0), new Vector3(1,1,1))
         npc.add_component(sprite(get_sprite_meta().lithy))
-        npc.add_component(new look_at(three, three.camera.position))
+        npc.add_component(new look_at(three.camera.position))
         npc.transform.rotate(new Vector3(1, 0, 0), 180)
 
         npc.add_component(new animator([
@@ -88,8 +88,8 @@ export class game {
         crab.add_component(new animator([
             new animation_sequence("idle",
                 [new animation("idle", 0, 3)], 7, true)]))
-        crab.add_component(new rigidbody(three))
-        crab.add_component(new plane_collider(three))
+        crab.add_component(new rigidbody())
+        crab.add_component(new plane_collider())
 
         let arrow_container = arrow_widget (
             new Vector3(-2,1,0),
@@ -106,7 +106,7 @@ export class game {
             new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(90, 0, 0))
         )
         arrow_obj_container.add_child(arrow_obj)
-        arrow_obj_container.add_component(new look_at(three, three.camera.position))
+        arrow_obj_container.add_component(new look_at(three.camera.position))
 
         player = new gameobject(
             "Player",
@@ -114,8 +114,8 @@ export class game {
             new Vector3(1,1,1),
             new quaternion(0,0,0,1, null, null, null)
         )
-        player.add_component(new controller(three))
-        arrow_container.add_component(new look_at(three, npc.transform.position))
+        player.add_component(new controller())
+        arrow_container.add_component(new look_at(npc.transform.position))
 
         this.objects.push(player)
         this.objects.push(npc)
@@ -149,6 +149,12 @@ export class game {
 
     get_time(){
         return this.time
+    }
+    get_three(){
+        return this.three
+    }
+    get_renderer(){
+        return this.three.renderer
     }
     get_current_scene(){
         return this.current_scene

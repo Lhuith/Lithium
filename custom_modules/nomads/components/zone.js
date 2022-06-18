@@ -7,7 +7,7 @@ import { color_and_mesh_from_height } from '/core/geometry/color_and_mesh_from_h
 export class zone extends component {
     type = "zone"
     required = [];
-    constructor(key, lod, physical, three){
+    constructor(key, lod, physical){
         super()
 
         let map = get_data(key)
@@ -19,7 +19,7 @@ export class zone extends component {
         this.tile = this.generate_tile({
             height: map.height,
             detail: map.detail, 
-        }, lod, physical, three.scene)
+        }, lod, physical)
     }
     init(){
     }

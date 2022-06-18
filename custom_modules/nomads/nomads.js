@@ -1,6 +1,6 @@
 import {game} from '/core/engine/game.js'
 
-var NOMADS = new game("Nomads")
+let NOMADS = new game("Nomads")
 
 export const init = (data, three) => {
     NOMADS.init(data, three)
