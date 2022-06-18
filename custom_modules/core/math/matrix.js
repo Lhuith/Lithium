@@ -2,7 +2,7 @@ import {to} from '/core/meta/helpers/utils.js';
 import {Vector3, Matrix4} from '/build/three.module.js';
 
 export class matrix  {
-    type = "matrix"
+    type = this.constructor.name
     constructor(){
         this.m = [4];
         

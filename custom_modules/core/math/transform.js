@@ -4,7 +4,7 @@ import { quaternion } from '/core/math/quaternion.js'
 import {to} from '/core/meta/helpers/utils.js'
 
 export class transform  {
-    type = "transform"
+    type = this.constructor.name
 
     // p : position
     // s : scale

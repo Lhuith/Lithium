@@ -3,7 +3,7 @@ import {Vector3, Quaternion} from '/build/three.module.js'
 import { matrix } from '/core/math/matrix.js'
 
 export class quaternion  {
-    type = "quaternion"
+    type = this.constructor.name
     constructor(x = 0, y = 0, z = 0, w = 1,
                 axis = null, angle = null, rot = null){
 
