@@ -10,7 +10,6 @@ import {get_game} from "/nomads/nomads.js"
 import * as file from '/core/meta/helpers/ajax.js'
 
 export class controller extends component {
-    type = "controller"
     required = ["transform"]
     
     constructor(){

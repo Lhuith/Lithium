@@ -3,11 +3,9 @@ import * as time from "./time.js";
 import {get_game} from "../nomads.js";
 import {gameobject} from "../../core/engine/gameobject.js";
 import {quaternion} from "../../core/math/quaternion.js";
-import {decomposer, particle, solid, sprite} from "../components/decomposer.js";
+import {particle } from "../components/decomposer.js";
 import {get_sprite_meta} from "../../core/data/antlion.js";
 import {to} from "../../core/meta/helpers/utils.js";
-import {transform} from "../../core/math/transform.js";
-import {game} from "../../core/engine/game.js";
 import {Object3D} from "three";
 
 let sky, sun, moon, sunThreeObj
@@ -38,9 +36,10 @@ export const init = () => {
         new Vector3(1,1,1), new quaternion(0,0,0,1).eulerToQuaternion(new Vector3(0, 0, 0)))
     moon = new gameobject("moon",
         new Vector3(0,0,1000), new Vector3(100,100,100), new quaternion(0,0,0,1))
+    moon.add_component(particle(get_sprite_meta().moon))
     sun = new gameobject("sun",
         new Vector3(0,0,-1000), new Vector3(300,300,300), new quaternion(0,0,0,1))
-
+    sun.add_component(particle(get_sprite_meta().sun))
     // TODO setup sky map
     //let stars = new gameobject("stars",
     //    new Vector3(0,0,0), new Vector3(1,1,1), new quaternion(0,0,0,1))
@@ -48,10 +47,6 @@ export const init = () => {
 
     sky.add_child(moon)
     sky.add_child(sun)
-
-    sun.add_component(particle(get_sprite_meta().sun))
-    moon.add_component(particle(get_sprite_meta().moon))
-    console.log(sky)
 
     sunThreeObj = new Object3D()
     sunThreeObj.position.set(

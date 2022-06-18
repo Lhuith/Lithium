@@ -3,7 +3,6 @@ import {register_body} from "./physics.js";
 import {transform} from "../math/transform.js";
 
 export class rigidbody extends component {
-    type = "rigidbody"
     required = ["transform"];
 
     constructor(){

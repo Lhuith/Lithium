@@ -1,7 +1,6 @@
 import { component} from '/core/engine/component.js';
 
 export class animator extends component {
-    type = "animator"
     required = ["decomposer"]
     constructor(animations){
         super();

@@ -1,7 +1,7 @@
 import {get_game} from "/nomads/nomads.js"
 
 export class component {
-    type = "component"
+    type = this.constructor.name
     required = [];
     constructor(n){
         this.name = n;

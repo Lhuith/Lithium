@@ -4,9 +4,6 @@ import {ArrowHelper, Vector3} from '/build/three.module.js'
 import {get_game} from "../nomads.js";
 
 export class look_at extends component {
-    type = "look_at"
-    required = ["transform"]
-    
     constructor(t){
         super()
         this.target = t
@@ -24,8 +21,5 @@ export class look_at extends component {
     }
     set_look(t){
         this.target = t
-    }
-    set_transform(t){
-        this.transform = t
     }
 }

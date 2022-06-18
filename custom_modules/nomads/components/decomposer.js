@@ -17,9 +17,7 @@ export const particle = (meta, transform_override) => {
     return new decomposer(meta, PARTICLE, transform_override)
 } 
 export class decomposer extends component {
-    type = "decomposer"
     required = ["transform"]
-
     constructor(meta, type, transform_override) {
         super();
 

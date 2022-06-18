@@ -129,7 +129,6 @@ export class game {
             new Vector3(1,1,1),
             new quaternion(0,0,0,1)
         )
-        box_obj.transform.position = new Vector3(0, 5, 0)
         this.objects.push(box_obj)
         this.current_scene.information()
 

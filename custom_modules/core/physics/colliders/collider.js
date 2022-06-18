@@ -2,13 +2,13 @@ import { component } from '/core/engine/component.js';
 
 // Screen space collider, usually used for GUI operations
 export class collider extends component {
-    type = "collider"
     required = ["rigidbody"]
 
-    constructor(three){
+    constructor(){
         super("planecollider")
         this.colliding = false
     }
+
     init() {
         this.rigidbody = null
     }

@@ -5,8 +5,6 @@ import * as THREE from '/build/three.module.js'
 import { color_and_mesh_from_height } from '/core/geometry/color_and_mesh_from_height.js'
 
 export class zone extends component {
-    type = "zone"
-    required = [];
     constructor(key, lod, physical){
         super()
 
