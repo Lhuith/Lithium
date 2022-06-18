@@ -26,7 +26,7 @@ export class zone extends component {
         let newTile = color_and_mesh_from_height(maps.height, maps.detail, lod)
 
         this.color = new THREE.DataTexture(
-            newTile.colormap, maps.height.width, maps.height.height, THREE.RGBAFormat)
+            newTile.color_map, maps.height.width, maps.height.height, THREE.RGBAFormat)
         this.color.needsUpdate = true
 
         this.color.wraps = THREE.RepeatWrapping

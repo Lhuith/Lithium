@@ -44,7 +44,7 @@ const color_from_height = (colorBuffer, height_value, index) => {
         colorBuffer[(index * 4) + 1] = brown.g*255
         colorBuffer[(index * 4) + 2] = brown.b*255
         colorBuffer[(index * 4) + 3] = 255
-    }else if (height_percentage >= 0.9 && height_percentage <= 1.0) {
+    } else if (height_percentage >= 0.9 && height_percentage <= 1.0) {
         let brown = new THREE.Color( 0xffffff );
         colorBuffer[(index * 4) + 0] = brown.r*255
         colorBuffer[(index * 4) + 1] = brown.g*255
@@ -53,10 +53,10 @@ const color_from_height = (colorBuffer, height_value, index) => {
     }
 }
 
-export const color_and_mesh_from_height = (height_map, detial_map, lod) => {
+export const color_and_mesh_from_height = (height_map, detail_map, lod) => {
     if (lod > 6 || lod < 0) {
         console.error("LOD must be between 0 - 6")
-        lod = 1
+        lod = 1 // imageData issue to resolve :(
     }
     let top_left_x = (height_map.width - 1) / -2
     let top_left_z = (height_map.width - 1) / +2
@@ -141,6 +141,6 @@ export const color_and_mesh_from_height = (height_map, detial_map, lod) => {
     bufferGeometry.computeBoundingSphere()
     bufferGeometry.computeBoundingBox()
 
-    return {geo: bufferGeometry, colormap: color_map}
+    return {geo: bufferGeometry, color_map: color_map}
 }
  

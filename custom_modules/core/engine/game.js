@@ -91,7 +91,7 @@ export class game {
             new animation_sequence("idle",
                 [new animation("idle", 0, 3)], 7, true)]))
         crab.add_component(new rigidbody())
-        crab.add_component(new plane_collider())
+        crab.add_component(new plane_collider(.5, .5))
 
         let arrow_container = arrow_widget (
             new Vector3(-2,1,0),

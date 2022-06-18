@@ -16,7 +16,7 @@ const fixed_update = () => {
         for(let i = 0; i < work.length; i++){
             environment_collision_check(work[i])
             body_collision_check(work[i])
-            apply_gravity(work[i])
+            if(work[i].use_gravity) apply_gravity(work[i])
         }
     }
     postMessage(work)

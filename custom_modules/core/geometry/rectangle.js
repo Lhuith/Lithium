@@ -1,5 +1,8 @@
+import {BufferAttribute, BufferGeometry, Points, PointsMaterial, Vector3} from "three";
+import {get_game} from "../../nomads/nomads.js";
+
 export class rectangle {
-    type = "rectangle";
+    type = this.constructor.name
     
     constructor(x,y,w,h){
         this.x = x;
@@ -38,9 +41,21 @@ export class rectangle {
             range.y + range.h < this.y - this.h);
     }
     display(){
+    //   const dotGeometry = new BufferGeometry();
 
+    //   let array = [
+    //       this.left(), this.top(),    0,
+    //       this.right(), this.top(),   0,
+    //       this.right(), this.bottom(), 0,
+    //       this.left(), this.bottom(),     0,
+    //   ]
+    //   dotGeometry.setAttribute(
+    //       'position', new BufferAttribute(new Float32Array(array), 3));
+
+    //   const dotMaterial = new PointsMaterial({ size: .1, color: 0xff0000 });
+    //   let dot = new Points(dotGeometry, dotMaterial)
+    //   get_game().get_three().scene.add(dot);
     }
     hide(){
-        
     }
 } 

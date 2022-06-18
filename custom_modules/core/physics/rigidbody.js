@@ -4,9 +4,11 @@ import {transform} from "../math/transform.js";
 
 export class rigidbody extends component {
     required = ["transform"];
-
     constructor(){
         super("rigidbody")
+
+        this.use_gravity = false
+
         this.init()
     }
     init() {

@@ -1,5 +1,5 @@
 export class circle {
-    type = "circle";
+    type = this.constructor.name
 
     constructor(x, y, r){
         this.x = x;
