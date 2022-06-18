@@ -1,30 +1,32 @@
 import { transform } from '/core/math/transform.js'
 import {is} from '/core/meta/helpers/utils.js'
 import { quaternion } from '/core/math/quaternion.js'
-import { Vector3 } from '/build/three.module.js'
 import {get_game} from "/nomads/nomads.js"
 
 export class gameobject {
     type = "gameobject"
 
-    constructor(n, p = new Vector3(), s = new Vector3(1,1,1), r = new quaternion()){
-        this.name = n
-        // register itself to the scene object manifest (for now)
-        this.id = get_game().current_scene.register_object(this)
+    constructor(n, p, s, r){
+        this.id = get_game().current_scene.register_object(this) // register itself to the scene object manifest (for now)
 
-        if (r == null) {
+        if (!is.string(n)) {
+            console.error(typeof n + " for name is not a string!")
+        } else {
+            this.name = n
+        }
+
+        if(s.length() == 0) {
+            console.warn(n +" scale vector is of length 0!")
+        }
+
+        if (r == null || !is.quart(r)) {
             r = new quaternion(0,0,0,1)
-            console.error("quaternion for game object not set")
+            console.warn("invalid quaternion for " + n)
         }
         this.transform = new transform(p, s, r)
-        
         this.active = true
-
         this.children = []
         this.components = []
-
-        // TODO handle scene data structure 
-        // scene.add(this)
     }
     add_child(o){
         if(o == this) {
@@ -52,7 +54,7 @@ export class gameobject {
     //add_requirements
     get_component(n){
         let components = []
-        if(!is.alpha(n)){
+        if(!is.string(n)){
             console.error("\"n\" must be of type string.")
         } else {
             if (n == "transform") {
@@ -93,7 +95,7 @@ export class gameobject {
         }
     }
     has_component(n){
-        if(!is.alpha(n)){
+        if(!is.string(n)){
             console.error("\"n\" must be of type string.")
         } else {
             for(let c of this.components){
@@ -123,9 +125,9 @@ export class gameobject {
         }
         this.transform.update(delta)
     }
-    set_id(i){
-        this.id = i
-    }
+    //set_id(i){
+    //    this.id = i
+    //}
     information(){
         console.log(this)
         console.log(this.transform)

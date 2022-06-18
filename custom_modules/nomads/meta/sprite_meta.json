@@ -93,6 +93,11 @@
         "mapping" : [{"x":0, "y":1}],
         "frames" :  {"x":1, "y":1},
         "colors" : ["0xFFD27D"],
+        "transform" : {
+            "position" : {"x":0, "y":0, "z":0},
+            "orient" : {"x":0, "y":0, "z":0, "w":1},
+            "scale" : {"x":200, "y":200, "z":200}
+        },
         "map_key" : "sky",
         "tile_size" : {"x":1, "y":1}
     },
@@ -100,6 +105,11 @@
         "mapping" : [{"x":0, "y":2}],
         "frames" :  {"x":1, "y":1},
         "colors" : ["0xFFFFFF"],
+        "transform" : {
+            "position" : {"x":0, "y":0, "z":0},
+            "orient" : {"x":0, "y":0, "z":0, "w":1},
+            "scale" : {"x":200, "y":200, "z":200}
+        },
         "map_key" : "sky",
         "tile_size" : {"x":1, "y":1}
     },

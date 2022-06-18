@@ -66,13 +66,12 @@ export class game {
             menu.init()
         //! ---------- INIT ----------
 
-        subscribe_to_input_event(
-            get_input_meta().pause, this.toggle_pause_state)
+        subscribe_to_input_event(get_input_meta().pause, this.toggle_pause_state)
+        subscribe_to_input_event(get_input_meta().edit, this.toggle_edit_state)
 
-        subscribe_to_input_event(
-            get_input_meta().edit, this.toggle_edit_state)
+        let npc = new gameobject("steve",
+            new Vector3(3,0.5,0), new Vector3(1,1,1), new quaternion(0,0,0,1))
 
-        let npc = new gameobject("steve", new Vector3(3,0.5,0), new Vector3(1,1,1))
         npc.add_component(sprite(get_sprite_meta().lithy))
         npc.add_component(new look_at(three.camera.position))
         npc.transform.rotate(new Vector3(1, 0, 0), 180)
@@ -83,7 +82,9 @@ export class game {
                 new animation_sequence("wave",
                     [new animation("wave", 4, 2)], 8, true)]))
 
-        let crab = new gameobject("crabbo", new Vector3(4,.5,0), new Vector3(1,1,1))
+        let crab = new gameobject("crabbo",
+            new Vector3(4,.5,0), new Vector3(1,1,1), new quaternion(0,0,0,1))
+
         crab.add_component(sprite(get_sprite_meta().crab))
         crab.add_component(new animator([
             new animation_sequence("idle",
@@ -108,10 +109,7 @@ export class game {
         arrow_obj_container.add_child(arrow_obj)
         arrow_obj_container.add_component(new look_at(three.camera.position))
 
-        player = new gameobject(
-            "Player",
-            new Vector3(0,0.5,0),
-            new Vector3(1,1,1),
+        player = new gameobject("Player", new Vector3(0,0.5,0), new Vector3(1,1,1),
             new quaternion(0,0,0,1, null, null, null)
         )
         player.add_component(new controller())
@@ -130,6 +128,7 @@ export class game {
             new Vector3(1,1,1),
             new quaternion(0,0,0,1)
         )
+        box_obj.transform.position = new Vector3(0, 5, 0)
         this.objects.push(box_obj)
         this.current_scene.information()
     }
@@ -138,11 +137,11 @@ export class game {
         if (game_state.paused) {
             return
         }
-
         this.time += delta
         for (let o of this.objects){
             o.update(delta)
         }
+
         time.update(delta)
         sky.update(delta)
     }

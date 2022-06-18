@@ -45,7 +45,8 @@ export const img = {
 }
 export const is = {
     num     : (n) => {return typeof n === "number"},
-    alpha   : (s) => {return typeof s === "string"},
+    string   : (s) => {return typeof s === "string"},
+    quart : (q) => {return typeof q == "object" && q.type != undefined && q.type == 'quaternion'},
     func    : (f) => {return typeof f === "function"},
     null    : (v) => {return v == null || v == undefined}
 }

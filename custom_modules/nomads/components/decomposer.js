@@ -126,8 +126,7 @@ export class decomposer extends component {
     set_transform = (t) => {
         this.transform = t;
         this.local_transform.parent = t;
-        // this is why we need to split up the instance shader :|
-        //this.scale = this.transform.scale;
+        this.scale = this.transform.scale;
         this.set_matrix()
         this.attributes_reference.set_attributes(this);
 

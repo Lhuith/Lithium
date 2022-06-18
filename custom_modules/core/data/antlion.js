@@ -178,7 +178,7 @@ const shader_parse = (glsl, shadow_text, dither_text) => {
 }
 
 export const get_data = (key) => {
-    if(is.alpha(key)){
+    if(is.string(key)){
         for(let i = 0; i < completed.length; i++){
             if(completed[i].name == key){return completed[i]}
         }
