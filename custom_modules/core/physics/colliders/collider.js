@@ -10,6 +10,7 @@ export class collider extends component {
 
         if (g != undefined) {
             this.geometry = g
+            this.geometry.display(true)
         }
     }
 
@@ -17,10 +18,10 @@ export class collider extends component {
         this.rigidbody = null
     }
     update(delta){
-        if ( this.geometry != undefined) {
+        if (this.geometry != undefined) {
             this.geometry.x = this.get_parent().transform.position.x
             this.geometry.y = this.get_parent().transform.position.y
-            this.geometry.display()
+            this.geometry.update()
         }
     }
     intersects(o){

@@ -19,7 +19,7 @@ export class rigidbody extends component {
 
     set_transform(r) {
         this.transform = r
-        register_body(this)
+        //register_body(this)
     }
     set_colliders(c) {
         this.colliders.push(c)
