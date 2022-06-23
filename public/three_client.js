@@ -6,6 +6,7 @@ import * as game from '/nomads/nomads.js'
 import * as ajax from '/core/meta/helpers/ajax.js'
 import {PointerLockControls} from '/jsm/controls/PointerLockControls.js'
 
+// https://discoverthreejs.com/tips-and-tricks/
 var scene, camera, stats, clock, renderer, renderers, game_time
 
 const init = (data) => {

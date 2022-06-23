@@ -9,13 +9,13 @@ export class rectangle {
         this.y = y
         this.w = w
         this.h = h
-
+        this.mat = null
         const dotGeometry = new BufferGeometry()
 
 
         this.geoAttribute =  new BufferAttribute(new Float32Array(this.generateVerticesArray()), 3)
         dotGeometry.setAttribute('position', this.geoAttribute)
-        const dotMaterial = new PointsMaterial({ size: .1, color: 0xff0000 })
+        const dotMaterial = new PointsMaterial({ size: 100, color: 0xff0000 })
         this.dot = new Points(dotGeometry, dotMaterial)
 
         get_game().get_three().scene.add(this.dot)
@@ -36,19 +36,35 @@ export class rectangle {
     }
     computeVertices() {
 
-        let width = window.innerWidth, height = window.innerHeight;
-        let widthHalf = width / 2, heightHalf = height / 2;
+        var windowWidth = window.innerWidth;
+        var minWidth = 1280;
 
-        /*
+        if(windowWidth < minWidth) {
+            windowWidth = minWidth;
+        }
+
+        var widthHalf = (windowWidth/2);
+        var heightHalf = (window.innerHeight/2);
+
+        let v1 = new Vector3(0,0,0),
+            v2 = new Vector3(0,0,0),
+            v3 = new Vector3(0,0,0),
+            v4 = new Vector3(0,0,0)
+
+        if (this.mat != null) {
+            //vector.project(camera);
+            get_game().three.camera.updateWorldMatrix()
+            v1 = new Vector3(1, 0,-1).add(get_game().three.camera.position).project(get_game().three.camera)
             v1.x = ( v1.x * widthHalf ) + widthHalf;
             v1.y = - ( v1.y * heightHalf ) + heightHalf;
             v1.z = 0
-         */
+            v1.unproject(get_game().three.camera)
+            console.log(v1.x, get_game().three.camera.position.x)
+            v2 = new Vector3(this.right(), this.top(),0)
+            v3 = new Vector3(this.right(), this.bottom(),0)
+            v4 = new Vector3(this.left(), this.bottom(),0)
+        }
 
-        let v1 = new Vector3(this.left(), this.top(),0).project(get_game().get_three().camera)
-        let v2 = new Vector3(this.right(), this.top(),0).project(get_game().get_three().camera)
-        let v3 = new Vector3(this.right(), this.bottom(),0).project(get_game().get_three().camera)
-        let v4 = new Vector3(this.left(), this.bottom(),0).project(get_game().get_three().camera)
         return {v1, v2, v3, v4}
     }
     generateVerticesArray(){

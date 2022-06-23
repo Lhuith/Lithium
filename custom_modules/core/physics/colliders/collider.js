@@ -20,7 +20,8 @@ export class collider extends component {
     update(delta){
         if (this.geometry != undefined) {
             this.geometry.x = this.get_parent().transform.position.x
-            this.geometry.y = this.get_parent().transform.position.y
+            this.geometry.y = this.get_parent().transform.position.y - 0.25
+            this.geometry.mat = this.get_parent().transform.get_inverse_transformation().to_three()
             this.geometry.update()
         }
     }
