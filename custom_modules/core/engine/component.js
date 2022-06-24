@@ -9,6 +9,9 @@ export class component {
     constructor(n){
         this.name = n;
     }
+    awake(){
+        console.warn("default awake called, override if needed")
+    }
     init(){
     }
     update(){
@@ -16,6 +19,7 @@ export class component {
     }
     set_parent_reference(i){
         this.parent_reference_index = i;
+        this.awake()
     }
     get_parent(){
         return get_game().current_scene.get_object(this.parent_reference_index)

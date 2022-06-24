@@ -10,7 +10,6 @@ export class collider extends component {
 
         if (g != undefined) {
             this.geometry = g
-            this.geometry.display(true)
         }
     }
 
