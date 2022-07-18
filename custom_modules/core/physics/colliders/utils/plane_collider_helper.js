@@ -4,20 +4,27 @@ import {collider_helper} from "./collider_helper.js";
 
 export class plane_collider_helper extends collider_helper{
     type = this.constructor.name
-    constructor(mat){
+    constructor(){
         super()
-        this.mat = mat
+        this.mat = null
     }
-    computeVertices(left, top, right, bottom) {
+    set_mat(mat){
+        if (mat != undefined) {
+            this.mat = mat
+        } else {
+            console.error("mat not defined!")
+        }
+    }
+    computeVertices() {
         let v1 = new Vector3(0,0,0),
             v2 = new Vector3(0,0,0),
             v3 = new Vector3(0,0,0),
             v4 = new Vector3(0,0,0)
         if (this.mat != null) {
-            v1 = new Vector3(left, top,0).applyMatrix4(this.mat)
-            v2 = new Vector3(right, top,0).applyMatrix4(this.mat)
-            v3 = new Vector3(right, bottom,0).applyMatrix4(this.mat)
-            v4 = new Vector3(left, bottom, 0).applyMatrix4(this.mat)
+            v1 = new Vector3(this.left, this.top,0).applyMatrix4(this.mat)
+            v2 = new Vector3(this.right,this.top,0).applyMatrix4(this.mat)
+            v3 = new Vector3(this.right,this.bottom,0).applyMatrix4(this.mat)
+            v4 = new Vector3(this.left, this.bottom, 0).applyMatrix4(this.mat)
         }
         return {v1, v2, v3, v4}
     }

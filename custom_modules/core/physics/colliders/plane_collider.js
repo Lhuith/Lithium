@@ -12,6 +12,12 @@ export class plane_collider extends collider {
         this.helper = new plane_collider_helper()
         console.log(this.helper)
     }
+    awake(){
+        console.log("calling awake? override")
+        if(this.helper != undefined) {
+            this.helper.set_mat(this.get_parent().transform.get_transformation().to_three())
+        }
+    }
     init() {
     }
 }

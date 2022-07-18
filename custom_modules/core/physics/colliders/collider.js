@@ -12,7 +12,6 @@ export class collider extends component {
             this.geometry = g
         }
     }
-
     init() {
         this.rigidbody = null
     }

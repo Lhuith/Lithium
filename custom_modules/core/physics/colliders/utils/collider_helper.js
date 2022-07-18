@@ -31,13 +31,5 @@ export class collider_helper {
         this.dot.visible = b
     }
     update(){
-        if(this.dot.visible){
-            let vertices = this.computeVertices()
-            this.geoAttribute.setXYZ(0, vertices.v1.x, vertices.v1.y, 0)
-            this.geoAttribute.setXYZ(1, vertices.v2.x, vertices.v2.y, 0)
-            this.geoAttribute.setXYZ(2, vertices.v3.x, vertices.v3.y, 0)
-            this.geoAttribute.setXYZ(3, vertices.v4.x, vertices.v4.y, 0)
-            this.geoAttribute.needsUpdate = true
-        }
     }
 }

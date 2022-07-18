@@ -140,5 +140,52 @@ export const misc = {
     },
 }
 
+/*
+console.log(CoerceNumberArray(bills, tips))
+
+function CoerceNumberArray(a, b) {
+    if (typeof a !== 'object' && typeof a !== 'number' && typeof a !== 'string') {
+        console.log(`argument ${a} is not a number, array, or string`)
+        return
+    } else if (typeof b !== 'object' && typeof b !== 'number' && typeof b !== 'string') {
+        console.log("b is not a number or array", typeof b)
+        return
+    }
+    return eval('[' + a + ',' + b + ']')
+}
+
+function listAllEventListeners() {
+  const allElements = Array.prototype.slice.call(document.querySelectorAll('*'));
+  allElements.push(document);
+  allElements.push(window);
+
+  const types = [];
+
+  for (let ev in window) {
+    if (/^on/.test(ev)) types[types.length] = ev;
+  }
+
+  let elements = [];
+  for (let i = 0; i < allElements.length; i++) {
+    const currentElement = allElements[i];
+    for (let j = 0; j < types.length; j++) {
+      if (typeof currentElement[types[j]] === 'function') {
+        elements.push({
+          "node": currentElement,
+          "type": types[j],
+          "func": currentElement[types[j]].toString(),
+        });
+      }
+    }
+  }
+
+  return elements.sort(function(a,b) {
+    return a.type.localeCompare(b.type);
+  });
+}
+console.table(listAllEventListeners())
+ */
+
+
 
 

@@ -10,7 +10,7 @@ export class component {
         this.name = n;
     }
     awake(){
-        console.warn("default awake called, override if needed")
+        //console.warn("default awake called, override if needed")
     }
     init(){
     }
