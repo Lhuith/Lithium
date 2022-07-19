@@ -48,10 +48,10 @@ export const img = {
     }
 }
 export const is = {
+    even :(n) => n % 2 === 0,
     num     : (n) => {return typeof n === "number"},
     string   : (s) => {return typeof s === "string"},
     quart : (q) => {return typeof q == "object" && q.type != undefined && q.type == 'quaternion'},
-    func    : (f) => {return typeof f === "function"},
     null    : (v) => {return v == null || v == undefined}
 }
 export const to = {
@@ -141,6 +141,10 @@ export const misc = {
 }
 
 /*
+https://blog.devgenius.io/better-javascript-floating-point-and-coercions-b16ff3a48443
+need to handle 0.x precision issues (adding 0.1 helps??)
+console.log(0.1 + 0.2, 'vs', 0.02 + 0.01);
+
 console.log(CoerceNumberArray(bills, tips))
 
 function CoerceNumberArray(a, b) {
